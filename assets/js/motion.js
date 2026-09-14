@@ -26,11 +26,10 @@
   }
 
   /* =========================================================
-     1. TEXTO EM PALAVRAS E LETRAS
-     .split  → entra palavra por palavra
-     .l      → cada letra acende quando o mouse passa por cima
+     1. TEXTO EM PALAVRAS
+     .split → o título entra palavra por palavra
      ========================================================= */
-  function quebrar(el, { letras = true } = {}) {
+  function quebrar(el) {
     let i = 0;
     const textoOriginal = el.textContent.trim().replace(/\s+/g, ' ');
 
@@ -46,17 +45,7 @@
             const palavra = document.createElement('span');
             palavra.className = 'w';
             palavra.style.setProperty('--i', i++);
-
-            if (letras) {
-              Array.from(parte).forEach(ch => {
-                const letra = document.createElement('span');
-                letra.className = 'l';
-                letra.textContent = ch;
-                palavra.appendChild(letra);
-              });
-            } else {
-              palavra.textContent = parte;
-            }
+            palavra.textContent = parte;
             frag.appendChild(palavra);
           });
           no.replaceChild(frag, filho);
@@ -74,11 +63,7 @@
   }
 
   const titulos = $$('.split');
-  if (!reduz) {
-    titulos.forEach(el => quebrar(el));
-    /* o letreiro também reage letra a letra */
-    $$('.ledstrip__item').forEach(el => quebrar(el));
-  }
+  if (!reduz) titulos.forEach(el => quebrar(el));
 
   /* =========================================================
      2. OBSERVADOR ÚNICO DE ENTRADA
@@ -108,7 +93,7 @@
      4. FOCO DE LUZ QUE SEGUE O MOUSE NOS CARTÕES
      ========================================================= */
   if (temMouse && !reduz) {
-    const cartoes = $$('.card, .datacard, .feat, .worklist li, .form, .brandrail__item');
+    const cartoes = $$('.card, .worklist li, .form, .brandrail__item, .depo');
     cartoes.forEach(c => {
       c.classList.add('tem-foco');
       c.addEventListener('mousemove', (e) => {

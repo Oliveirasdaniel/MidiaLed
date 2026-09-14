@@ -16,16 +16,41 @@
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 
+<!-- PENDENTE: faltam "address", "email" e "openingHours" para o cartão de empresa
+     aparecer na busca do Google. Ver PENDENCIAS.md (itens 7, 8 e 13). -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "AdvertisingAgency",
   "name": "Mídia Led",
-  "description": "Publicidade em painéis de LED: painel fixo duplo na Via Dutra e LED móvel com roteiro sob medida.",
+  "description": "Publicidade em painéis de LED em Nova Iguaçu: painel fixo duplo na Via Dutra e LED móvel com roteiro sob medida.",
+  "url": "https://midia-led.vercel.app",
   "telephone": "+5521966171604",
-  "areaServed": { "@type": "City", "name": "Nova Iguaçu", "addressRegion": "RJ", "addressCountry": "BR" },
-  "sameAs": ["https://www.instagram.com/midia_led_/"],
-  "image": "assets/img/og-image.jpg"
+  "image": "https://midia-led.vercel.app/assets/img/og-image.jpg",
+  "logo": "https://midia-led.vercel.app/assets/img/logo-midialed.png",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Nova Iguaçu",
+      "addressRegion": "RJ",
+      "addressCountry": "BR"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Baixada Fluminense",
+      "addressRegion": "RJ",
+      "addressCountry": "BR"
+    }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/midia_led_/"
+  ],
+  "knowsAbout": [
+    "Publicidade em painéis de LED",
+    "Mídia exterior",
+    "Out of home",
+    "LED móvel"
+  ]
 }
 </script>
 
@@ -35,32 +60,34 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/gate-poster.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.className+=' js';</script>
 </head>
 <body>
-
-<!-- =========================================================
-     ABERTURA — a logo se forma rápido e dá lugar à rua
-     ========================================================= -->
-<div class="reveal-layer" id="revealLayer">
-  <video class="reveal-layer__video" id="revealVideo" src="assets/video/logo-reveal.mp4"
-         muted playsinline autoplay preload="auto"></video>
-</div>
+<a class="pular" href="#hero">Pular para o conteúdo</a>
 
 <!-- =========================================================
      PORTAL — vídeo da rua até o visitante rolar
      ========================================================= -->
 <section class="gate" id="gate">
   <div class="gate__bg">
-    <video class="gate__video gate__video--blur" src="assets/video/cidade.mp4" autoplay muted loop playsinline></video>
+    <video class="gate__video gate__video--blur"
+           data-video="assets/video/cidade.mp4"
+           poster="assets/img/gate-poster.webp"
+           autoplay muted loop playsinline preload="none"></video>
   </div>
 
-  <video class="gate__video gate__video--main" src="assets/video/cidade.mp4" poster="assets/img/gate-poster.jpg" autoplay muted loop playsinline></video>
+  <video class="gate__video gate__video--main"
+         data-video="assets/video/cidade.mp4"
+         data-video-mobile="assets/video/cidade-mobile.mp4"
+         poster="assets/img/gate-poster.webp"
+         autoplay muted loop playsinline preload="none"></video>
   <div class="gate__vignette"></div>
   <div class="gate__scan"></div>
 
   <div class="gate__content">
-    <img src="assets/img/logo-midialed.png" alt="Mídia Led" class="gate__logo">
+    <img src="assets/img/logo-midialed.webp" alt="Mídia Led — publicidade em painéis de LED" class="gate__logo" width="560" height="221" fetchpriority="high">
     <p class="gate__tagline">Sua marca circulando onde a cidade olha</p>
   </div>
 
@@ -74,16 +101,16 @@
 <header class="header" id="header">
   <div class="container header__inner">
     <a href="#gate" class="logo" aria-label="Mídia Led — início">
-      <img src="assets/img/logo-midialed.png" alt="Mídia Led">
+      <img src="assets/img/logo-midialed.webp" alt="Mídia Led" width="560" height="221" decoding="async">
     </a>
 
     <nav class="nav" id="nav">
-      <a href="#sobre">Sobre</a>
       <a href="#frota">O trio</a>
       <a href="#painel">Painel fixo</a>
       <a href="#clientes">Clientes</a>
+      <a href="#estrategia">Como trabalhamos</a>
       <a href="#contato">Contato</a>
-      <a href="#contato" class="btn btn--sm btn--primary nav__cta">Anunciar agora</a>
+      <a href="#contato" class="btn btn--sm btn--primary nav__cta" data-evento="menu_anunciar_agora">Anunciar agora</a>
     </nav>
 
     <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
@@ -96,17 +123,20 @@
 <section class="hero" id="hero">
   <div class="hero__texture"></div>
   <div class="container hero__content">
-    <span class="tag reveal">Publicidade em painéis de LED</span>
-    <h1 class="hero__title reveal split">
-      Anunciar não é aparecer.<br>É <em>ser visto</em>.
+    <h1 class="hero__titulo reveal">
+      <span class="tag hero__busca">Painéis de LED em Nova Iguaçu e Baixada Fluminense</span>
+      <span class="hero__frase split">Anunciar não é aparecer.<br>É <em>ser visto</em>.</span>
     </h1>
+    <ul class="hero__triade reveal">
+      <li>O panfleto vai para o chão.</li>
+      <li>O post é pulado em dois segundos.</li>
+      <li>O impulsionamento acaba quando o dinheiro acaba.</li>
+    </ul>
     <p class="hero__sub reveal">
-      O panfleto vai para o chão. O post é pulado em dois segundos. O impulsionamento acaba
-      quando o dinheiro acaba. Enquanto isso, a rua continua cheia — e é lá que a gente coloca
-      a sua marca, em tela de LED, na frente de quem decide. Com foto e vídeo provando que passou.
+      A rua continua cheia. É lá que a gente coloca a sua marca — com foto e vídeo provando que passou.
     </p>
     <div class="hero__actions reveal">
-      <a href="#contato" class="btn btn--primary btn--lg">Quero anunciar</a>
+      <a href="#contato" class="btn btn--primary btn--lg" data-evento="hero_quero_anunciar">Quero anunciar</a>
       <a href="#frota" class="btn btn--ghost btn--lg">Ver a operação</a>
     </div>
     
@@ -139,9 +169,9 @@
 <!-- ============ NÚMEROS ============ -->
 <section class="stats" id="numeros">
   <div class="container stats__grid stats__grid--3">
-    <div class="stat reveal"><strong data-count="4">0</strong><span>Telas no trio de LED</span></div>
-    <div class="stat reveal"><strong data-count="250" data-suffix=" mil">0</strong><span>Veículos por dia na Dutra</span></div>
-    <div class="stat reveal"><strong data-count="2">0</strong><span>Faces no painel fixo</span></div>
+    <div class="stat reveal"><strong data-count="4">4</strong><span>Telas no trio de LED</span></div>
+    <div class="stat reveal"><strong data-count="250" data-suffix=" mil">250 mil</strong><span>Veículos por dia na Dutra</span></div>
+    <div class="stat reveal"><strong data-count="2">2</strong><span>Faces no painel fixo</span></div>
   </div>
 </section>
 
@@ -155,11 +185,18 @@
       <span class="tag">Nossa operação</span>
       <h2 class="section__title split">Conheça o <em>Trio Mídia LedMob</em></h2>
       <p class="lead">
-        Quatro telas de LED full color — três panorâmicas e uma quadrada — montadas sobre
-        veículo próprio e identificado.
-        É a sua marca em alta luminosidade, circulando exatamente por onde o seu público passa.
+        Quatro telas full color sobre veículo próprio e identificado, circulando exatamente
+        por onde o seu público passa.
       </p>
     </div>
+
+    <figure class="fleet__foto reveal" data-parallax="0.04">
+      <picture>
+        <source srcset="assets/img/trio-rua.webp" type="image/webp">
+        <img src="assets/img/trio-rua.jpg" width="1000" height="865" loading="lazy" decoding="async"
+             alt="Trio Mídia LedMob com o painel de LED aceso, veiculando em avenida de Nova Iguaçu">
+      </picture>
+    </figure>
 
     <ul class="fleet__specs reveal">
       <li><strong>4</strong><span>telas de LED</span></li>
@@ -169,100 +206,52 @@
     </ul>
 
     <div class="fleet__cta reveal">
-      <a href="#contato" class="btn btn--primary btn--lg">Quero o trio na minha campanha</a>
+      <a href="#contato" class="btn btn--primary btn--lg" data-evento="trio_campanha">Quero o trio na minha campanha</a>
       <a href="#painel" class="btn btn--ghost btn--lg">Ver o painel fixo</a>
     </div>
   </div>
 </section>
 
-<!-- ============ SOBRE ============ -->
-<section class="section" id="sobre">
-  <div class="container grid-2">
-    <div class="reveal">
-      <span class="tag">Quem somos</span>
-      <h2 class="section__title split">Mídia que não passa despercebida.</h2>
-      <p class="lead">
-        A <strong>Mídia Led</strong> é especializada em publicidade <em>out of home</em> em painéis de LED.
-        Unimos tecnologia, mobilidade e criatividade para transformar ruas, avenidas e eventos
-        em vitrines da sua marca.
-      </p>
-      <p>
-        Cuidamos de tudo: do roteiro à criação da peça, da programação da grade à comprovação
-        de veiculação. Você foca no seu negócio — a gente cuida da sua visibilidade.
-      </p>
-      <a href="#contato" class="btn btn--primary">Falar com um consultor</a>
-    </div>
-    <div class="reveal">
-      <figure class="media-frame media-frame--foto" data-parallax="0.05">
-        <img src="assets/img/trio-rua.jpg" alt="Trio Mídia LedMob veiculando na rua, com o painel de LED aceso">
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DADOS DE MERCADO ============ -->
-<section class="section section--alt" id="dados">
+<!-- ============ ATIVOS: PAINEL FIXO x LED MÓVEL ============ -->
+<section class="section section--alt" id="painel">
   <div class="container">
-    <div class="section__head reveal">
-      <span class="tag">Dados de mercado</span>
-      <h2 class="section__title split">Por que o LED virou o queridinho do marketing</h2>
-      <p class="lead">
-        Enquanto o consumidor pula anúncio, fecha pop-up e instala bloqueador, a mídia exterior
-        digital continua sendo vista. Os estudos do setor mostram o tamanho dessa diferença.
-      </p>
+
+    <div class="abas-linha" id="abasLinha">
+      <div class="abas" role="tablist" aria-label="Escolha o ativo">
+        <button class="aba is-ativa" id="tab-fixo" type="button"
+                role="tab" aria-selected="true" aria-controls="ativo-fixo">Painel fixo</button>
+        <button class="aba" id="tab-movel" type="button"
+                role="tab" aria-selected="false" aria-controls="ativo-movel" tabindex="-1">LED móvel</button>
+      </div>
+
+      <span class="abas__dica" id="abasDica">
+        <span class="abas__dica-seta" aria-hidden="true"></span>
+        Tem outro ativo aqui
+      </span>
     </div>
 
-    <div class="datagrid">
-      <article class="datacard reveal">
-        <strong class="datacard__num">82<span>%</span></strong>
-        <p>dos consumidores se lembram de um anúncio em mídia exterior visto na última semana.</p>
-        <cite>Nielsen — OOH Advertising Study</cite>
-      </article>
-      <article class="datacard reveal">
-        <strong class="datacard__num">4<span>×</span></strong>
-        <p>mais atenção capturada por telas digitais em comparação com peças estáticas.</p>
-        <cite>Intel / Arbitron — Digital Signage</cite>
-      </article>
-      <article class="datacard reveal">
-        <strong class="datacard__num">66<span>%</span></strong>
-        <p>já buscaram no celular uma marca logo depois de vê-la em um anúncio de rua.</p>
-        <cite>Nielsen — OOH Online Activation</cite>
-      </article>
-      <article class="datacard reveal">
-        <strong class="datacard__num">0<span>%</span></strong>
-        <p>de bloqueio: na rua não existe adblock, skip em 5 segundos nem fadiga de e-mail.</p>
-        <cite>A vantagem estrutural do out of home</cite>
-      </article>
-    </div>
-
-    <p class="note reveal">
-      Números de referência do setor de mídia exterior — confirmar e atualizar as fontes antes da publicação.
-    </p>
-  </div>
-</section>
-
-<!-- ============ PAINEL FIXO ============ -->
-<section class="section" id="painel">
-  <div class="container">
-    <div class="section__head reveal">
+    <!-- ---------- aba 1: painel fixo ---------- -->
+    <div class="ativo is-ativo" id="ativo-fixo" role="tabpanel" aria-labelledby="tab-fixo">
+<div class="section__head reveal">
       <span class="tag">Ponto fixo</span>
       <h2 class="section__title split">O único painel de LED duplo da região</h2>
       <p class="lead">
-        Na Via Dutra, em Nova Iguaçu. Duas faces, visível nos dois sentidos da rodovia —
-        quem vai e quem volta vê a sua marca.
+        Na Via Dutra, em Nova Iguaçu. Duas faces: quem vai e quem volta vê a sua marca.
       </p>
     </div>
-
-    <div class="rig">
+<div class="rig">
       <div class="rig__art reveal">
         <div class="rig__glow"></div>
-        <img src="assets/img/painel-led.png" data-tilt
-             alt="Estrutura do painel de LED duplo da Mídia Led">
+        <picture>
+          <source srcset="assets/img/painel-led.webp" type="image/webp">
+          <img src="assets/img/painel-led.png" data-tilt width="414" height="603" loading="lazy" decoding="async"
+               alt="Estrutura do painel de LED duplo da Mídia Led, instalado na Via Dutra em Nova Iguaçu">
+        </picture>
       </div>
 
       <div class="rig__data reveal">
         <div class="bignum">
-          <strong data-count="250" data-suffix=" mil">0</strong>
+          <strong data-count="250" data-suffix=" mil">250 mil</strong>
           <span>veículos por dia passam na frente do painel</span>
         </div>
 
@@ -274,9 +263,69 @@
           <li><span>Conteúdo</span><strong>Vídeo e imagem, trocados remotamente</strong></li>
         </ul>
 
-        <a href="#contato" class="btn btn--primary">Consultar disponibilidade</a>
+        <a href="#contato" class="btn btn--primary" data-evento="painel_disponibilidade">Consultar disponibilidade</a>
       </div>
     </div>
+    <!-- PENDENTE: aguardando coordenadas exatas do painel e foto na perspectiva de quem dirige.
+         Assim que chegarem, descomente este bloco, troque LAT,LON no link do Maps e
+         coloque os arquivos em assets/img/. Instruções em PENDENCIAS.md (itens 6 e 11).
+
+    <div class="rig__extra">
+      <a class="mapcard reveal" href="https://www.google.com/maps/search/?api=1&query=LAT,LON"
+         target="_blank" rel="noopener">
+        <img src="assets/img/painel-mapa.jpg" alt="Mapa com a localização do painel de LED na Via Dutra, Nova Iguaçu" loading="lazy">
+        <span class="mapcard__pin"></span>
+        <span class="mapcard__txt">Ver no Google Maps</span>
+      </a>
+
+      <figure class="drivecard reveal">
+        <img src="assets/img/painel-dirigindo.jpg" alt="Painel de LED da Mídia Led visto de dentro do carro na Via Dutra" loading="lazy">
+        <figcaption>É assim que quem passa na Dutra vê o painel.</figcaption>
+      </figure>
+    </div>
+    -->
+    </div>
+
+    <!-- ---------- aba 2: LED móvel ---------- -->
+    <div class="ativo" id="ativo-movel" role="tabpanel" aria-labelledby="tab-movel" hidden>
+      <div class="section__head">
+        <span class="tag">LED móvel</span>
+        <h2 class="section__title">O painel que vai até o público</h2>
+        <p class="lead">
+          Quando o ponto fixo não alcança, o trio leva a mensagem — bairro, evento ou raio
+          definido por você.
+        </p>
+      </div>
+
+      <div class="rig">
+        <div class="rig__art">
+          <div class="rig__glow"></div>
+          <picture>
+            <source srcset="assets/img/trio-ledmob.webp" type="image/webp">
+            <img src="assets/img/trio-ledmob.png" data-tilt width="562" height="444" loading="lazy" decoding="async"
+                 alt="Trio Mídia LedMob: veículo com quatro telas de LED que circula por Nova Iguaçu e pela Baixada Fluminense">
+          </picture>
+        </div>
+
+        <div class="rig__data">
+          <div class="bignum">
+            <strong data-count="4">4</strong>
+            <span>telas full color: três panorâmicas e uma quadrada</span>
+          </div>
+
+          <ul class="spectable">
+            <li><span>Cobertura</span><strong>360° em volta do veículo</strong></li>
+            <li><span>Roteiro</span><strong>Bairro, evento, horário ou raio</strong></li>
+            <li><span>Conteúdo</span><strong>Vídeo e imagem, trocas na mesma diária</strong></li>
+            <li><span>Operação</span><strong>Equipe própria, veículo identificado</strong></li>
+            <li><span>Comprovação</span><strong>Foto e vídeo de toda a veiculação</strong></li>
+          </ul>
+
+          <a href="#contato" class="btn btn--primary" data-evento="movel_roteiro">Montar meu roteiro</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -292,59 +341,87 @@
   <div class="brandrail" aria-label="Clientes Mídia Led">
     <div class="brandrail__track">
       <div class="brandrail__set">
-      <div class="brandrail__item" data-img="assets/img/clientes/blindados-rj.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/blindados-rj.webp" data-img-fallback="assets/img/clientes/blindados-rj.png">
         <span class="brandrail__txt">Blindados RJ</span>
       </div>
-      <div class="brandrail__item" data-img="assets/img/clientes/alamo.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/alamo.webp" data-img-fallback="assets/img/clientes/alamo.png">
         <span class="brandrail__txt">Álamo</span>
       </div>
       <div class="brandrail__item" data-img="assets/img/clientes/egide-saude.svg">
         <span class="brandrail__txt">Egide Saúde</span>
       </div>
-      <div class="brandrail__item" data-img="assets/img/clientes/louvorzao-93fm.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/louvorzao-93fm.webp" data-img-fallback="assets/img/clientes/louvorzao-93fm.png">
         <span class="brandrail__txt">Louvorzão 93 FM</span>
       </div>
-      <div class="brandrail__item" data-img="assets/img/clientes/drogaria-mais-barato.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/drogaria-mais-barato.webp" data-img-fallback="assets/img/clientes/drogaria-mais-barato.png">
         <span class="brandrail__txt">Drogaria Mais Barato</span>
       </div>
     </div>
       <div class="brandrail__set" aria-hidden="true">
-      <div class="brandrail__item" data-img="assets/img/clientes/blindados-rj.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/blindados-rj.webp" data-img-fallback="assets/img/clientes/blindados-rj.png">
         <span class="brandrail__txt">Blindados RJ</span>
       </div>
-      <div class="brandrail__item" data-img="assets/img/clientes/alamo.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/alamo.webp" data-img-fallback="assets/img/clientes/alamo.png">
         <span class="brandrail__txt">Álamo</span>
       </div>
       <div class="brandrail__item" data-img="assets/img/clientes/egide-saude.svg">
         <span class="brandrail__txt">Egide Saúde</span>
       </div>
-      <div class="brandrail__item" data-img="assets/img/clientes/louvorzao-93fm.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/louvorzao-93fm.webp" data-img-fallback="assets/img/clientes/louvorzao-93fm.png">
         <span class="brandrail__txt">Louvorzão 93 FM</span>
       </div>
-      <div class="brandrail__item" data-img="assets/img/clientes/drogaria-mais-barato.png">
+      <div class="brandrail__item" data-img="assets/img/clientes/drogaria-mais-barato.webp" data-img-fallback="assets/img/clientes/drogaria-mais-barato.png">
         <span class="brandrail__txt">Drogaria Mais Barato</span>
       </div>
     </div>
     </div>
     <div class="brandrail__fade"></div>
   </div>
+
+  <!-- PENDENTE: aguardando depoimentos reais (nome, empresa, foto).
+       Um depoimento de qualquer um dos 5 clientes acima vale mais que qualquer
+       texto de venda do site. Detalhes em PENDENCIAS.md (item 9).
+
+  <div class="container">
+    <div class="depoimentos">
+      <figure class="depo reveal">
+        <blockquote>TEXTO DO DEPOIMENTO</blockquote>
+        <figcaption>
+          <img src="assets/img/depoimentos/PESSOA.jpg" alt="NOME, da EMPRESA" loading="lazy">
+          <span><strong>NOME</strong>EMPRESA</span>
+        </figcaption>
+      </figure>
+
+      <figure class="depo reveal">
+        <blockquote>TEXTO DO DEPOIMENTO</blockquote>
+        <figcaption>
+          <img src="assets/img/depoimentos/PESSOA.jpg" alt="NOME, da EMPRESA" loading="lazy">
+          <span><strong>NOME</strong>EMPRESA</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+  -->
 </section>
 
 <!-- ============ ESTRATÉGIA ============ -->
 <section class="section section--video" id="estrategia">
   <div class="secvideo">
-    <video src="assets/video/operacao.mp4" muted loop playsinline preload="metadata" data-inview></video>
+    <video data-video="assets/video/operacao.mp4"
+            data-video-mobile="assets/video/operacao-mobile.mp4"
+            poster="assets/img/operacao-poster.webp"
+            muted loop playsinline preload="none" data-inview></video>
     <div class="secvideo__mask"></div>
     <div class="secvideo__grid"></div>
   </div>
 
   <div class="container">
     <div class="section__head reveal">
-      <span class="tag">Processo</span>
+      <span class="tag">Quem somos e como trabalhamos</span>
       <h2 class="section__title split">A estratégia começa aqui</h2>
       <p class="lead">
-        Ninguém deveria comprar mídia no escuro. Antes de colocar qualquer coisa no ar,
-        a gente senta com você e define três coisas.
+        Somos especializados em painéis de LED — e ninguém compra mídia no escuro aqui.
+        Antes de ir ao ar, definimos três pontos com você.
       </p>
     </div>
 
@@ -352,19 +429,19 @@
       <li class="step reveal">
         <span class="step__num">01</span>
         <h3>Objetivo da campanha</h3>
-        <p>Vender agora, lotar um evento, abrir uma loja ou fazer a cidade saber que você existe?
-           Cada objetivo pede uma mensagem diferente.</p>
+        <p>Vender agora, lotar um evento ou fazer a cidade saber que você existe?
+           Cada objetivo pede uma mensagem.</p>
       </li>
       <li class="step reveal">
         <span class="step__num">02</span>
         <h3>Região estratégica</h3>
-        <p>Onde está quem compra de você. Bairro, corredor de tráfego, evento ou um raio
-           em volta do seu ponto de venda.</p>
+        <p>Onde está quem compra de você: bairro, corredor de tráfego, evento ou um raio
+           do seu ponto de venda.</p>
       </li>
       <li class="step reveal">
         <span class="step__num">03</span>
         <h3>Melhor formato</h3>
-        <p>O ativo certo para o que você precisa — e não o que estiver sobrando na grade.</p>
+        <p>O ativo certo para o que você precisa — não o que sobrou na grade.</p>
       </li>
       <li class="step reveal">
         <span class="step__num">04</span>
@@ -375,10 +452,40 @@
   </div>
 </section>
 
+<!-- ============ PROVA DA VEICULAÇÃO ============
+     PENDENTE: aguardando a imagem do relatório (assets/img/relatorio-exemplo.jpg).
+     Pode ser um print com os dados sensíveis borrados. Este é o único argumento
+     de confiança do site que hoje não tem prova visual — ver PENDENCIAS.md (item 10).
+     Para publicar: coloque o arquivo na pasta e apague estas duas linhas de comentário.
+
+<section class="section" id="prova">
+  <div class="container grid-2">
+    <div class="reveal">
+      <span class="tag">Comprovação</span>
+      <h2 class="section__title split">Você vê sua marca na rua sem sair da cadeira.</h2>
+      <p class="lead">
+        Registramos toda a veiculação em foto e vídeo, com horário e localização.
+        No fim da campanha, o relatório chega pronto.
+      </p>
+      <a href="#contato" class="btn btn--primary">Quero receber esse relatório</a>
+    </div>
+
+    <figure class="provacard reveal">
+      <img src="assets/img/relatorio-exemplo.jpg"
+           alt="Exemplo de relatório de veiculação da Mídia Led, com fotos, horários e localização da campanha na rua"
+           loading="lazy">
+      <figcaption>Exemplo real de relatório enviado ao anunciante.</figcaption>
+    </figure>
+  </div>
+</section>
+-->
+
 <!-- ============ CRIAÇÃO DO CONTEÚDO ============ -->
 <section class="section section--video section--membrana" id="criacao">
   <div class="secvideo secvideo--esquerda">
-    <video src="assets/video/criacao.mp4" muted loop playsinline preload="metadata" data-inview></video>
+    <video data-video="assets/video/criacao.mp4"
+            poster="assets/img/criacao-poster.webp"
+            muted loop playsinline preload="none" data-inview></video>
     <div class="secvideo__mask"></div>
     <div class="secvideo__grid"></div>
   </div>
@@ -388,17 +495,16 @@
       <span class="tag">Criação do conteúdo</span>
       <h2 class="section__title split">Você não precisa chegar com tudo pronto.</h2>
       <p class="lead">
-        A maior trava de quem nunca anunciou em LED costuma ser essa: "mas eu não tenho arte,
-        não tenho vídeo, não sei o que escrever". Tudo bem — essa parte é com a gente.
+        "Não tenho arte, não tenho vídeo, não sei o que escrever." Essa é a maior trava de
+        quem nunca anunciou em LED — e essa parte é com a gente.
       </p>
       <p>
-        Nossa equipe desenvolve a campanha do zero ou adapta o material que você já tem,
-        no formato certo para cada tela.
+        Criamos a campanha do zero ou adaptamos o que você já tem, no formato certo para cada tela.
       </p>
       <div class="quote">
         Sua marca com uma apresentação à altura.
       </div>
-      <a href="#contato" class="btn btn--primary">Começar minha campanha</a>
+      <a href="#contato" class="btn btn--primary" data-evento="criacao_comecar">Começar minha campanha</a>
     </div>
 
     <div class="reveal">
@@ -491,7 +597,7 @@
   <div class="container cta__inner reveal">
     <h2 class="split">Pronto para colocar sua marca na rua?</h2>
     <p>Peça uma simulação gratuita e veja quanto custa circular todos os dias pela sua cidade.</p>
-    <a href="#contato" class="btn btn--primary btn--lg">Pedir simulação</a>
+    <a href="#contato" class="btn btn--primary btn--lg" data-evento="cta_final_simulacao">Pedir simulação</a>
   </div>
 </section>
 
@@ -515,30 +621,38 @@
       <form class="form" id="form">
         <div class="form__row">
           <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+          <input type="text" id="nome" name="nome" required
+                 autocomplete="name" autocapitalize="words" enterkeyhint="next"
+                 placeholder="Seu nome">
         </div>
         <div class="form__row">
-          <label for="empresa">Empresa</label>
-          <input type="text" id="empresa" name="empresa" placeholder="Nome da empresa">
+          <label for="empresa">Empresa <span class="form__opt">opcional</span></label>
+          <input type="text" id="empresa" name="empresa"
+                 autocomplete="organization" autocapitalize="words" enterkeyhint="next"
+                 placeholder="Opcional">
         </div>
         <div class="form__row">
           <label for="telefone">WhatsApp</label>
-          <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+          <input type="tel" id="telefone" name="telefone" required
+                 inputmode="tel" autocomplete="tel" enterkeyhint="next"
+                 placeholder="(21) 90000-0000">
         </div>
         <div class="form__row">
           <label for="interesse">Interesse</label>
-          <select id="interesse" name="interesse">
-            <option>LED móvel — roteiro pela cidade</option>
-            <option>Evento ou ativação</option>
-            <option>Ponto fixo</option>
-              <option>Ainda não sei, quero orientação</option>
+          <select id="interesse" name="interesse" required>
+            <option value="Ainda não sei, quero orientação">Ainda não sei, quero orientação</option>
+            <option value="Painel fixo na Via Dutra">Painel fixo na Via Dutra</option>
+            <option value="LED móvel — roteiro pela cidade">LED móvel — roteiro pela cidade</option>
+            <option value="Evento ou ativação">Evento ou ativação</option>
           </select>
         </div>
         <div class="form__row">
-          <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conte um pouco sobre o seu negócio"></textarea>
+          <label for="mensagem">Mensagem <span class="form__opt">opcional</span></label>
+          <textarea id="mensagem" name="mensagem" rows="3" enterkeyhint="send"
+                    placeholder="Opcional — conte um pouco sobre o seu negócio"></textarea>
         </div>
-        <button type="submit" class="btn btn--primary btn--block">Enviar pelo WhatsApp</button>
+        <p class="form__erro" id="formErro" role="alert" hidden></p>
+        <button type="submit" class="btn btn--primary btn--block" data-evento="formulario">Enviar pelo WhatsApp</button>
         <p class="form__note">Ao enviar, você será redirecionado para o WhatsApp com a mensagem pronta.</p>
       </form>
     </div>
@@ -549,12 +663,11 @@
 <footer class="footer">
   <div class="container footer__inner">
     <div class="footer__brand">
-      <img src="assets/img/logo-midialed.png" alt="Mídia Led">
+      <img src="assets/img/logo-midialed.webp" alt="Mídia Led" width="560" height="221" decoding="async">
       <p>Publicidade em painéis de LED.<br>Sua marca onde a cidade olha.</p>
     </div>
     <nav class="footer__nav">
       <h4>Navegação</h4>
-      <a href="#sobre">Sobre</a>
       <a href="#frota">O trio</a>
       <a href="#painel">Painel fixo</a>
       <a href="#faq">FAQ</a>
@@ -571,8 +684,8 @@
     </div>
   </div>
   <div class="container footer__bottom">
-    <span>© <span id="ano"></span> Mídia Led. Todos os direitos reservados.</span>
-    <span>CNPJ 00.000.000/0001-00</span>
+    <span>© <span id="ano">2026</span> Mídia Led. Todos os direitos reservados.</span>
+    <!-- PENDENTE: aguardando CNPJ do cliente -->
   </div>
 </footer>
 

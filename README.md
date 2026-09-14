@@ -22,26 +22,23 @@ Hospedado na Vercel como site estático. Não há etapa de build: a Vercel publi
 do repositório. O `vercel.json` define apenas o cache — longo para imagens e vídeos,
 curto para CSS e JS, para que as alterações de estilo apareçam na hora.
 
-## Como a abertura funciona
+## Portal de entrada
 
-1. **Abertura** — a logo se forma em velocidade acelerada (2,05×, ~4,9s) e sai de cena
-   sozinha. Sem botão de pular, sem "clique aqui".
-2. **Portal (`.gate`)** — o vídeo da rua assume e fica rodando em loop com a logo e o
-   indicativo *"Role para baixo"*, até o visitante rolar.
-3. Qualquer scroll, toque ou tecla durante a abertura já a encerra — ninguém fica preso.
-4. A abertura roda **uma vez por sessão**.
+A primeira tela (`.gate`) é o vídeo da rua em loop, com a logo e o indicativo
+*"Role para baixo"*. O vídeo é vertical: **no desktop preenche a tela inteira**
+(`object-fit: cover`); **no celular** aparece no formato natural.
 
-O vídeo da rua é vertical. **No desktop ele preenche a tela inteira** (`object-fit: cover`);
-**no celular** aparece no formato natural, ocupando a tela.
+Nenhum vídeo tem `src` no HTML — quem decide qual arquivo baixar é o JS, pelo tamanho da
+tela e pela qualidade da conexão. Sem JS, fica o poster.
 
-Ajustes rápidos em `assets/js/main.js` → `CONFIG`:
+Configuração em `assets/js/main.js` → `CONFIG`:
 
 | Opção | Efeito |
 |---|---|
 | `whatsapp` | Número usado no formulário e nos links (`5521966171604`) |
-| `velocidadeAbertura` | Quantas vezes mais rápido a logo se forma (padrão `2.05`) |
-| `limiteAberturaMs` | Trava de segurança: nunca prende mais que isso (padrão 6,2s) |
-| `aberturaUmaVezPorSessao` | `true` não repete a abertura a cada navegação interna |
+| `ga4Id` | Measurement ID do GA4 — vazio desliga a medição |
+| `metaPixelId` | ID do Meta Pixel — vazio desliga |
+| `endpointLeads` | URL que recebe os leads — vazio desliga a gravação |
 
 ## Estrutura
 
@@ -61,8 +58,9 @@ MídiaLed/
 │   │   ├── gate-poster.jpg     Primeiro quadro do vídeo de abertura
 │   │   ├── trio-rua.jpg        Foto do trio na rua
 │   │   ├── painel-led.png      Estrutura do painel fixo
-│   │   └── clientes/           Logos dos 5 clientes
-│   └── video/                  cidade · operacao · criacao · logo-reveal (6,6 MB)
+│   │   ├── *.webp              Versão leve de cada imagem (usada por padrão)
+│   │   └── clientes/           Logos dos 5 clientes (png + webp, Egide em svg)
+│   └── video/                  cidade · operacao · criacao (+ versões -mobile)
 ├── midias/                     Originais em tamanho cheio — FORA do Git (.gitignore)
 └── docs/                       Briefings e referências
 ```
@@ -71,21 +69,20 @@ MídiaLed/
 
 ## Seções
 
-1. **Abertura + Portal** — logo acelerada, depois o vídeo da rua
-2. **Hero** — "Anunciar não é aparecer. É ser visto."
+1. **Portal** — vídeo da rua, logo e indicativo de scroll
+2. **Hero** — H1 de busca + "Anunciar não é aparecer. É ser visto."
 3. **Letreiro de LED** — matriz de pixels com as mensagens-chave
 4. **Números** — 4 telas · 250 mil veículos/dia · 2 faces
-5. **Trio Mídia LedMob** — o que é a operação
-6. **Sobre** — com a foto real do trio na rua
-7. **Dados de mercado** — eficácia da mídia exterior
-8. **Painel fixo** — LED duplo na Via Dutra, Nova Iguaçu
-9. **Clientes** — carrossel de logos
-10. **A estratégia começa aqui** — com vídeo de fundo
-11. **Criação do conteúdo** — vídeo à esquerda, membrana fosca à direita
-12. **FAQ**
-13. **Letreiro de LED (2ª passagem)**
-14. **CTA + Contato** (formulário → WhatsApp) + **Rodapé**
-15. **Painel lateral fixo** — WhatsApp e Instagram
+5. **Trio Mídia LedMob** — a operação, com a foto real na rua
+6. **Ativos em abas** — Painel fixo (Via Dutra) × LED móvel
+7. **Clientes** — carrossel de logos
+8. **A estratégia começa aqui** — institucional + 4 passos, com vídeo de fundo
+9. **Prova da veiculação** — pronta e comentada, esperando a imagem do relatório
+10. **Criação do conteúdo** — vídeo à esquerda, membrana fosca à direita
+11. **FAQ**
+12. **Letreiro de LED (2ª passagem)**
+13. **CTA + Contato** (formulário → WhatsApp) + **Rodapé**
+14. **Painel lateral fixo** — WhatsApp e Instagram
 
 ## Camada de movimento (`assets/js/motion.js`)
 
@@ -95,8 +92,7 @@ desligado inteiro por `prefers-reduced-motion`.
 | Recurso | Como usar |
 |---|---|
 | Texto que se monta palavra por palavra | classe `split` no título |
-| Letra que acende quando o mouse passa | automático em `.split` e no letreiro |
-| Gradientes que seguem o cursor | variável `--gx`, aplicada a todo texto colorido |
+| Gradiente que segue o cursor | variável `--gx`, nas palavras de destaque |
 | Paralaxe | `data-parallax="0.06"` |
 | Inclinação 3D | `data-tilt` |
 | Botão magnético | automático em `.btn` |
@@ -112,11 +108,11 @@ substitua o arquivo mantendo o nome. As cinco foram adaptadas para o fundo preto
 
 | Cliente | Arquivo |
 |---|---|
-| Blindados RJ | `blindados-rj.png` |
-| Álamo | `alamo.png` |
+| Blindados RJ | `blindados-rj.png` + `.webp` |
+| Álamo | `alamo.png` + `.webp` |
 | Egide Saúde | `egide-saude.svg` |
-| Louvorzão 93 FM | `louvorzao-93fm.png` |
-| Drogaria Mais Barato | `drogaria-mais-barato.png` |
+| Louvorzão 93 FM | `louvorzao-93fm.png` + `.webp` |
+| Drogaria Mais Barato | `drogaria-mais-barato.png` + `.webp` |
 
 Para adicionar um cliente, copie um `.brandrail__item` **nos dois conjuntos** do trilho.
 
@@ -135,8 +131,50 @@ FF=$(python -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())")
 "$FF" -y -ss 3 -i assets/video/saida.mp4 -frames:v 1 -q:v 4 assets/img/poster.jpg
 ```
 
-Os quatro vídeos saíram de 57 MB para 6,6 MB nesse processo, sem perda visível.
+Os vídeos saíram de 57 MB para 6,6 MB nesse processo, sem perda visível.
+As versões `-mobile.mp4` têm 432px de largura e 16s.
 Os originais completos continuam em `midias/videos/`.
+
+## Desempenho em celular
+
+O público entra pelo Instagram e pelo WhatsApp, em Android intermediário e 4G instável.
+Por isso o celular é a versão principal, não a adaptada.
+
+Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
+
+| Métrica | Antes | Depois |
+|---|---|---|
+| Performance | sem nota (LCP falhava) | **84** |
+| Peso total | 4.869 KB | **1.105 KB** |
+| Vídeo baixado | 3.912 KB | **672 KB** |
+| Imagens | 801 KB | **268 KB** |
+| LCP | erro `NO_LCP` | 3,2 s |
+| CLS | 0 | 0 |
+| Alvos de toque < 44px | 18 | **0** |
+| Campos com fonte < 16px | 5 | **0** |
+| Conteúdo visível sem JS | nenhum | **tudo** |
+
+### O que sustenta esses números
+
+- **Nada depende de JS para aparecer.** As animações só entram quando o script marca
+  `<html class="js">`. Se o JS falhar, o site aparece inteiro, sem animação.
+- **Vídeo certo para cada tela.** Versões de 432px para celular; o JS escolhe pelo
+  `matchMedia` e nunca carrega vídeo invisível (a cópia desfocada do portal é
+  `display:none` no celular).
+- **Conexão fraca não baixa vídeo.** Com `saveData` ligado ou `effectiveType` 2G,
+  fica só o poster.
+- **Imagens em WebP** com `<picture>` e fallback, `width`/`height` declarados e
+  `loading="lazy"` abaixo da dobra.
+- **Campos do formulário em 16px** — abaixo disso o Safari iOS dá zoom ao focar.
+  Com `inputmode`, `autocomplete`, `autocapitalize` e rolagem automática ao focar.
+
+### Limitações assumidas
+
+- **LCP de 3,2 s** (meta: 2,5 s) e **primeira dobra acima de 1 MB**: consequência de
+  manter o portal em vídeo no celular, decisão do cliente. Sem ele, ambas as metas seriam
+  atingidas com folga.
+- **Página com 17 telas em 360px.** Reduzi o espaçamento vertical, mas o comprimento vem
+  da quantidade de conteúdo.
 
 ## Pendências antes de divulgar
 
