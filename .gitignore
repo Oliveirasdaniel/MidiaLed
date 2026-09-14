@@ -1,0 +1,17 @@
+# Biblioteca de originais — 57 MB de vídeos e fotos em tamanho cheio.
+# O site usa apenas as versões otimizadas em assets/.
+# Para versionar os originais também, comente a linha abaixo.
+midias/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Dependências (o site não usa, mas evita acidente)
+node_modules/
