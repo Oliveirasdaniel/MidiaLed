@@ -87,13 +87,11 @@ e o que o site está fazendo enquanto o dado não chega.
 
 ## Pedidos do comprador que ficaram esperando arquivo
 
-### A. Vídeo para substituir a imagem do painel fixo
-- **Onde entra:** aba "Painel fixo", no lugar do render 3D da estrutura
-  (`assets/img/painel-led.png`).
-- **Situação:** **o arquivo não chegou.** A seção segue com o render.
-- **Quando chegar:** comprimo, gero poster e versão para celular, e troco a imagem
-  por vídeo com o mesmo tratamento dos outros (só carrega ao entrar na tela).
-- **Formato ideal:** horizontal, 10 a 20 segundos, mostrando o painel aceso na Dutra.
+### A. Vídeo do painel fixo — ✅ RESOLVIDO em 15/09
+- O vídeo "Conquiste mais oportunidades" entrou no lugar do render 3D, dentro de uma
+  moldura que imita o próprio painel. Sem som, como pedido.
+- 39,8 MB → **2,5 MB** (desktop) e **1,2 MB** (celular), sem áudio.
+- O render `painel-led.png` saiu do site (segue em `midias/fotos/`).
 
 ### B. Novos clientes para o carrossel
 - **Situação:** **nomes e logos não chegaram.** O carrossel segue com os cinco atuais:

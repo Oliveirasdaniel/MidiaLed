@@ -239,11 +239,28 @@
 <div class="rig">
       <div class="rig__art reveal">
         <div class="rig__glow"></div>
-        <picture>
-          <source srcset="assets/img/painel-led.webp" type="image/webp">
-          <img src="assets/img/painel-led.png" data-tilt width="414" height="603" loading="lazy" decoding="async"
-               alt="Estrutura do painel de LED duplo da Mídia Led, instalado na Via Dutra em Nova Iguaçu">
-        </picture>
+        <figure class="telaled" data-parallax="0.03">
+          <span class="telaled__canto telaled__canto--se" aria-hidden="true"></span>
+          <span class="telaled__canto telaled__canto--sd" aria-hidden="true"></span>
+          <span class="telaled__canto telaled__canto--ie" aria-hidden="true"></span>
+          <span class="telaled__canto telaled__canto--id" aria-hidden="true"></span>
+
+          <div class="telaled__moldura">
+            <video class="telaled__video"
+                   data-video="assets/video/painel.mp4"
+                   data-video-mobile="assets/video/painel-mobile.mp4"
+                   poster="assets/img/painel-poster.webp"
+                   muted loop playsinline preload="none" data-inview
+                   aria-label="Painel de LED da Mídia Led na Via Dutra, em Nova Iguaçu, com uma campanha no ar"></video>
+            <span class="telaled__pixels" aria-hidden="true"></span>
+            <span class="telaled__brilho" aria-hidden="true"></span>
+          </div>
+
+          <figcaption class="telaled__legenda">
+            <span class="telaled__ponto" aria-hidden="true"></span>
+            Painel na Via Dutra — Nova Iguaçu
+          </figcaption>
+        </figure>
       </div>
 
       <div class="rig__data reveal">
