@@ -17,8 +17,8 @@
        basta somar um item — o resto se ajusta sozinho.
        `mobile` é opcional: sem ele, o celular usa o arquivo principal. */
     portal: [
-      { desktop: 'assets/video/cidade.mp4',   mobile: 'assets/video/cidade-mobile.mp4' },
-      { desktop: 'assets/video/operacao.mp4', mobile: 'assets/video/operacao-mobile.mp4' }
+      { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4' },
+      { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4' }
     ],
     trechoMaximoS: 14,              // tempo máximo de cada vídeo antes de passar ao próximo
     /* PENDENTE: medição. Enquanto estiver vazio, nada é enviado

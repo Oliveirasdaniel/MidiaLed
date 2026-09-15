@@ -1039,6 +1039,9 @@ p{margin:0 0 1rem}
     color:transparent;
     -webkit-text-fill-color:transparent;
   }
+  /* elemento estreito enxerga pouco de um gradiente largo:
+     o número de destaque recebe uma faixa mais curta */
+  .bignum strong{background-size:150% 100%}
 }
 
 /* =========================================================

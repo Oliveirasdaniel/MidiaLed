@@ -247,11 +247,11 @@
 
           <div class="telaled__moldura">
             <video class="telaled__video"
-                   data-video="assets/video/painel.mp4"
-                   data-video-mobile="assets/video/painel-mobile.mp4"
-                   poster="assets/img/painel-poster.webp"
+                   data-video="assets/video/dutra.mp4"
+                   data-video-mobile="assets/video/dutra-mobile.mp4"
+                   poster="assets/img/dutra-poster.webp"
                    muted loop playsinline preload="none" data-inview
-                   aria-label="Painel de LED da Mídia Led na Via Dutra, em Nova Iguaçu, com uma campanha no ar"></video>
+                   aria-label="Painel de LED da Mídia Led na Via Dutra, em Nova Iguaçu, visto de cima com o tráfego da rodovia"></video>
             <span class="telaled__pixels" aria-hidden="true"></span>
             <span class="telaled__brilho" aria-hidden="true"></span>
           </div>
@@ -314,11 +314,28 @@
       <div class="rig">
         <div class="rig__art">
           <div class="rig__glow"></div>
-          <picture>
-            <source srcset="assets/img/trio-ledmob.webp" type="image/webp">
-            <img src="assets/img/trio-ledmob.png" data-tilt width="562" height="444" loading="lazy" decoding="async"
-                 alt="Trio Mídia LedMob: veículo com quatro telas de LED que circula por Nova Iguaçu e pela Baixada Fluminense">
-          </picture>
+          <figure class="telaled" data-parallax="0.03">
+            <span class="telaled__canto telaled__canto--se" aria-hidden="true"></span>
+            <span class="telaled__canto telaled__canto--sd" aria-hidden="true"></span>
+            <span class="telaled__canto telaled__canto--ie" aria-hidden="true"></span>
+            <span class="telaled__canto telaled__canto--id" aria-hidden="true"></span>
+
+            <div class="telaled__moldura">
+              <video class="telaled__video"
+                     data-video="assets/video/operacao.mp4"
+                     data-video-mobile="assets/video/operacao-mobile.mp4"
+                     poster="assets/img/movel-poster.webp"
+                     muted loop playsinline preload="none" data-inview
+                     aria-label="Trio Mídia LedMob circulando com as quatro telas de LED acesas"></video>
+              <span class="telaled__pixels" aria-hidden="true"></span>
+              <span class="telaled__brilho" aria-hidden="true"></span>
+            </div>
+
+            <figcaption class="telaled__legenda">
+              <span class="telaled__ponto" aria-hidden="true"></span>
+              Trio LedMob em circulação
+            </figcaption>
+          </figure>
         </div>
 
         <div class="rig__data">
@@ -700,7 +717,7 @@
   </div>
   <div class="container footer__bottom">
     <span>© <span id="ano">2026</span> Mídia Led. Todos os direitos reservados.</span>
-    <!-- PENDENTE: aguardando CNPJ do cliente -->
+    <span>CNPJ 62.377.877/0001-53</span>
   </div>
 </footer>
 

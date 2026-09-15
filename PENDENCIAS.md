@@ -3,17 +3,14 @@
 Nada aqui foi preenchido com valor fictício. Cada item diz o que falta, onde entra
 e o que o site está fazendo enquanto o dado não chega.
 
-Última atualização: 15/09/2026 · Ajustes do comprador + refatoração mobile.
+Última atualização: 15/09/2026 · CNPJ, vídeos reais nas duas abas, menu mobile.
 
 ---
 
 ## Bloqueando agora (já afetam o que está no ar)
 
-### 1. CNPJ
-- **Onde entra:** rodapé, ao lado do copyright (`index.html`, seção `.footer__bottom`).
-- **Situação:** a linha com `00.000.000/0001-00` foi **removida**. No lugar ficou um
-  comentário `<!-- PENDENTE: aguardando CNPJ do cliente -->`.
-- **Para resolver:** informe o CNPJ e ele volta como `<span>CNPJ XX.XXX.XXX/0001-XX</span>`.
+### 1. CNPJ — ✅ RESOLVIDO em 15/09
+- `62.377.877/0001-53`, publicado no rodapé.
 
 ### 2. Fontes dos dados de mercado (82% / 4× / 66%)
 - **Situação:** a seção inteira foi **removida** do site, porque as fontes não foram

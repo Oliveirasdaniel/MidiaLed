@@ -71,7 +71,7 @@ MídiaLed/
 │   │   ├── painel-led.png      Estrutura do painel fixo
 │   │   ├── *.webp              Versão leve de cada imagem (usada por padrão)
 │   │   └── clientes/           Logos dos 5 clientes (png + webp, Egide em svg)
-│   └── video/                  cidade · operacao · criacao · painel (+ versões -mobile)
+│   └── video/                  cidade · conquiste · dutra · operacao · criacao (+ -mobile)
 ├── midias/                     Originais em tamanho cheio — FORA do Git (.gitignore)
 └── docs/                       Briefings e referências
 ```
@@ -85,8 +85,8 @@ MídiaLed/
 3. **Letreiro de LED** — matriz de pixels com as mensagens-chave
 4. **Números** — 4 telas · 250 mil veículos/dia · 2 faces
 5. **Trio Mídia LedMob** — a operação, com a foto real na rua
-6. **Ativos em abas** — Painel fixo (filmagem real na Via Dutra, em moldura de
-   painel de LED) × LED móvel
+6. **Ativos em abas** — Painel fixo (Led Dutra, filmagem aérea) × LED móvel
+   (trio em circulação). Os dois em moldura que imita o painel de LED.
 7. **Clientes** — carrossel de logos
 8. **A estratégia começa aqui** — institucional + 4 passos, com vídeo de fundo
 9. **Prova da veiculação** — pronta e comentada, esperando a imagem do relatório
@@ -205,7 +205,7 @@ portal, e a primeira tela ficava sem nenhuma navegação.
 | Item | Situação |
 |---|---|
 | E-mail no rodapé e no contato | `contato@midialed.com.br` — **confirmar se existe** |
-| CNPJ no rodapé | zerado |
+| CNPJ no rodapé | ✅ 62.377.877/0001-53 |
 | Fontes dos dados de mercado | 82%, 4× e 66% são referências de setor atribuídas a Nielsen e Intel/Arbitron — **conferir antes de divulgar** |
 | Especificações do painel fixo | medidas, pixel pitch e horário de operação ainda genéricos |
 | Logo em SVG | hoje só existe PNG transparente |
