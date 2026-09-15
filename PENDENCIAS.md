@@ -90,20 +90,23 @@ e o que o site está fazendo enquanto o dado não chega.
 - 39,8 MB → **2,5 MB** (desktop) e **1,2 MB** (celular), sem áudio.
 - O render `painel-led.png` saiu do site (segue em `midias/fotos/`).
 
-### B. Novos clientes para o carrossel
-- **Situação:** **nomes e logos não chegaram.** O carrossel segue com os cinco atuais:
-  Blindados RJ, Álamo, Egide Saúde, Louvorzão 93 FM e Drogaria Mais Barato.
-- **Do que preciso:** a lista de nomes e, se possível, os arquivos das logos.
-  Sem o arquivo, entra o nome escrito em placa — e a logo substitui depois, sozinha.
-- **Observação:** as logos precisam de adaptação para fundo preto. As cinco atuais
-  passaram por isso (Blindados virou branca, Álamo teve o nome clareado, Egide teve
-  o verde clareado). Faço o mesmo com as novas.
+### B. Novos clientes — ✅ RESOLVIDO em 15/09
+- O carrossel passou de 5 para **12 clientes**. Entraram: Pontofrio, Multiplan,
+  Ultra Academia, Facility, Instituto Paulo Apóstolo, Athiones Fernandes e Up Ouro.
+- Todas as sete foram adaptadas para fundo preto. O arquivo do Up Ouro veio em AVIF
+  (formato que nem toda ferramenta lê) e foi convertido.
+- **Se houver mais clientes, é só mandar** — nome e logo, ou só o nome.
 
-### C. Mais vídeos para o portal de entrada
-- **Situação:** **implementado e funcionando** com os dois vídeos que já existiam.
-  O portal agora toca um vídeo depois do outro, em rodízio.
-- **Para acrescentar:** me mande os arquivos. No código é uma linha por vídeo,
-  em `CONFIG.portal` no topo de `assets/js/main.js`.
+### C. Vídeos do portal — ✅ RODANDO com três
+- Ordem atual: **0915 (trio na rua, principal)** → Conquiste mais oportunidades →
+  cidade. Cada um toca 14s e passa ao próximo.
+- **Para acrescentar ou reordenar:** uma linha por vídeo em `CONFIG.portal`,
+  no topo de `assets/js/main.js`.
+
+### D. "super intro.mp4" — sem destino definido
+- **Situação:** o arquivo chegou junto com os outros, mas não foi pedido para lugar
+  nenhum. Está parado em `midias/videos/`, fora do site.
+- **Me diga onde ele entra** (portal? alguma seção?) que eu comprimo e coloco.
 
 ---
 

@@ -71,7 +71,7 @@ MídiaLed/
 │   │   ├── painel-led.png      Estrutura do painel fixo
 │   │   ├── *.webp              Versão leve de cada imagem (usada por padrão)
 │   │   └── clientes/           Logos dos 5 clientes (png + webp, Egide em svg)
-│   └── video/                  cidade · conquiste · dutra · operacao · criacao (+ -mobile)
+│   └── video/                  trio-rua · conquiste · cidade · dutra · operacao · criacao
 ├── midias/                     Originais em tamanho cheio — FORA do Git (.gitignore)
 └── docs/                       Briefings e referências
 ```
@@ -115,16 +115,26 @@ desligado inteiro por `prefers-reduced-motion`.
 ## Manutenção
 
 **Logos dos clientes** — ficam em `assets/img/clientes/` com nome fixo. Para trocar,
-substitua o arquivo mantendo o nome. As cinco foram adaptadas para o fundo preto
-(Blindados virou versão branca, Álamo teve o nome clareado, Egide teve o verde clareado).
+substitua o arquivo mantendo o nome.
+
+Todas passaram por adaptação para fundo preto, com a mesma regra: **cinza e preto viram
+branco, cor saturada e escura é clareada mantendo o tom, cor viva fica como está.** Sem
+isso, logos como Multiplan, Pontofrio e Facility sumiriam no fundo do site.
 
 | Cliente | Arquivo |
 |---|---|
-| Blindados RJ | `blindados-rj.png` + `.webp` |
-| Álamo | `alamo.png` + `.webp` |
+| Pontofrio | `pontofrio.webp` + `.png` |
+| Multiplan | `multiplan.webp` + `.png` |
+| Álamo | `alamo.webp` + `.png` |
+| Ultra Academia | `ultra-academia.webp` + `.png` |
+| Blindados RJ | `blindados-rj.webp` + `.png` |
+| Drogaria Mais Barato | `drogaria-mais-barato.webp` + `.png` |
+| Louvorzão 93 FM | `louvorzao-93fm.webp` + `.png` |
 | Egide Saúde | `egide-saude.svg` |
-| Louvorzão 93 FM | `louvorzao-93fm.png` + `.webp` |
-| Drogaria Mais Barato | `drogaria-mais-barato.png` + `.webp` |
+| Facility | `facility.webp` + `.png` |
+| Instituto Paulo Apóstolo | `ipa.webp` + `.png` |
+| Athiones Fernandes | `athiones.webp` + `.png` |
+| Up Ouro | `up-ouro.webp` + `.png` |
 
 Para adicionar um cliente, copie um `.brandrail__item` **nos dois conjuntos** do trilho.
 

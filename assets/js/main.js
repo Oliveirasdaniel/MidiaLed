@@ -17,8 +17,9 @@
        basta somar um item — o resto se ajusta sozinho.
        `mobile` é opcional: sem ele, o celular usa o arquivo principal. */
     portal: [
-      { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4' },
-      { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4' }
+      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4' },
+      { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4' },
+      { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4' }
     ],
     trechoMaximoS: 14,              // tempo máximo de cada vídeo antes de passar ao próximo
     /* PENDENTE: medição. Enquanto estiver vazio, nada é enviado
@@ -208,7 +209,24 @@
      Se o arquivo existir, entra como background.
      Se não existir, mantém o placeholder com o nome esperado.
      ========================================================= */
-  $$('[data-img]').forEach(el => {
+  /* As logos do carrossel são 12 arquivos que ninguém vê na primeira
+     tela. Só entram quando a seção se aproxima. */
+  function carregarQuandoPerto(el, acao) {
+    if (!('IntersectionObserver' in window)) return acao();
+
+    /* No carrossel, quem vigia é o trilho inteiro: as logos da ponta
+       direita ficam fora da tela e nunca disparariam sozinhas. */
+    const vigia = el.closest('.brandrail') || el;
+
+    const io = new IntersectionObserver((entradas) => {
+      if (!entradas[0].isIntersecting) return;
+      io.disconnect();
+      acao();
+    }, { rootMargin: '400px 0px' });
+    io.observe(vigia);
+  }
+
+  $$('[data-img]').forEach(el => carregarQuandoPerto(el, () => {
     const src = el.dataset.img;
     if (!src) return;
     const img = new Image();
@@ -235,7 +253,7 @@
       aplicar(el, src);
     };
     img.src = src;
-  });
+  }));
 
   function aplicar(el, src) {
     const placa = el.querySelector('.brandrail__txt');
