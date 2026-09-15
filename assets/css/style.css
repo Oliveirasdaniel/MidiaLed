@@ -1183,7 +1183,13 @@ p{margin:0 0 1rem}
   .secvideo video{opacity:.5}
   .secvideo--esquerda video{opacity:.5;object-position:center 45%}
   .membrana{padding:1rem;backdrop-filter:blur(14px)}
-  .brandrail__item{height:92px;width:168px;padding:1.1rem 1.3rem;margin-inline:7px}
+  /* caixa com largura fixa fazia logo larga (Pontofrio, Multiplan)
+     vazar por cima da vizinha: agora cada uma ocupa o próprio tamanho */
+  .brandrail__item{
+    height:76px;width:auto;min-width:0;padding:0;
+    margin-inline:clamp(1.2rem,5vw,2.2rem);
+  }
+  .brandrail__item img{max-height:76px;max-width:46vw}
 }
 
 @media (max-width:560px){
@@ -1203,7 +1209,8 @@ p{margin:0 0 1rem}
   .fleet__specs{grid-template-columns:repeat(2,1fr)}
   .rig__art{padding:.5rem}
   .rig__art img{max-height:38vh}
-  .brandrail__item{height:84px;width:150px;padding:1rem}
+  .brandrail__item{height:64px;margin-inline:1.2rem}
+  .brandrail__item img{max-height:64px;max-width:54vw}
   .worklist li{padding:1.2rem}
   .footer__bottom{flex-direction:column;gap:.4rem}
 }

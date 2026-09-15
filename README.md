@@ -32,7 +32,7 @@ em `CONFIG.portal`:
 
 ```js
 portal: [
-  { desktop: 'assets/video/trio-rua.mp4', mobile: 'assets/video/trio-rua-mobile.mp4', posicao: 'center 72%' },
+  { desktop: 'assets/video/trio-rua.mp4', mobile: 'assets/video/trio-rua-mobile.mp4', posicao: 'center 66%' },
   ...
 ],
 segundosPorVideo: 0   // 0 = vídeo inteiro; um número corta nesse tempo
@@ -46,7 +46,7 @@ segundosPorVideo: 0   // 0 = vídeo inteiro; um número corta nesse tempo
 
 Como escolher a `posicao`: extraia alguns quadros do vídeo e veja qual faixa fica visível.
 No desktop de 1440×900, um vídeo 9:16 mostra só ~35% da altura. Para o trio, 72% foi o
-valor que mantém a tela de LED e o telefone do veículo no enquadramento.
+valor de partida; 66% ficou como o ajuste final, com a tela de LED e o telefone visíveis.
 
 Só o vídeo em exibição é baixado; os outros entram quando chega a vez deles. Fora da tela,
 o portal pausa. Sem JS, fica o poster.
@@ -60,7 +60,7 @@ Configuração em `assets/js/main.js` → `CONFIG`:
 | `metaPixelId` | ID do Meta Pixel — vazio desliga |
 | `endpointLeads` | URL que recebe os leads — vazio desliga a gravação |
 | `portal` | Lista de vídeos do portal, em rodízio |
-| `trechoMaximoS` | Segundos de cada vídeo antes de trocar (padrão 14) |
+| `segundosPorVideo` | `0` = cada vídeo toca inteiro; um número corta nesse tempo |
 
 ## Estrutura
 
@@ -148,6 +148,14 @@ isso, logos como Multiplan, Pontofrio e Facility sumiriam no fundo do site.
 | Up Ouro | `up-ouro.webp` + `.png` |
 
 Para adicionar um cliente, copie um `.brandrail__item` **nos dois conjuntos** do trilho.
+
+**Cuidado com a largura no celular:** cada placa tem a largura da própria logo
+(`width: auto`), com margem entre elas. Não volte a usar largura fixa — logos largas como
+Pontofrio e Multiplan vazavam por cima da vizinha. O limite é `max-width` em `vw`, para a
+logo nunca passar de metade da tela.
+
+O trilho se remede sozinho (`ResizeObserver`) quando as logos entram, porque elas carregam
+só ao aproximar da seção e mudam a largura do conjunto.
 
 **Letreiro de LED** — cada letreiro tem dois `.ledstrip__set` idênticos; o segundo é a
 cópia que faz o loop ser contínuo. Ao mudar uma mensagem, mude nos dois. O `motion.js`

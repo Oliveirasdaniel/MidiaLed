@@ -194,6 +194,12 @@
     };
     window.addEventListener('load', remedir);
     window.addEventListener('resize', remedir);
+
+    /* As logos entram depois, quando a seção se aproxima: quando isso
+       acontece a largura do conjunto muda e o trilho precisa saber. */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(remedir).observe(trilhoMarcas.set);
+    }
   }
 
   let scrollAnterior = window.scrollY;
