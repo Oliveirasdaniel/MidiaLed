@@ -117,7 +117,7 @@ p{margin:0 0 1rem}
 .gate__bg{position:absolute;inset:0;z-index:0}
 .gate__video{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 42%;display:block;
+  object-fit:cover;object-position:center 66%;display:block;
 }
 .gate__video--blur{filter:blur(50px) saturate(1.25) brightness(.45);transform:scale(1.25)}
 .gate__video--main{z-index:1;opacity:.88;transition:opacity .42s ease}
@@ -1159,7 +1159,7 @@ p{margin:0 0 1rem}
   .cards,.steps{grid-template-columns:1fr}
 
   /* portal: no celular o vídeo vertical ocupa a tela por inteiro */
-  .gate__video--main{object-position:center center;opacity:.95}
+  .gate__video--main{object-position:center center;opacity:.95}   /* no celular o vídeo vertical cabe quase inteiro */
   .gate__bg{display:none}
   .gate__logo{width:min(320px,78vw)}
   .gate__tagline{margin-top:1rem}

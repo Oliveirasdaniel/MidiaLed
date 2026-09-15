@@ -27,18 +27,29 @@ curto para CSS e JS, para que as alterações de estilo apareçam na hora.
 A primeira tela (`.gate`) é um **rodízio de vídeos**: toca um, passa ao próximo com uma
 transição curta pelo preto, e recomeça. Com um vídeo só na lista, ele fica em loop.
 
-Para acrescentar um vídeo, basta somar um item em `CONFIG.portal`:
+Cada vídeo toca **inteiro** e só então passa ao próximo. Para acrescentar, some um item
+em `CONFIG.portal`:
 
 ```js
 portal: [
-  { desktop: 'assets/video/cidade.mp4',   mobile: 'assets/video/cidade-mobile.mp4' },
-  { desktop: 'assets/video/operacao.mp4', mobile: 'assets/video/operacao-mobile.mp4' }
+  { desktop: 'assets/video/trio-rua.mp4', mobile: 'assets/video/trio-rua-mobile.mp4', posicao: 'center 72%' },
+  ...
 ],
-trechoMaximoS: 14   // tempo de cada vídeo antes de passar ao próximo
+segundosPorVideo: 0   // 0 = vídeo inteiro; um número corta nesse tempo
 ```
 
-`mobile` é opcional. Só o vídeo em exibição é baixado: os outros entram quando chega a vez
-deles. Fora da tela, o portal pausa. Sem JS, fica o poster.
+| Campo | Para que serve |
+|---|---|
+| `desktop` | Arquivo principal |
+| `mobile` | Versão leve (opcional; sem ela o celular usa a principal) |
+| `posicao` | Qual parte do quadro aparece no desktop. O vídeo é vertical e a tela é larga, então o corte importa: **valor menor sobe o enquadramento, maior desce** |
+
+Como escolher a `posicao`: extraia alguns quadros do vídeo e veja qual faixa fica visível.
+No desktop de 1440×900, um vídeo 9:16 mostra só ~35% da altura. Para o trio, 72% foi o
+valor que mantém a tela de LED e o telefone do veículo no enquadramento.
+
+Só o vídeo em exibição é baixado; os outros entram quando chega a vez deles. Fora da tela,
+o portal pausa. Sem JS, fica o poster.
 
 Configuração em `assets/js/main.js` → `CONFIG`:
 

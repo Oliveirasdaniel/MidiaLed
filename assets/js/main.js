@@ -13,15 +13,17 @@
     whatsapp: '5521966171604',      // DDI + DDD + número
 
     /* VÍDEOS DO PORTAL
-       Toca um depois do outro, em rodízio contínuo. Para acrescentar,
-       basta somar um item — o resto se ajusta sozinho.
-       `mobile` é opcional: sem ele, o celular usa o arquivo principal. */
+       Cada vídeo toca INTEIRO e só então passa ao próximo, em rodízio.
+       `mobile` é opcional: sem ele, o celular usa o arquivo principal.
+       `posicao` decide qual parte do quadro fica visível no desktop —
+       o vídeo é vertical e a tela é larga, então o corte importa.
+       Valor menor sobe o enquadramento, maior desce. */
     portal: [
-      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4' },
-      { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4' },
-      { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4' }
+      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4',  posicao: 'center 66%' },
+      { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4', posicao: 'center 60%' },
+      { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4',    posicao: 'center 52%' }
     ],
-    trechoMaximoS: 14,              // tempo máximo de cada vídeo antes de passar ao próximo
+    segundosPorVideo: 0,            // 0 = toca o vídeo inteiro; um número corta nesse tempo
     /* PENDENTE: medição. Enquanto estiver vazio, nada é enviado
        e nenhum script de terceiro é baixado. Ver PENDENCIAS.md (item 4). */
     ga4Id: '',                      // ex.: 'G-XXXXXXXXXX'
@@ -634,6 +636,7 @@
         if (!v || v.offsetParent === null) return;   // invisível: não baixa
         v.src = fonte;
         v.loop = !varios;                            // vídeo único fica em loop
+        if (item.posicao) v.style.objectPosition = item.posicao;
         const p = v.play();
         if (p && p.catch) p.catch(() => {});
       };
@@ -664,16 +667,24 @@
       setTimeout(() => { trocando = false; }, 900);
     }
 
-    /* passa adiante quando o vídeo acaba ou quando estica demais */
+    /* Quem manda é o fim do vídeo. O relógio existe só como rede de
+       segurança, caso o evento 'ended' não chegue (acontece em alguns
+       navegadores de app), e usa a duração real do arquivo. */
     function agendar() {
       clearTimeout(relogio);
       if (!varios) return;
-      const limite = (CONFIG.trechoMaximoS || 14) * 1000;
-      relogio = setTimeout(proximo, limite);
+
+      const corte = Number(CONFIG.segundosPorVideo) || 0;
+      if (corte > 0) { relogio = setTimeout(proximo, corte * 1000); return; }
+
+      const dur = principal.duration;
+      if (isFinite(dur) && dur > 0) relogio = setTimeout(proximo, (dur + 3) * 1000);
     }
 
     principal.addEventListener('ended', proximo);
     principal.addEventListener('error', proximo);
+    /* a duração só é conhecida depois dos metadados */
+    principal.addEventListener('loadedmetadata', agendar);
 
     /* fora da tela, o portal não gasta bateria */
     const secao = $('#gate');
