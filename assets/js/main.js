@@ -11,6 +11,16 @@
      ========================================================= */
   const CONFIG = {
     whatsapp: '5521966171604',      // DDI + DDD + número
+
+    /* VÍDEOS DO PORTAL
+       Toca um depois do outro, em rodízio contínuo. Para acrescentar,
+       basta somar um item — o resto se ajusta sozinho.
+       `mobile` é opcional: sem ele, o celular usa o arquivo principal. */
+    portal: [
+      { desktop: 'assets/video/cidade.mp4',   mobile: 'assets/video/cidade-mobile.mp4' },
+      { desktop: 'assets/video/operacao.mp4', mobile: 'assets/video/operacao-mobile.mp4' }
+    ],
+    trechoMaximoS: 14,              // tempo máximo de cada vídeo antes de passar ao próximo
     /* PENDENTE: medição. Enquanto estiver vazio, nada é enviado
        e nenhum script de terceiro é baixado. Ver PENDENCIAS.md (item 4). */
     ga4Id: '',                      // ex.: 'G-XXXXXXXXXX'
@@ -98,17 +108,45 @@
   const burger = $('#burger');
   const nav = $('#nav');
 
-  burger?.addEventListener('click', () => {
-    const aberto = nav.classList.toggle('is-open');
-    burger.classList.toggle('is-open', aberto);
-    burger.setAttribute('aria-expanded', String(aberto));
-  });
+  /* véu atrás do painel: fecha ao tocar fora */
+  let veu = null;
+  if (burger && nav) {
+    veu = document.createElement('div');
+    veu.className = 'veu';
+    veu.hidden = true;
+    document.body.appendChild(veu);
+  }
 
-  $$('#nav a').forEach(a => a.addEventListener('click', () => {
-    nav?.classList.remove('is-open');
-    burger?.classList.remove('is-open');
-    burger?.setAttribute('aria-expanded', 'false');
-  }));
+  function menu(abrir) {
+    if (!nav || !burger) return;
+    nav.classList.toggle('is-open', abrir);
+    burger.classList.toggle('is-open', abrir);
+    burger.setAttribute('aria-expanded', String(abrir));
+    document.body.classList.toggle('menu-aberto', abrir);
+
+    if (veu) {
+      if (abrir) {
+        veu.hidden = false;
+        requestAnimationFrame(() => veu.classList.add('is-on'));
+      } else {
+        veu.classList.remove('is-on');
+        setTimeout(() => { if (!nav.classList.contains('is-open')) veu.hidden = true; }, 380);
+      }
+    }
+    /* com o painel aberto, o foco por teclado fica dentro dele */
+    if (abrir) nav.querySelector('a')?.focus({ preventScroll: true });
+  }
+
+  burger?.addEventListener('click', () => menu(!nav.classList.contains('is-open')));
+  veu?.addEventListener('click', () => menu(false));
+  $$('#nav a').forEach(a => a.addEventListener('click', () => menu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav?.classList.contains('is-open')) { menu(false); burger?.focus(); }
+  });
+  /* girar a tela para o modo paisagem fecha o menu, que vira desktop */
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 820 && nav?.classList.contains('is-open')) menu(false);
+  });
 
   /* =========================================================
      4. ANIMAÇÃO DE ENTRADA (scroll reveal)
@@ -545,17 +583,96 @@
     return true;
   }
 
-  /* os vídeos do portal estão na primeira dobra: preparados de imediato.
-     A cópia desfocada do fundo fica display:none no celular — carregar um
-     vídeo invisível seria jogar megabytes fora. */
-  $$('.gate__video').forEach(v => {
-    if (menosMovimento) return;
-    if (v.offsetParent === null) return;          // invisível: não baixa
-    if (prepararVideo(v)) {
-      const p = v.play();
-      if (p && p.catch) p.catch(() => {});
+  /* =========================================================
+     PORTAL — rodízio de vídeos
+
+     Toca um vídeo por vez e passa ao próximo, com uma transição
+     curta pelo preto. Só o vídeo em exibição é baixado: os outros
+     entram sob demanda, quando chega a vez deles.
+     A cópia desfocada do fundo é display:none no celular — carregar
+     um vídeo invisível seria jogar megabytes fora.
+     ========================================================= */
+  (function portal() {
+    const principal = $('.gate__video--main');
+    const fundo = $('.gate__video--blur');
+    if (!principal) return;
+
+    const lista = (CONFIG.portal || []).filter(Boolean);
+    if (!lista.length || menosMovimento || economizando) return;   // fica o poster
+
+    const varios = lista.length > 1;
+    let atual = 0, trocando = false, relogio = null;
+
+    function fonteDe(item) {
+      return (telaPequena && item.mobile) || item.desktop;
     }
-  });
+
+    function carregar(indice, comTransicao) {
+      const item = lista[indice];
+      if (!item) return;
+      const fonte = fonteDe(item);
+
+      const aplicar = (v) => {
+        if (!v || v.offsetParent === null) return;   // invisível: não baixa
+        v.src = fonte;
+        v.loop = !varios;                            // vídeo único fica em loop
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {});
+      };
+
+      if (comTransicao) {
+        principal.classList.add('is-trocando');
+        fundo?.classList.add('is-trocando');
+        setTimeout(() => {
+          aplicar(principal); aplicar(fundo);
+          requestAnimationFrame(() => {
+            principal.classList.remove('is-trocando');
+            fundo?.classList.remove('is-trocando');
+          });
+          agendar();
+        }, 420);
+      } else {
+        aplicar(principal); aplicar(fundo);
+        agendar();
+      }
+    }
+
+    function proximo() {
+      if (!varios || trocando) return;
+      trocando = true;
+      clearTimeout(relogio);
+      atual = (atual + 1) % lista.length;
+      carregar(atual, true);
+      setTimeout(() => { trocando = false; }, 900);
+    }
+
+    /* passa adiante quando o vídeo acaba ou quando estica demais */
+    function agendar() {
+      clearTimeout(relogio);
+      if (!varios) return;
+      const limite = (CONFIG.trechoMaximoS || 14) * 1000;
+      relogio = setTimeout(proximo, limite);
+    }
+
+    principal.addEventListener('ended', proximo);
+    principal.addEventListener('error', proximo);
+
+    /* fora da tela, o portal não gasta bateria */
+    const secao = $('#gate');
+    if (secao && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) {
+          const p = principal.play(); if (p && p.catch) p.catch(() => {});
+          fundo?.play().catch?.(() => {});
+          agendar();
+        } else {
+          principal.pause(); fundo?.pause(); clearTimeout(relogio);
+        }
+      }, { threshold: 0.1 }).observe(secao);
+    }
+
+    carregar(0, false);
+  })();
 
   const videosFundo = $$('video[data-inview]');
 

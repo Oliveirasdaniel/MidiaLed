@@ -3,7 +3,7 @@
 Nada aqui foi preenchido com valor fictício. Cada item diz o que falta, onde entra
 e o que o site está fazendo enquanto o dado não chega.
 
-Última atualização: 14/09/2026 · Refatoração completa (Fases 1 a 4).
+Última atualização: 15/09/2026 · Ajustes do comprador + refatoração mobile.
 
 ---
 
@@ -82,6 +82,33 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Onde entra:** seção de contato e rodapé.
 - **Situação:** está publicado `contato@midialed.com.br`. **Esse e-mail existe?**
   Se não existir, alguém pode escrever e nunca ser respondido — pior do que não ter e-mail.
+
+---
+
+## Pedidos do comprador que ficaram esperando arquivo
+
+### A. Vídeo para substituir a imagem do painel fixo
+- **Onde entra:** aba "Painel fixo", no lugar do render 3D da estrutura
+  (`assets/img/painel-led.png`).
+- **Situação:** **o arquivo não chegou.** A seção segue com o render.
+- **Quando chegar:** comprimo, gero poster e versão para celular, e troco a imagem
+  por vídeo com o mesmo tratamento dos outros (só carrega ao entrar na tela).
+- **Formato ideal:** horizontal, 10 a 20 segundos, mostrando o painel aceso na Dutra.
+
+### B. Novos clientes para o carrossel
+- **Situação:** **nomes e logos não chegaram.** O carrossel segue com os cinco atuais:
+  Blindados RJ, Álamo, Egide Saúde, Louvorzão 93 FM e Drogaria Mais Barato.
+- **Do que preciso:** a lista de nomes e, se possível, os arquivos das logos.
+  Sem o arquivo, entra o nome escrito em placa — e a logo substitui depois, sozinha.
+- **Observação:** as logos precisam de adaptação para fundo preto. As cinco atuais
+  passaram por isso (Blindados virou branca, Álamo teve o nome clareado, Egide teve
+  o verde clareado). Faço o mesmo com as novas.
+
+### C. Mais vídeos para o portal de entrada
+- **Situação:** **implementado e funcionando** com os dois vídeos que já existiam.
+  O portal agora toca um vídeo depois do outro, em rodízio.
+- **Para acrescentar:** me mande os arquivos. No código é uma linha por vídeo,
+  em `CONFIG.portal` no topo de `assets/js/main.js`.
 
 ---
 

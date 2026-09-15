@@ -24,12 +24,21 @@ curto para CSS e JS, para que as alterações de estilo apareçam na hora.
 
 ## Portal de entrada
 
-A primeira tela (`.gate`) é o vídeo da rua em loop, com a logo e o indicativo
-*"Role para baixo"*. O vídeo é vertical: **no desktop preenche a tela inteira**
-(`object-fit: cover`); **no celular** aparece no formato natural.
+A primeira tela (`.gate`) é um **rodízio de vídeos**: toca um, passa ao próximo com uma
+transição curta pelo preto, e recomeça. Com um vídeo só na lista, ele fica em loop.
 
-Nenhum vídeo tem `src` no HTML — quem decide qual arquivo baixar é o JS, pelo tamanho da
-tela e pela qualidade da conexão. Sem JS, fica o poster.
+Para acrescentar um vídeo, basta somar um item em `CONFIG.portal`:
+
+```js
+portal: [
+  { desktop: 'assets/video/cidade.mp4',   mobile: 'assets/video/cidade-mobile.mp4' },
+  { desktop: 'assets/video/operacao.mp4', mobile: 'assets/video/operacao-mobile.mp4' }
+],
+trechoMaximoS: 14   // tempo de cada vídeo antes de passar ao próximo
+```
+
+`mobile` é opcional. Só o vídeo em exibição é baixado: os outros entram quando chega a vez
+deles. Fora da tela, o portal pausa. Sem JS, fica o poster.
 
 Configuração em `assets/js/main.js` → `CONFIG`:
 
@@ -39,6 +48,8 @@ Configuração em `assets/js/main.js` → `CONFIG`:
 | `ga4Id` | Measurement ID do GA4 — vazio desliga a medição |
 | `metaPixelId` | ID do Meta Pixel — vazio desliga |
 | `endpointLeads` | URL que recebe os leads — vazio desliga a gravação |
+| `portal` | Lista de vídeos do portal, em rodízio |
+| `trechoMaximoS` | Segundos de cada vídeo antes de trocar (padrão 14) |
 
 ## Estrutura
 
@@ -175,6 +186,18 @@ Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
   atingidas com folga.
 - **Página com 17 telas em 360px.** Reduzi o espaçamento vertical, mas o comprimento vem
   da quantidade de conteúdo.
+
+## Menu do celular
+
+O painel lateral é `position: fixed`, então **nenhum ancestral dele pode ter `transform`,
+`filter` ou `backdrop-filter`** — essas propriedades criam bloco de contenção e o painel
+passa a se posicionar pela barra do topo em vez da janela (ele saía com 80px de altura).
+
+Por isso, no celular o cabeçalho usa fundo sólido em vez de `backdrop-filter`, e a
+animação de entrada usa `top` em vez de `transform`. Ao mexer no cabeçalho, mantenha isso.
+
+O cabeçalho também fica **sempre visível no celular** — antes ele só aparecia depois do
+portal, e a primeira tela ficava sem nenhuma navegação.
 
 ## Pendências antes de divulgar
 
