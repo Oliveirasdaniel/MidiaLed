@@ -68,17 +68,12 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Se não houver endereço comercial aberto ao público**, isso é normal para mídia
   exterior — nesse caso mantemos `areaServed` sem `address`, e sinalizamos isso.
 
-### 8. Horário de atendimento
-- **Onde aparece:** seção de contato ("Seg a Sex, 09h às 18h").
-- **Situação:** esse horário foi escrito por mim, não confirmado por você. Está publicado.
-  Por isso foi deixado **fora** do JSON-LD: declarar horário errado para o Google é pior
-  do que não declarar.
-- **Para resolver:** confirme o horário real e ele entra também nos dados estruturados.
-
-### 8b. E-mail de contato
-- **Onde entra:** seção de contato e rodapé.
-- **Situação:** está publicado `contato@midialed.com.br`. **Esse e-mail existe?**
-  Se não existir, alguém pode escrever e nunca ser respondido — pior do que não ter e-mail.
+### 8. E-mail e horário de atendimento — ✅ RESOLVIDO em 15/09
+- Os dois saíram do site, por decisão do cliente. O e-mail `contato@midialed.com.br`
+  nunca foi confirmado e o horário tinha sido escrito por mim.
+- No lugar entrou **"respondemos o mais rápido possível"**, no contato, no rodapé e
+  embaixo do botão de enviar do formulário.
+- Canal único agora: **WhatsApp** (e Instagram).
 
 ---
 

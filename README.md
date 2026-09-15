@@ -214,7 +214,6 @@ portal, e a primeira tela ficava sem nenhuma navegação.
 
 | Item | Situação |
 |---|---|
-| E-mail no rodapé e no contato | `contato@midialed.com.br` — **confirmar se existe** |
 | CNPJ no rodapé | ✅ 62.377.877/0001-53 |
 | Fontes dos dados de mercado | 82%, 4× e 66% são referências de setor atribuídas a Nielsen e Intel/Arbitron — **conferir antes de divulgar** |
 | Especificações do painel fixo | medidas, pixel pitch e horário de operação ainda genéricos |
