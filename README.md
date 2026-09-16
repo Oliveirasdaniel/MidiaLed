@@ -45,8 +45,12 @@ segundosPorVideo: 0   // 0 = vídeo inteiro; um número corta nesse tempo
 | `posicao` | Qual parte do quadro aparece no desktop. O vídeo é vertical e a tela é larga, então o corte importa: **valor menor sobe o enquadramento, maior desce** |
 
 Como escolher a `posicao`: extraia alguns quadros do vídeo e veja qual faixa fica visível.
-No desktop de 1440×900, um vídeo 9:16 mostra só ~35% da altura. Para o trio, 72% foi o
-valor de partida; 66% ficou como o ajuste final, com a tela de LED e o telefone visíveis.
+No desktop de 1440×900, um vídeo 9:16 mostra só ~35% da altura.
+
+**Ao trocar um vídeo, revise a `posicao`.** O valor depende do conteúdo, não do arquivo:
+quando o 0915 foi substituído, o enquadramento teve de sair de 66% para 57%, senão o topo
+do painel da campanha ficava cortado. Extraia alguns quadros e simule a faixa visível
+antes de decidir.
 
 Só o vídeo em exibição é baixado; os outros entram quando chega a vez deles. Fora da tela,
 o portal pausa. Sem JS, fica o poster.

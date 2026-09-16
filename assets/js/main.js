@@ -19,7 +19,7 @@
        o vídeo é vertical e a tela é larga, então o corte importa.
        Valor menor sobe o enquadramento, maior desce. */
     portal: [
-      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4',  posicao: 'center 66%' },
+      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4',  posicao: 'center 57%' },
       { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4', posicao: 'center 60%' },
       { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4',    posicao: 'center 52%' }
     ],
