@@ -59,7 +59,16 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- A fonte não pode segurar a primeira pintura: carrega em paralelo e
+     entra quando ficar pronta. Até lá o texto aparece na fonte do sistema. -->
+<link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+<noscript>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+</noscript>
 <link rel="preload" as="image" href="assets/img/gate-poster.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.className+=' js';</script>
@@ -81,7 +90,6 @@
          poster="assets/img/gate-poster.webp"
          muted playsinline preload="none"></video>
   <div class="gate__vignette"></div>
-  <div class="gate__scan"></div>
 
   <div class="gate__content">
     <img src="assets/img/logo-midialed.webp" alt="Mídia Led — publicidade em painéis de LED" class="gate__logo" width="560" height="221" fetchpriority="high">
@@ -252,7 +260,6 @@
                    poster="assets/img/dutra-poster.webp"
                    muted loop playsinline preload="none" data-inview
                    aria-label="Painel de LED da Mídia Led na Via Dutra, em Nova Iguaçu, visto de cima com o tráfego da rodovia"></video>
-            <span class="telaled__pixels" aria-hidden="true"></span>
             <span class="telaled__brilho" aria-hidden="true"></span>
           </div>
 
@@ -327,8 +334,7 @@
                      poster="assets/img/movel-poster.webp"
                      muted loop playsinline preload="none" data-inview
                      aria-label="Trio Mídia LedMob circulando com as quatro telas de LED acesas"></video>
-              <span class="telaled__pixels" aria-hidden="true"></span>
-              <span class="telaled__brilho" aria-hidden="true"></span>
+                <span class="telaled__brilho" aria-hidden="true"></span>
             </div>
 
             <figcaption class="telaled__legenda">
@@ -486,7 +492,6 @@
             poster="assets/img/operacao-poster.webp"
             muted loop playsinline preload="none" data-inview></video>
     <div class="secvideo__mask"></div>
-    <div class="secvideo__grid"></div>
   </div>
 
   <div class="container">
@@ -561,7 +566,6 @@
             poster="assets/img/criacao-poster.webp"
             muted loop playsinline preload="none" data-inview></video>
     <div class="secvideo__mask"></div>
-    <div class="secvideo__grid"></div>
   </div>
 
   <div class="container grid-2">

@@ -417,17 +417,45 @@
   if (ano) ano.textContent = new Date().getFullYear();
 
   /* =========================================================
-     9b. DOCK x FORMULÁRIO
-     No celular os botões flutuantes ficariam por cima do botão
-     de enviar. Quando a área de contato entra na tela, o dock sai.
+     9b. DOCK x BOTÕES
+     Os botões flutuantes ficam no canto inferior direito. No celular
+     os CTAs ocupam a largura toda, então volta e meia um deles passa
+     por baixo do dock e o toque erra o alvo. Aqui o dock sai de cena
+     exatamente quando encostaria em algum botão — e só então.
      ========================================================= */
   const dock = document.querySelector('.dock');
-  const areaContato = $('#contato');
-  if (dock && areaContato && 'IntersectionObserver' in window) {
-    const ioDock = new IntersectionObserver((entradas) => {
-      entradas.forEach(e => dock.classList.toggle('is-oculto', e.isIntersecting));
-    }, { threshold: 0.2 });
-    ioDock.observe(areaContato);
+  const botoesCTA = $$('.btn--primary, .btn--ghost');
+
+  if (dock && botoesCTA.length) {
+    let agendado = false;
+
+    function checarDock() {
+      agendado = false;
+      if (window.innerWidth > 820) {            // no desktop o dock fica ao lado, não embaixo
+        dock.classList.remove('is-oculto');
+        return;
+      }
+      const d = dock.getBoundingClientRect();
+      const folga = 10;
+      const colide = botoesCTA.some(b => {
+        const r = b.getBoundingClientRect();
+        if (r.width === 0) return false;
+        return r.bottom > d.top - folga && r.top < d.bottom + folga &&
+               r.right > d.left - folga && r.left < d.right + folga;
+      });
+      dock.classList.toggle('is-oculto', colide);
+    }
+
+    function aoMexer() {
+      if (agendado) return;
+      agendado = true;
+      requestAnimationFrame(checarDock);
+    }
+
+    window.addEventListener('scroll', aoMexer, { passive: true });
+    window.addEventListener('resize', aoMexer);
+    window.addEventListener('load', aoMexer);
+    checarDock();
   }
 
   /* =========================================================

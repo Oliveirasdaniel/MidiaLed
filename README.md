@@ -185,12 +185,12 @@ Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
 
 | Métrica | Antes | Depois |
 |---|---|---|
-| Performance | sem nota (LCP falhava) | **84** |
-| Peso total | 4.869 KB | **1.105 KB** |
-| Vídeo baixado | 3.912 KB | **672 KB** |
-| Imagens | 801 KB | **268 KB** |
-| LCP | erro `NO_LCP` | 3,2 s |
-| CLS | 0 | 0 |
+| Performance | sem nota (LCP falhava) | **99** |
+| LCP | erro `NO_LCP` | **1,8 s** |
+| FCP | 2,7 s | **1,1 s** |
+| Speed Index | 6,1 s | **2,3 s** |
+| TBT | 100 ms | **0 ms** |
+| CLS | 0 | **0** |
 | Alvos de toque < 44px | 18 | **0** |
 | Campos com fonte < 16px | 5 | **0** |
 | Conteúdo visível sem JS | nenhum | **tudo** |
@@ -208,14 +208,25 @@ Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
   `loading="lazy"` abaixo da dobra.
 - **Campos do formulário em 16px** — abaixo disso o Safari iOS dá zoom ao focar.
   Com `inputmode`, `autocomplete`, `autocapitalize` e rolagem automática ao focar.
+- **A fonte não segura a primeira pintura.** O Google Fonts entra por
+  `media="print" onload="this.media='all'"`, com `preload` e `<noscript>` de reserva.
+  Só essa mudança levou o LCP de 3,2 s para 1,8 s e a nota de 84 para 99 — o arquivo
+  de fonte bloqueava 1,2 s do caminho crítico. **Não volte a usar `<link rel="stylesheet">`
+  direto para a fonte.**
+- **O dock some quando encostaria num botão.** No celular os CTAs ocupam a largura toda e
+  o botão flutuante passava por cima: o toque errava o alvo. A colisão é verificada a cada
+  rolagem, e o dock volta assim que passa.
 
 ### Limitações assumidas
 
-- **LCP de 3,2 s** (meta: 2,5 s) e **primeira dobra acima de 1 MB**: consequência de
-  manter o portal em vídeo no celular, decisão do cliente. Sem ele, ambas as metas seriam
-  atingidas com folga.
+- **Primeira dobra acima de 1 MB**: o portal em vídeo no celular, decisão do cliente.
+  O LCP, que era a outra limitação, deixou de ser problema depois que a fonte parou de
+  bloquear a renderização.
 - **Página com 17 telas em 360px.** Reduzi o espaçamento vertical, mas o comprimento vem
   da quantidade de conteúdo.
+- **O botão flutuante passa por cima de textos** em alguns pontos da rolagem. Sobre
+  botões ele se esconde; sobre texto corrido, não — esconder a cada linha faria ele
+  piscar o tempo todo.
 
 ## Menu do celular
 
