@@ -251,36 +251,67 @@ p{margin:0 0 1rem}
   mask-image:radial-gradient(80% 70% at 30% 40%,#000,transparent 75%);
 }
 .hero__content{position:relative;z-index:2;max-width:880px}
-/* O H1 carrega os termos de busca numa linha pequena e a frase de
-   impacto em tamanho cheio — o peso visual não muda. */
+/* O H1 carrega os termos de busca numa etiqueta acesa e a frase de
+   impacto em tamanho de cartaz. */
 .hero__titulo{display:block;margin-bottom:1.5rem;font-weight:800}
+
+/* A linha de busca também é chamariz: contorno em LED, brilho e um
+   ponto que pulsa como painel ligado. */
 .hero__busca{
-  display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.18em;
-  text-transform:uppercase;line-height:1.4;
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.95rem;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;line-height:1.3;color:var(--branco);
+  padding:.72rem 1.4rem;border:2px solid transparent;border-radius:100px;
+  background:
+    linear-gradient(120deg,rgba(0,229,255,.18),rgba(255,47,208,.18)) padding-box,
+    linear-gradient(var(--preto),var(--preto)) padding-box,
+    var(--led-grad) border-box;
+  background-size:100% 100%,100% 100%,280% 100%;
+  background-position:0 0,0 0,var(--gx) 0;
+  box-shadow:0 0 44px rgba(255,47,208,.26),0 0 18px rgba(0,229,255,.22);
+  margin-bottom:1.8rem;
 }
-.hero__frase{
-  display:block;font-size:clamp(2.4rem,6.5vw,4.6rem);line-height:1.12;letter-spacing:-.02em;
-}
-.hero__frase em{font-style:normal;display:inline-block;color:var(--led-1)}
-/* as três objeções, uma por linha, com um pixel de LED apagado na frente */
-.hero__triade{display:grid;gap:.55rem;margin:0 0 1.6rem}
-.hero__triade li{
-  position:relative;padding-left:1.7rem;
-  font-size:clamp(1rem,1.9vw,1.25rem);font-weight:500;color:#cfcfcf;line-height:1.35;
-}
-.hero__triade li::before{
-  content:'';position:absolute;left:0;top:.55em;
-  width:9px;height:9px;border-radius:2px;background:#3a3a3a;
-}
-.hero__sub{
-  font-size:clamp(1.05rem,1.9vw,1.25rem);color:var(--branco);font-weight:500;
-  max-width:56ch;margin-bottom:2.4rem;padding-left:1.7rem;position:relative;
-}
-.hero__sub::before{
-  content:'';position:absolute;left:0;top:.55em;
-  width:9px;height:9px;border-radius:2px;
+.hero__busca::before{
+  content:'';flex:none;width:10px;height:10px;border-radius:2px;
   background:var(--led-grad);background-size:280% 100%;background-position:var(--gx) 0;
-  box-shadow:0 0 16px rgba(0,229,255,.7);
+  box-shadow:0 0 16px rgba(255,47,208,.85);
+  animation:pulsaPonto 2.2s ease-in-out infinite;
+}
+
+/* Frase de cartaz: os substantivos em caixa alta e peso máximo, os
+   elos ("é um dos", "de") finos e minúsculos para não roubar a linha. */
+.hero__frase{
+  display:block;font-size:clamp(2.6rem,6.8vw,4.9rem);
+  line-height:1.04;letter-spacing:-.03em;
+  text-transform:uppercase;font-weight:800;
+}
+.hero__frase strong{font-weight:800}
+.hero__leve{
+  text-transform:lowercase;font-weight:300;font-size:.56em;
+  letter-spacing:-.01em;color:#d8d8d8;
+}
+/* "marca." acende como um painel: bloco em gradiente e texto preto */
+.hero__marca{
+  display:inline-block;text-transform:lowercase;font-weight:800;color:var(--preto);
+  background:var(--led-grad);background-size:280% 100%;background-position:var(--gx) 0;
+  padding:.02em .3em .1em;border-radius:8px;
+  box-shadow:0 0 44px rgba(255,47,208,.32);
+}
+/* o bloco entra como peça única — a palavra dentro dele não anima só.
+   O atraso segue o passo das palavras: "marca." é a 9ª (índice 8). */
+.js .split .hero__marca .w{opacity:1;transform:none;transition:none}
+.js .split .hero__marca{
+  opacity:0;transform:translate3d(0,.7em,0) rotate(2deg);
+  transition:
+    opacity .8s cubic-bezier(.16,1,.3,1),
+    transform .9s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(8 * 42ms);
+}
+.js .split.is-on .hero__marca{opacity:1;transform:none}
+
+.hero__sub{
+  font-size:clamp(1.05rem,1.9vw,1.25rem);color:var(--cinza);font-weight:500;
+  max-width:52ch;margin-bottom:2.4rem;
 }
 .hero__actions{display:flex;gap:1rem;flex-wrap:wrap}
 .hero__partner{margin-top:2.6rem;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza-2)}
@@ -1009,7 +1040,6 @@ p{margin:0 0 1rem}
    apaga o texto no Safari do iPhone.
    ========================================================= */
 @supports ((-webkit-background-clip:text) or (background-clip:text)){
-  .hero__frase em,
   .fleet__head em,
   .bignum strong{
     background-image:var(--led-grad);
@@ -1239,15 +1269,14 @@ p{margin:0 0 1rem}
 
   /* título longo não pode quebrar feio em 360px */
   .section__title{font-size:clamp(1.65rem,6.2vw,2.1rem);line-height:1.18;text-wrap:balance}
-  .hero__frase{font-size:clamp(1.95rem,8vw,2.6rem);text-wrap:balance}
+  .hero__frase{font-size:clamp(1.9rem,8.4vw,2.7rem);line-height:1.02}
 
   /* hero mais compacto: o botão principal precisa aparecer sem rolar muito */
   .hero{padding-block:clamp(70px,12vh,96px) clamp(44px,7vw,64px)}
-  .hero__busca{font-size:.68rem;letter-spacing:.12em;padding:.4rem .8rem;margin-bottom:1rem}
+  .hero__busca{font-size:clamp(.68rem,2.6vw,.95rem);letter-spacing:.05em;gap:.42rem;padding:.58rem .82rem;margin-bottom:1.3rem}
+  .hero__busca::before{width:9px;height:9px}
   .hero__titulo{margin-bottom:1.1rem}
-  .hero__triade{gap:.35rem;margin-bottom:1.1rem}
-  .hero__triade li{font-size:.98rem;padding-left:1.5rem}
-  .hero__sub{font-size:1.02rem;margin-bottom:1.6rem;padding-left:1.5rem}
+  .hero__sub{font-size:1.02rem;margin-bottom:1.7rem}
   .hero__actions{gap:.7rem}
   .hero__actions .btn{width:100%}
 }
@@ -1256,5 +1285,6 @@ p{margin:0 0 1rem}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
   html{scroll-behavior:auto}
   .js .reveal{opacity:1;transform:none}
-  .js .split .w{opacity:1;transform:none}
+  .js .split .w,
+  .js .split .hero__marca{opacity:1;transform:none}
 }
