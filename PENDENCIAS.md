@@ -109,6 +109,14 @@ e o que o site está fazendo enquanto o dado não chega.
 
 ## Esperando material
 
+### 14. Original do vídeo "Conquiste mais oportunidades"
+- **Onde entra:** segundo vídeo do portal (`assets/video/conquiste.mp4`).
+- **Situação:** em 23/09 os outros vídeos foram refeitos a partir dos originais, em
+  qualidade bem maior. Este não pôde ser refeito porque o arquivo original não está em
+  `midias/videos/`: ele continua em 540px e aparece mais borrado que os outros.
+- **Para resolver:** mande o vídeo original (o arquivo que saiu da câmera ou da edição,
+  não o baixado do Instagram) e eu refaço igual aos outros.
+
 ### 9. Depoimentos de clientes
 - **Onde entra:** seção de clientes, abaixo do carrossel de logos.
 - **Formato:** até 2 em destaque, com nome da pessoa, empresa e foto.

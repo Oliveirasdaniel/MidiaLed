@@ -120,15 +120,14 @@ p{margin:0 0 1rem}
   object-fit:cover;object-position:center 57%;display:block;
 }
 .gate__video--blur{filter:blur(50px) saturate(1.25) brightness(.45);transform:scale(1.25)}
-.gate__video--main{z-index:1;opacity:.88;transition:opacity .42s ease}
+.gate__video--main{z-index:1;opacity:1;transition:opacity .42s ease}
 /* troca de vídeo: some pelo preto e volta */
 .gate__video.is-trocando{opacity:0}
 
+/* sem escurecer o vídeo: só a base funde no preto da seção seguinte */
 .gate__vignette{
   position:absolute;inset:0;z-index:2;
-  background:
-    radial-gradient(75% 65% at 50% 42%,transparent 25%,rgba(0,0,0,.72) 100%),
-    linear-gradient(180deg,rgba(0,0,0,.7) 0%,transparent 28%,transparent 52%,#000 100%);
+  background:linear-gradient(180deg,transparent 80%,#000 100%);
 }
 
 .gate__content{
@@ -142,7 +141,8 @@ p{margin:0 0 1rem}
 }
 .gate__tagline{
   margin:1.4rem 0 0;font-size:clamp(.8rem,1.6vw,.95rem);
-  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.78);
+  letter-spacing:.22em;text-transform:uppercase;color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.75),0 0 20px rgba(0,0,0,.6);   /* legível sobre céu claro */
 }
 @keyframes gateIn{from{transform:translateY(-1vh) scale(.97)}to{transform:translateY(-4vh) scale(1)}}
 @keyframes pulse{0%{transform:scale(.9);opacity:.9}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
@@ -154,7 +154,8 @@ p{margin:0 0 1rem}
   animation:fadeUp 1.4s .9s both;
 }
 .gate__scroll-txt{
-  font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7);
+  font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.9);
+  text-shadow:0 1px 3px rgba(0,0,0,.75);
 }
 .gate__scroll-mouse{
   width:24px;height:38px;border:1px solid var(--linha-forte);border-radius:100px;
@@ -189,7 +190,14 @@ p{margin:0 0 1rem}
 .header.is-stuck .logo img{height:34px}
 
 .nav{display:flex;align-items:center;gap:1.8rem}
-.nav a{font-size:.88rem;font-weight:500;color:var(--cinza);transition:var(--t);position:relative}
+.nav a{font-size:.88rem;font-weight:500;color:var(--cinza);transition:var(--t);position:relative;white-space:nowrap}
+/* entre o menu hambúrguer (820px) e ~960px os seis itens só cabem numa linha se apertarem um pouco */
+@media (min-width:821px) and (max-width:960px){
+  .header__inner{gap:1.2rem}
+  .nav{gap:1rem}
+  .nav a{font-size:.8rem}
+  .nav__cta{padding-inline:1rem}
+}
 .nav a:not(.btn):hover{color:var(--branco)}
 .nav a:not(.btn)::after{
   content:'';position:absolute;left:0;bottom:-6px;height:2px;width:0;
@@ -1141,7 +1149,7 @@ p{margin:0 0 1rem}
   .cards,.steps{grid-template-columns:1fr}
 
   /* portal: no celular o vídeo vertical ocupa a tela por inteiro */
-  .gate__video--main{object-position:center center;opacity:.95}   /* no celular o vídeo vertical cabe quase inteiro */
+  .gate__video--main{object-position:center center}   /* no celular o vídeo vertical cabe quase inteiro */
   .gate__bg{display:none}
   .gate__logo{width:min(320px,78vw)}
   .gate__tagline{margin-top:1rem}

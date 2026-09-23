@@ -171,15 +171,29 @@ duplica os conjuntos sozinho conforme a largura da tela.
 ```bash
 FF=$(python -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())")
 
-"$FF" -y -i entrada.mp4 -t 24 -vf "scale=720:-2" -c:v libx264 -crf 29 -preset slow \
-      -pix_fmt yuv420p -movflags +faststart -an assets/video/saida.mp4
+# celular: 720x1280, CRF 25, teto de 1,8 Mb/s
+"$FF" -y -i midias/videos/entrada.mp4 -vf "scale=720:1280:flags=lanczos" \
+      -c:v libx264 -profile:v high -preset slow -crf 25 -maxrate 1800k -bufsize 3600k \
+      -pix_fmt yuv420p -an -movflags +faststart assets/video/saida-mobile.mp4
 
 "$FF" -y -ss 3 -i assets/video/saida.mp4 -frames:v 1 -q:v 4 assets/img/poster.jpg
 ```
 
-Os vídeos saíram de 57 MB para 6,6 MB nesse processo, sem perda visível.
-As versões `-mobile.mp4` têm 432px de largura e 16s.
-Os originais completos continuam em `midias/videos/`.
+**Sempre comprima a partir do original em `midias/videos/`**, nunca de um arquivo já
+comprimido. Em 23/09 os vídeos estavam em CRF 29 e 360–540px e apareciam quadriculados
+no celular; foram refeitos assim:
+
+| Uso | Resolução | CRF | Teto |
+|---|---|---|---|
+| Celular (todos os `-mobile`) | 720×1280 | 25 | 1,8 Mb/s |
+| Portal no desktop (`trio-rua`) | 1080×1920 | 24 | 4 Mb/s |
+| Demais no desktop | 720×1280 (a resolução do original) | 22 | 2,5 Mb/s |
+| `criacao` (fundo deitado) | 1920×1080; no celular, faixa vertical do centro em 720×1280 | 25 | 3,5 / 1,8 Mb/s |
+
+De onde saiu cada um: `trio-rua` ← `0915.mp4` · `dutra` ← `Led Dutra - Marcha para Jesus` ·
+`cidade` ← `snapinsta-1789344864337` (0–24s; celular 0–16s) · `operacao` ←
+`snapinsta-1789349124415` (0–24s; celular 0–16s) · `criacao` ← `16788375_3840_2160_30fps`.
+O original do `conquiste` não está na pasta (ver PENDENCIAS.md).
 
 ## Desempenho em celular
 
