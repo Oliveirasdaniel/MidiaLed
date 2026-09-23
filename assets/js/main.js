@@ -537,6 +537,10 @@
       rastrear('clique_cta', { cta: rotulo });
     } else if (href.includes('instagram.com')) {
       rastrear('clique_instagram');
+    } else if (href.includes('facebook.com')) {
+      rastrear('clique_facebook');
+    } else if (href.includes('tiktok.com')) {
+      rastrear('clique_tiktok');
     } else if (href.startsWith('mailto:')) {
       rastrear('clique_email');
     }

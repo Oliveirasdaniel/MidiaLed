@@ -39,6 +39,7 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Eventos já programados:** `clique_cta` (com o rótulo de cada botão), `quiz_resposta`
   (cada resposta do quiz de contato), `envio_formulario`,
   `clique_whatsapp` (separando botão flutuante, rodapé e página), `clique_instagram`,
+  `clique_facebook`, `clique_tiktok`,
   `clique_email` e `rolagem` (25/50/75/100%).
 - **Para resolver:** crie a propriedade no Google Analytics (ID no formato `G-XXXXXXXXXX`)
   e o pixel no Meta Business (ID numérico).
@@ -64,7 +65,7 @@ e o que o site está fazendo enquanto o dado não chega.
 
 ### 13. Endereço da empresa
 - **Onde entra:** JSON-LD `LocalBusiness` no `<head>` e Google Business Profile.
-- **Situação:** o JSON-LD atual declara só telefone, cidade atendida e Instagram.
+- **Situação:** o JSON-LD atual declara só telefone, cidade atendida e as redes (Instagram, Facebook e TikTok).
   Sem endereço, o Google não mostra o cartão lateral de empresa na busca.
 - **Se não houver endereço comercial aberto ao público**, isso é normal para mídia
   exterior — nesse caso mantemos `areaServed` sem `address`, e sinalizamos isso.

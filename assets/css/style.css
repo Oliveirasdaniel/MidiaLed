@@ -927,6 +927,24 @@ p{margin:0 0 1rem}
 .footer__nav h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-2);margin-bottom:1.1rem}
 .footer__nav a{display:block;color:var(--cinza);font-size:.92rem;margin-bottom:.6rem;transition:var(--t)}
 .footer__nav a:hover{color:var(--branco);transform:translateX(4px)}
+/* redes: selo com um tom leve da cor de cada uma; no hover o selo enche */
+.footer__nav a.footer__rede{display:flex;align-items:center;gap:.75rem;color:var(--branco);font-weight:500}
+.footer__rede-ico{
+  width:34px;height:34px;flex:none;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--rede-cor);background:var(--rede-fundo);border:1px solid var(--rede-borda);
+  transition:background .3s ease,border-color .3s ease,color .3s ease,transform .3s ease;
+}
+.footer__rede-ico svg{width:17px;height:17px}
+.footer__rede--wpp{--rede-cor:#25D366;--rede-fundo:rgba(37,211,102,.12);--rede-borda:rgba(37,211,102,.38)}
+.footer__rede--ig {--rede-cor:#ff5a92;--rede-fundo:rgba(225,48,108,.13);--rede-borda:rgba(225,48,108,.42)}
+.footer__rede--fb {--rede-cor:#4b93ff;--rede-fundo:rgba(24,119,242,.14);--rede-borda:rgba(24,119,242,.45)}
+.footer__rede--tt {--rede-cor:#ffffff;--rede-fundo:rgba(37,244,238,.08);--rede-borda:rgba(254,44,85,.42)}
+.footer__rede--tt .footer__rede-ico svg{filter:drop-shadow(1px 1px 0 #fe2c55) drop-shadow(-1px -1px 0 #25f4ee)}
+
+.footer__rede:hover .footer__rede-ico{background:var(--rede-cor);border-color:var(--rede-cor);color:#fff;transform:scale(1.06)}
+.footer__rede--ig:hover .footer__rede-ico{background:linear-gradient(45deg,#f9ce34,#ee2a7b 50%,#6228d7);border-color:transparent}
+.footer__rede--tt:hover .footer__rede-ico{color:#000}
 .footer__partner{color:var(--cinza);font-size:.92rem;margin:0}
 .footer__partner strong{color:var(--branco)}
 .footer__bottom{
@@ -935,7 +953,7 @@ p{margin:0 0 1rem}
 }
 
 /* =========================================================
-   PAINEL LATERAL — WhatsApp + Instagram
+   BOTÃO FLUTUANTE — WhatsApp, sempre verde
    ========================================================= */
 .dock{
   position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:850;
@@ -963,24 +981,18 @@ p{margin:0 0 1rem}
 .dock__btn:hover{width:168px}
 .dock__btn:hover .dock__label{opacity:1;transform:none}
 
-.dock__btn--wpp:hover{
-  background:#25D366;border-color:#25D366;color:#04220f;
-  box-shadow:0 12px 36px rgba(37,211,102,.4);
+.dock__btn--wpp{
+  background:#25D366;border-color:#25D366;color:#fff;
+  box-shadow:0 10px 30px rgba(37,211,102,.45);
 }
-.dock__btn--wpp:hover .dock__icon{color:#04220f}
-.dock__btn--ig:hover{
-  background:linear-gradient(45deg,#f9ce34,#ee2a7b 50%,#6228d7);
-  border-color:transparent;color:#fff;
-  box-shadow:0 12px 36px rgba(238,42,123,.4);
-}
+.dock__btn--wpp:hover{background:#1ebe5b;border-color:#1ebe5b;box-shadow:0 12px 36px rgba(37,211,102,.6)}
 
 /* pulso sutil para chamar atenção */
 .dock__btn::after{
   content:'';position:absolute;inset:0;border-radius:100px;
-  border:1px solid rgba(255,255,255,.35);
-  animation:dockPulse 3.2s ease-out infinite;pointer-events:none;
+  border:2px solid rgba(37,211,102,.75);
+  animation:dockPulse 2.6s ease-out infinite;pointer-events:none;
 }
-.dock__btn--ig::after{animation-delay:1.6s}
 .dock__btn:hover::after{animation:none;opacity:0}
 @keyframes dockPulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.22);opacity:0}100%{opacity:0}}
 

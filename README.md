@@ -109,7 +109,8 @@ MídiaLed/
 11. **FAQ**
 12. **Letreiro de LED (2ª passagem)**
 13. **CTA + Contato** (quiz de 4 perguntas → WhatsApp) + **Rodapé**
-14. **Painel lateral fixo** — WhatsApp e Instagram
+14. **Botão flutuante do WhatsApp** — sempre verde. As redes (Instagram, Facebook e
+    TikTok) ficam no rodapé, em "Contato e redes"
 
 ## Camada de movimento (`assets/js/motion.js`)
 
