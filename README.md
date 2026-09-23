@@ -185,12 +185,20 @@ no celular; foram refeitos assim:
 
 | Uso | Resolução | CRF | Teto |
 |---|---|---|---|
-| Celular (todos os `-mobile`) | 720×1280 | 25 | 1,8 Mb/s |
-| Portal no desktop (`trio-rua`) | 1080×1920 | 24 | 4 Mb/s |
+| Celular (todos os `-mobile`, menos o principal) | 720×1280 | 25 | 1,8 Mb/s |
+| Vídeo principal, desktop (`trio-rua`) | 1440×2560 | 24 | 6 Mb/s |
+| Vídeo principal, celular (`trio-rua-mobile`) | 1080×1920 | 25 | 3 Mb/s |
+| Vídeo principal, conexão lenta (`trio-rua-leve`) | 720×1280 | 25 | 1,8 Mb/s |
 | Demais no desktop | 720×1280 (a resolução do original) | 22 | 2,5 Mb/s |
 | `criacao` (fundo deitado) | 1920×1080; no celular, faixa vertical do centro em 720×1280 | 25 | 3,5 / 1,8 Mb/s |
 
-De onde saiu cada um: `trio-rua` ← `0915.mp4` · `dutra` ← `Led Dutra - Marcha para Jesus` ·
+O vídeo principal sai do 4K em `midias/video-principal/0916 (1).mp4` (mesma edição do
+`0915`, exportada em 2160×3840). O arquivo vem a 60 fps, mas só ~24 quadros por segundo
+mudam de verdade: o site usa 30 fps. A versão `leve` vai para celular em 3G ou em 4G
+abaixo de ~5 Mb/s (`CONFIG.portal[].leve`); o iPhone não informa a conexão e recebe a normal.
+O poster (`gate-poster.webp`) é o quadro de 8s.
+
+De onde saiu cada um: `trio-rua` ← `midias/video-principal/0916 (1).mp4` · `dutra` ← `Led Dutra - Marcha para Jesus` ·
 `cidade` ← `snapinsta-1789344864337` (0–24s; celular 0–16s) · `operacao` ←
 `snapinsta-1789349124415` (0–24s; celular 0–16s) · `criacao` ← `16788375_3840_2160_30fps`.
 O original do `conquiste` não está na pasta (ver PENDENCIAS.md).

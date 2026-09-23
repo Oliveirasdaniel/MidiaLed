@@ -15,11 +15,13 @@
     /* VÍDEOS DO PORTAL
        Cada vídeo toca INTEIRO e só então passa ao próximo, em rodízio.
        `mobile` é opcional: sem ele, o celular usa o arquivo principal.
+       `leve` é opcional: versão menor para celular em conexão lenta
+       (3G, ou 4G medido abaixo de ~5 Mb/s).
        `posicao` decide qual parte do quadro fica visível no desktop —
        o vídeo é vertical e a tela é larga, então o corte importa.
        Valor menor sobe o enquadramento, maior desce. */
     portal: [
-      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4',  posicao: 'center 57%' },
+      { desktop: 'assets/video/trio-rua.mp4',  mobile: 'assets/video/trio-rua-mobile.mp4',  leve: 'assets/video/trio-rua-leve.mp4', posicao: 'center 57%' },
       { desktop: 'assets/video/conquiste.mp4', mobile: 'assets/video/conquiste-mobile.mp4', posicao: 'center 60%' },
       { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4',    posicao: 'center 52%' }
     ],
@@ -589,6 +591,10 @@
   const economizando = !!(con && (con.saveData ||
                     ['slow-2g', '2g'].includes(con.effectiveType)));
   const telaPequena = window.matchMedia('(max-width: 820px)').matches;
+  /* conexão que não sustenta o vídeo em alta: 3G, ou estimativa abaixo de 5 Mb/s.
+     O Safari (iPhone) não informa a conexão e fica com a versão normal. */
+  const conexaoLenta = !!(con && (con.effectiveType === '3g' ||
+                    (typeof con.downlink === 'number' && con.downlink > 0 && con.downlink < 5)));
 
   function prepararVideo(v) {
     if (v.src) return true;                       // já preparado
@@ -620,7 +626,8 @@
     let atual = 0, trocando = false, relogio = null;
 
     function fonteDe(item) {
-      return (telaPequena && item.mobile) || item.desktop;
+      if (telaPequena) return (conexaoLenta && item.leve) || item.mobile || item.desktop;
+      return (conexaoLenta && item.mobile) || item.desktop;
     }
 
     function carregar(indice, comTransicao) {
