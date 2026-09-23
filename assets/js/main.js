@@ -273,6 +273,122 @@
   }
 
   /* =========================================================
+     6b. QUIZ DE CONTATO
+     Uma pergunta por vez. Escolher uma opção já responde e
+     avança — o visitante nunca encara o formulário inteiro.
+     Os CTAs de painel fixo e LedMob entram com a primeira
+     pergunta já respondida (`data-quiz` no botão).
+     ========================================================= */
+  const quiz = (function () {
+    const caixa  = $('#form');
+    if (!caixa) return null;
+
+    const telas = $$('.quiz__tela', caixa);
+    if (telas.length < 2) return null;
+
+    const preenche = $('#quizPreenche');
+    const conta    = $('#quizConta');
+    const btVoltar = $('#quizVoltar');
+    const resumo   = $('#quizResumo');
+    const total    = telas.length;
+    const ultima   = total - 1;              // a última tela são os dados, não uma pergunta
+    let atual = 0, iniciado = false;
+
+    /* nome do campo de cada tela de pergunta, na ordem */
+    const campos = telas.slice(0, ultima).map(t => {
+      const r = t.querySelector('input[type="radio"]');
+      return r ? r.name : null;
+    });
+
+    const resposta = (nome) => {
+      const m = caixa.querySelector(`input[name="${nome}"]:checked`);
+      return m ? m.value : '';
+    };
+
+    /* todas as respostas, na ordem das perguntas */
+    function respostas() {
+      const r = {};
+      campos.forEach(nome => { if (nome) r[nome] = resposta(nome); });
+      return r;
+    }
+
+    /* índice da primeira pergunta ainda sem resposta (-1 se todas ok) */
+    function pendente() {
+      for (let i = 0; i < campos.length; i++) {
+        if (campos[i] && !resposta(campos[i])) return i;
+      }
+      return -1;
+    }
+
+    function montarResumo() {
+      if (!resumo) return;
+      resumo.textContent = '';
+      campos.forEach((nome, i) => {
+        const valor = nome && resposta(nome);
+        if (!valor) return;
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'quiz__chip';
+        chip.textContent = valor;
+        chip.title = 'Trocar esta resposta';
+        chip.addEventListener('click', () => irPara(i, true));
+        resumo.appendChild(chip);
+      });
+    }
+
+    function irPara(indice, voltando = false) {
+      const i = Math.max(0, Math.min(ultima, indice));
+      if (iniciado && i === atual) return;
+      iniciado = true;
+
+      telas.forEach((t, n) => {
+        t.classList.toggle('is-ativa', n === i);
+        t.classList.toggle('volta', n === i && voltando);
+      });
+      atual = i;
+
+      if (preenche) preenche.style.width = ((i + 1) / total * 100).toFixed(1) + '%';
+      if (conta)    conta.textContent = i === ultima ? 'Confira e envie' : `Pergunta ${i + 1} de ${ultima}`;
+      if (btVoltar) btVoltar.hidden = i === 0;
+      if (i === ultima) montarResumo();
+
+      /* o leitor de tela precisa ouvir a pergunta nova */
+      telas[i].setAttribute('tabindex', '-1');
+      try { telas[i].focus({ preventScroll: true }); } catch (e) { telas[i].focus(); }
+
+      /* se o topo do quiz ficou acima da tela, traz de volta */
+      const r = caixa.getBoundingClientRect();
+      if (r.top < 0) caixa.scrollIntoView({ behavior: menosMovimento ? 'auto' : 'smooth', block: 'start' });
+    }
+
+    /* ---------- responder avança sozinho ---------- */
+    $$('.quizop input[type="radio"]', caixa).forEach(op => {
+      op.addEventListener('change', () => {
+        if (!op.checked) return;
+        rastrear('quiz_resposta', { pergunta: op.name, resposta: op.value });
+        /* se ja respondeu tudo, veio corrigir algo: volta direto para os dados */
+        const proxima = pendente() < 0 ? ultima : atual + 1;
+        setTimeout(() => irPara(proxima), menosMovimento ? 0 : 300);
+      });
+    });
+
+    btVoltar?.addEventListener('click', () => irPara(atual - 1, true));
+
+    /* ---------- atalho: o CTA já responde a primeira pergunta ---------- */
+    $$('[data-quiz]').forEach(bt => {
+      bt.addEventListener('click', () => {
+        const alvo = caixa.querySelector(`input[data-atalho="${bt.dataset.quiz}"]`);
+        if (!alvo) return;
+        alvo.checked = true;
+        irPara(1);
+      });
+    });
+
+    irPara(0);
+    return { irPara, respostas, pendente };
+  })();
+
+  /* =========================================================
      7. FORMULÁRIO → GRAVA O LEAD → WHATSAPP
 
      O lead é gravado ANTES do redirecionamento, mas a gravação
@@ -302,48 +418,28 @@
   }
 
   const form = $('#form');
-  const erroForm = $('#formErro');
-
-  function mostrarErro(msg, campo) {
-    if (erroForm) {
-      erroForm.textContent = msg;
-      erroForm.hidden = false;
-    }
-    campo?.focus();
-  }
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (erroForm) erroForm.hidden = true;
+
+    /* alguma pergunta ficou em branco: volta para ela em vez de enviar pela metade */
+    const faltando = quiz ? quiz.pendente() : -1;
+    if (faltando >= 0) return quiz.irPara(faltando, true);
 
     const d = new FormData(form);
-    const nome = (d.get('nome') || '').toString().trim();
-    const telefone = (d.get('telefone') || '').toString().trim();
-    const digitos = telefone.replace(/\D/g, '');
-
-    /* validação antes de sair da página */
-    if (nome.length < 2) {
-      return mostrarErro('Escreva seu nome para a gente saber como te chamar.', $('#nome'));
-    }
-    if (digitos.length < 10 || digitos.length > 11) {
-      return mostrarErro('Confira o WhatsApp: precisa de DDD + número, como (21) 96617-1604.', $('#telefone'));
-    }
-
     const lead = {
-      nome,
-      empresa: (d.get('empresa') || '').toString().trim(),
-      telefone,
       interesse: (d.get('interesse') || '').toString(),
-      mensagem: (d.get('mensagem') || '').toString().trim()
+      objetivo:  (d.get('objetivo')  || '').toString(),
+      prazo:     (d.get('prazo')     || '').toString(),
+      criacao:   (d.get('criacao')   || '').toString()
     };
 
     const texto =
-      `*Novo contato pelo site — Mídia Led*\n\n` +
-      `*Nome:* ${lead.nome}\n` +
-      `*Empresa:* ${lead.empresa || '-'}\n` +
-      `*WhatsApp:* ${lead.telefone}\n` +
-      `*Interesse:* ${lead.interesse || '-'}\n` +
-      `*Mensagem:* ${lead.mensagem || '-'}`;
+      `*Quero anunciar com a Mídia Led*\n\n` +
+      `*Quero:* ${lead.interesse || '-'}\n` +
+      `*Objetivo:* ${lead.objetivo || '-'}\n` +
+      `*Prazo:* ${lead.prazo || '-'}\n` +
+      `*Arte da campanha:* ${lead.criacao || '-'}`;
 
     /* estado de carregando: em 4G instável o visitante toca duas vezes
        achando que falhou, e acaba abrindo duas conversas */
@@ -372,25 +468,6 @@
         }, 4000);
       }
     }, 260);
-  });
-
-  /* o campo em foco não pode ficar atrás do teclado do celular */
-  if (window.matchMedia('(max-width: 820px)').matches) {
-    $$('#form input, #form select, #form textarea').forEach(campo => {
-      campo.addEventListener('focus', () => {
-        setTimeout(() => campo.scrollIntoView({ behavior: 'smooth', block: 'center' }), 320);
-      });
-    });
-  }
-
-  /* Máscara simples de telefone */
-  const tel = $('#telefone');
-  tel?.addEventListener('input', () => {
-    let v = tel.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 6) v = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
-    else if (v.length > 2) v = `(${v.slice(0, 2)}) ${v.slice(2)}`;
-    else if (v.length > 0) v = `(${v}`;
-    tel.value = v;
   });
 
   /* =========================================================
@@ -440,102 +517,6 @@
     window.addEventListener('load', aoMexer);
     checarDock();
   }
-
-  /* =========================================================
-     9b2. ABAS — painel fixo x LED móvel
-     Clique ou setas do teclado trocam o ativo em exibição.
-     ========================================================= */
-  (function () {
-    const abas = $$('.aba');
-    if (!abas.length) return;
-
-    let atual = 0;
-
-    function trocar(indice, focar = true) {
-      if (indice === atual) return;
-      const voltando = indice < atual;      // a aba anterior entra deslizando da esquerda
-      atual = indice;
-
-      abas.forEach((aba, i) => {
-        const painel = document.getElementById(aba.getAttribute('aria-controls'));
-        const ativa = i === indice;
-
-        aba.classList.toggle('is-ativa', ativa);
-        aba.setAttribute('aria-selected', String(ativa));
-        aba.tabIndex = ativa ? 0 : -1;
-
-        if (!painel) return;
-        painel.hidden = !ativa;
-        painel.classList.toggle('vem-da-esquerda', ativa && voltando);
-        painel.classList.toggle('is-ativo', ativa);
-      });
-
-      if (focar) abas[indice].focus();
-      rastrear('troca_aba', { ativo: abas[indice].textContent.trim() });
-    }
-
-    abas.forEach((aba, i) => {
-      aba.addEventListener('click', () => trocar(i, false));
-      aba.addEventListener('keydown', (e) => {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        e.preventDefault();
-        const passo = e.key === 'ArrowRight' ? 1 : -1;
-        trocar((i + passo + abas.length) % abas.length);
-      });
-    });
-
-    /* ---------- chamar atenção para a aba fechada ----------
-       Um empurrão a cada 7s, no máximo 3 vezes, e só enquanto a
-       seção estiver na tela. Para de vez no primeiro toque. */
-    const linha = $('#abasLinha');
-    const secao = $('#painel');
-    let usada = false, visivel = false, empurroes = 0;
-
-    function marcarUsada() {
-      if (usada) return;
-      usada = true;
-      linha?.classList.add('is-usada');
-    }
-    abas.forEach(a => a.addEventListener('click', marcarUsada, { once: true }));
-
-    if (secao && 'IntersectionObserver' in window) {
-      new IntersectionObserver((e) => { visivel = e[0].isIntersecting; }, { threshold: 0.3 })
-        .observe(secao);
-    }
-
-    if (!menosMovimento) {
-      const relogio = setInterval(() => {
-        if (usada || empurroes >= 3) return clearInterval(relogio);
-        if (!visivel) return;
-
-        const fechada = abas.find(a => !a.classList.contains('is-ativa'));
-        if (!fechada) return;
-        fechada.classList.add('chama');
-        setTimeout(() => fechada.classList.remove('chama'), 1200);
-        empurroes++;
-      }, 7000);
-    }
-
-    /* ---------- arrastar para o lado no celular ---------- */
-    let toqueX = 0, toqueY = 0;
-    secao?.addEventListener('touchstart', (e) => {
-      toqueX = e.changedTouches[0].clientX;
-      toqueY = e.changedTouches[0].clientY;
-    }, { passive: true });
-
-    secao?.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - toqueX;
-      const dy = e.changedTouches[0].clientY - toqueY;
-      if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.6) return;  // rolagem vertical
-
-      const atualIdx = abas.findIndex(a => a.classList.contains('is-ativa'));
-      const destino = dx < 0 ? atualIdx + 1 : atualIdx - 1;
-      if (destino < 0 || destino >= abas.length) return;
-
-      marcarUsada();
-      trocar(destino, false);
-    }, { passive: true });
-  })();
 
   /* =========================================================
      9c. EVENTOS DE CLIQUE

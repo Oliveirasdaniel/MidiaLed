@@ -36,7 +36,8 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Situação:** **estrutura pronta e desligada.** Os eventos já estão todos programados;
   basta colar os IDs e tudo passa a medir sozinho. Sem ID, nenhum script de terceiro é
   baixado — o site não fica mais lento por causa disso.
-- **Eventos já programados:** `clique_cta` (com o rótulo de cada botão), `envio_formulario`,
+- **Eventos já programados:** `clique_cta` (com o rótulo de cada botão), `quiz_resposta`
+  (cada resposta do quiz de contato), `envio_formulario`,
   `clique_whatsapp` (separando botão flutuante, rodapé e página), `clique_instagram`,
   `clique_email` e `rolagem` (25/50/75/100%).
 - **Para resolver:** crie a propriedade no Google Analytics (ID no formato `G-XXXXXXXXXX`)

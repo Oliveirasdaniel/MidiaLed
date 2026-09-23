@@ -59,7 +59,7 @@ Configuração em `assets/js/main.js` → `CONFIG`:
 
 | Opção | Efeito |
 |---|---|
-| `whatsapp` | Número usado no formulário e nos links (`5521966171604`) |
+| `whatsapp` | Número usado no quiz de contato e nos links (`5521966171604`) |
 | `ga4Id` | Measurement ID do GA4 — vazio desliga a medição |
 | `metaPixelId` | ID do Meta Pixel — vazio desliga |
 | `endpointLeads` | URL que recebe os leads — vazio desliga a gravação |
@@ -75,7 +75,7 @@ MídiaLed/
 ├── vercel.json                 Cache do deploy
 ├── assets/                     Tudo que o site usa (7,5 MB)
 │   ├── css/style.css
-│   ├── js/main.js              Abertura, menu, formulário, contadores, vídeos
+│   ├── js/main.js              Abertura, menu, quiz de contato, contadores, vídeos
 │   ├── js/motion.js            Movimento: texto, paralaxe, letreiro, carrossel
 │   ├── img/
 │   │   ├── logo-midialed.png   Logo branca transparente
@@ -100,15 +100,15 @@ MídiaLed/
 3. **Letreiro de LED** — matriz de pixels com as mensagens-chave
 4. **Números** — 4 telas · 250 mil veículos/dia · 2 faces
 5. **Trio Mídia LedMob** — a operação, com a foto real na rua
-6. **Ativos em abas** — Painel fixo (Led Dutra, filmagem aérea) × LED móvel
-   (trio em circulação). Os dois em moldura que imita o painel de LED.
+6. **Painel fixo** — Led Dutra, filmagem aérea, em moldura que imita o painel de LED.
+   O LED móvel não se repete aqui: o Trio já tem a seção 5.
 7. **Clientes** — carrossel de logos
 8. **A estratégia começa aqui** — institucional + 4 passos, com vídeo de fundo
 9. **Prova da veiculação** — pronta e comentada, esperando a imagem do relatório
 10. **Criação do conteúdo** — vídeo à esquerda, membrana fosca à direita
 11. **FAQ**
 12. **Letreiro de LED (2ª passagem)**
-13. **CTA + Contato** (formulário → WhatsApp) + **Rodapé**
+13. **CTA + Contato** (quiz de 4 perguntas → WhatsApp) + **Rodapé**
 14. **Painel lateral fixo** — WhatsApp e Instagram
 
 ## Camada de movimento (`assets/js/motion.js`)
@@ -210,8 +210,9 @@ Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
   fica só o poster.
 - **Imagens em WebP** com `<picture>` e fallback, `width`/`height` declarados e
   `loading="lazy"` abaixo da dobra.
-- **Campos do formulário em 16px** — abaixo disso o Safari iOS dá zoom ao focar.
-  Com `inputmode`, `autocomplete`, `autocapitalize` e rolagem automática ao focar.
+- **Contato sem digitação.** O quiz faz uma pergunta por tela e avança ao tocar na
+  opção; alvos de toque com 48px. Não pede nome nem telefone: os dois chegam pelo
+  próprio WhatsApp. Os botões do painel fixo e do LedMob já respondem a 1ª pergunta.
 - **A fonte não segura a primeira pintura.** O Google Fonts entra por
   `media="print" onload="this.media='all'"`, com `preload` e `<noscript>` de reserva.
   Só essa mudança levou o LCP de 3,2 s para 1,8 s e a nota de 84 para 99 — o arquivo
