@@ -253,7 +253,7 @@ p{margin:0 0 1rem}
 .hero__content{position:relative;z-index:2;max-width:880px}
 /* O H1 carrega os termos de busca numa etiqueta acesa e a frase de
    impacto em tamanho de cartaz. */
-.hero__titulo{display:block;margin-bottom:1.5rem;font-weight:800}
+.hero__titulo{display:block;margin-bottom:2.6rem;font-weight:800}
 
 /* A linha de busca também é chamariz: contorno em LED, brilho e um
    ponto que pulsa como painel ligado. */
@@ -308,11 +308,6 @@ p{margin:0 0 1rem}
   transition-delay:calc(8 * 42ms);
 }
 .js .split.is-on .hero__marca{opacity:1;transform:none}
-
-.hero__sub{
-  font-size:clamp(1.05rem,1.9vw,1.25rem);color:var(--cinza);font-weight:500;
-  max-width:52ch;margin-bottom:2.4rem;
-}
 .hero__actions{display:flex;gap:1rem;flex-wrap:wrap}
 .hero__partner{margin-top:2.6rem;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza-2)}
 .hero__partner strong{color:var(--branco);font-weight:600}
@@ -380,17 +375,6 @@ p{margin:0 0 1rem}
 }
 
 @keyframes ledRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* =========================================================
-   NÚMEROS
-   ========================================================= */
-.stats{border-bottom:1px solid var(--linha);background:var(--preto-2)}
-.stats__grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.stats__grid--3{grid-template-columns:repeat(3,1fr)}
-.stat{padding:3rem 1.5rem;text-align:center;border-left:1px solid var(--linha)}
-.stat:first-child{border-left:0}
-.stat strong{display:block;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em}
-.stat span{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza-2)}
 
 /* =========================================================
    VITRINE DO VEÍCULO — Trio Mídia LedMob
@@ -882,21 +866,6 @@ p{margin:0 0 1rem}
 .worklist span{color:var(--cinza);font-size:.9rem;line-height:1.55}
 
 /* =========================================================
-   FAQ
-   ========================================================= */
-.faq{display:grid;gap:.8rem}
-.faq__item{border:1px solid var(--linha);border-radius:var(--raio);background:var(--preto);overflow:hidden}
-.faq__item summary{
-  padding:1.3rem 1.6rem;cursor:pointer;font-weight:600;font-size:1rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;
-}
-.faq__item summary::-webkit-details-marker{display:none}
-.faq__item summary::after{content:'+';font-size:1.5rem;font-weight:300;transition:var(--t);color:var(--cinza)}
-.faq__item[open] summary::after{transform:rotate(45deg);color:var(--branco)}
-.faq__item[open]{border-color:var(--linha-forte)}
-.faq__item p{padding:0 1.6rem 1.4rem;margin:0;color:var(--cinza);font-size:.95rem}
-
-/* =========================================================
    CTA
    ========================================================= */
 .cta{
@@ -1098,11 +1067,6 @@ p{margin:0 0 1rem}
 @media (max-width:1024px){
   .cards{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr)}
-  .stats__grid{grid-template-columns:repeat(2,1fr)}
-  .stats__grid--3{grid-template-columns:repeat(3,1fr)}
-  .stat:nth-child(3){border-left:0}
-  .stat:nth-child(n+3){border-top:1px solid var(--linha)}
-  .stats__grid--3 .stat:nth-child(3){border-left:1px solid var(--linha);border-top:0}
   .footer__inner{grid-template-columns:1fr 1fr}
   .rig{grid-template-columns:1fr;gap:2rem}
   .rig__extra,.depoimentos{grid-template-columns:1fr}
@@ -1201,9 +1165,6 @@ p{margin:0 0 1rem}
 
 @media (max-width:560px){
   .container{padding-inline:18px}
-  .stats__grid,.stats__grid--3{grid-template-columns:1fr}
-  .stat{border-left:0!important;border-top:1px solid var(--linha)!important;padding:2.2rem 1rem}
-  .stat:first-child{border-top:0}
   .footer__inner{grid-template-columns:1fr}
   .form{padding:1.5rem}
   .ledstrip{padding:.8rem 0}
@@ -1242,7 +1203,6 @@ p{margin:0 0 1rem}
   .nav a{font-size:1.05rem;padding-block:.75rem;min-height:44px;display:flex;align-items:center}
   .footer__nav a{padding-block:.6rem;min-height:44px;display:flex;align-items:center}
   .contact-list a{min-height:44px;display:inline-flex;align-items:center}
-  .faq__item summary{padding-block:1.1rem;min-height:56px}
   .link-arrow{padding-block:.6rem;min-height:44px}
   .aba{min-height:48px}
   /* botão do menu: área de toque de 44px, traços do mesmo tamanho */
@@ -1259,7 +1219,7 @@ p{margin:0 0 1rem}
   .lead{font-size:1.02rem}
   .section p,.worklist span,.step p,.card p{font-size:1rem}
   .note{font-size:.88rem}
-  .stat span,.fleet__specs span{font-size:.8rem}
+  .fleet__specs span{font-size:.8rem}
 
   /* respiro de desktop vira vazio no celular */
   .section{padding-block:clamp(52px,9vw,72px)}
@@ -1275,8 +1235,7 @@ p{margin:0 0 1rem}
   .hero{padding-block:clamp(70px,12vh,96px) clamp(44px,7vw,64px)}
   .hero__busca{font-size:clamp(.68rem,2.6vw,.95rem);letter-spacing:.05em;gap:.42rem;padding:.58rem .82rem;margin-bottom:1.3rem}
   .hero__busca::before{width:9px;height:9px}
-  .hero__titulo{margin-bottom:1.1rem}
-  .hero__sub{font-size:1.02rem;margin-bottom:1.7rem}
+  .hero__titulo{margin-bottom:1.9rem}
   .hero__actions{gap:.7rem}
   .hero__actions .btn{width:100%}
 }

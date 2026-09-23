@@ -394,24 +394,7 @@
   });
 
   /* =========================================================
-     8. FAQ — abre um por vez
-     ========================================================= */
-  const faqs = $$('.faq__item');
-
-  function sincronizarFaq(item) {
-    item.querySelector('summary')?.setAttribute('aria-expanded', String(item.open));
-  }
-
-  faqs.forEach(item => {
-    sincronizarFaq(item);
-    item.addEventListener('toggle', () => {
-      if (item.open) faqs.forEach(o => { if (o !== item) o.open = false; });
-      faqs.forEach(sincronizarFaq);
-    });
-  });
-
-  /* =========================================================
-     9. ANO NO RODAPÉ (o HTML já traz um valor; aqui só atualiza)
+     8. ANO NO RODAPÉ (o HTML já traz um valor; aqui só atualiza)
      ========================================================= */
   const ano = $('#ano');
   if (ano) ano.textContent = new Date().getFullYear();
@@ -610,7 +593,7 @@
   })();
 
   /* =========================================================
-     10. VÍDEOS DE FUNDO
+     9. VÍDEOS DE FUNDO
      Só rodam enquanto estão na tela — economiza bateria e CPU.
      ========================================================= */
   /* ---------- qual arquivo de vídeo carregar ----------
@@ -758,7 +741,7 @@
   }
 
   /* =========================================================
-     11. PAUSA O LETREIRO DE LED FORA DA TELA (economia de CPU)
+     10. PAUSA O LETREIRO DE LED FORA DA TELA (economia de CPU)
      ========================================================= */
   const letreiros = $$('.ledstrip');
   if (letreiros.length && 'IntersectionObserver' in window) {

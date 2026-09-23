@@ -175,7 +175,7 @@
     return largura;
   }
 
-  /* carrossel de clientes — mesmo motor, mais lento e sem reagir ao scroll */
+  /* carrossel de clientes — mesmo motor, em ritmo próprio e sem reagir ao scroll */
   const trilhoMarcas = (() => {
     const rail = document.querySelector('.brandrail');
     const track = rail?.querySelector('.brandrail__track');
@@ -313,7 +313,7 @@
       const r = trilhoMarcas.rail.getBoundingClientRect();
       if (r.bottom > -50 && r.top < innerHeight + 50) {
         if (!trilhoMarcas.pausado) {
-          trilhoMarcas.pos -= .45;
+          trilhoMarcas.pos -= .9;
           if (trilhoMarcas.pos <= -trilhoMarcas.largura) trilhoMarcas.pos += trilhoMarcas.largura;
         }
         trilhoMarcas.track.style.transform = `translate3d(${trilhoMarcas.pos.toFixed(2)}px,0,0)`;
