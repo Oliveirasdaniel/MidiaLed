@@ -3,45 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mídia Led | Publicidade em Painéis de LED em Nova Iguaçu e Baixada Fluminense</title>
-<meta name="description" content="Publicidade em painéis de LED em Nova Iguaçu: painel duplo na Via Dutra com 250 mil veículos por dia e LED móvel com roteiro sob medida. Peça seu orçamento.">
+<title>Mídia Led | Publicidade em Painéis de LED em todo o Rio de Janeiro</title>
+<meta name="description" content="Painéis de LED em todo o Rio de Janeiro: painel duplo na Via Dutra com 250 mil veículos por dia e LED móvel com roteiro sob medida. Peça seu orçamento.">
 <meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://midia-led.vercel.app/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mídia Led | Publicidade em Painéis de LED">
-<meta property="og:description" content="Painel de LED duplo na Via Dutra e LED móvel circulando pela cidade. Sua marca onde a cidade olha.">
-<meta property="og:image" content="assets/img/og-image.jpg">
+<meta property="og:url" content="https://midia-led.vercel.app/">
+<meta property="og:title" content="Mídia Led | Publicidade em Painéis de LED em todo o Rio de Janeiro">
+<meta property="og:description" content="Painel de LED duplo na Via Dutra e LED móvel circulando por todo o Rio de Janeiro. Sua marca onde a cidade olha.">
+<meta property="og:image" content="https://midia-led.vercel.app/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- PENDENTE: faltam "address", "email" e "openingHours" para o cartão de empresa
-     aparecer na busca do Google. Ver PENDENCIAS.md (itens 7, 8 e 13). -->
+<!-- PENDENTE: falta "address" para o cartão de empresa aparecer na busca do Google.
+     E-mail e horário saíram por decisão do cliente. Ver PENDENCIAS.md (item 13). -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "AdvertisingAgency",
   "name": "Mídia Led",
-  "description": "Publicidade em painéis de LED em Nova Iguaçu: painel fixo duplo na Via Dutra e LED móvel com roteiro sob medida.",
+  "description": "Publicidade em painéis de LED em todo o estado do Rio de Janeiro: painel fixo duplo na Via Dutra, em Nova Iguaçu, e LED móvel com roteiro sob medida.",
   "url": "https://midia-led.vercel.app",
   "telephone": "+5521966171604",
   "image": "https://midia-led.vercel.app/assets/img/og-image.jpg",
   "logo": "https://midia-led.vercel.app/assets/img/logo-midialed.png",
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Nova Iguaçu",
-      "addressRegion": "RJ",
-      "addressCountry": "BR"
-    },
-    {
-      "@type": "AdministrativeArea",
-      "name": "Baixada Fluminense",
-      "addressRegion": "RJ",
-      "addressCountry": "BR"
-    }
-  ],
+  "areaServed": {
+    "@type": "State",
+    "name": "Rio de Janeiro",
+    "addressCountry": "BR"
+  },
   "sameAs": [
     "https://www.instagram.com/midia_led_/",
     "https://www.facebook.com/profile.php?id=61580472762003",
@@ -90,7 +83,7 @@
 
   <video class="gate__video gate__video--main"
          poster="assets/img/gate-poster.webp"
-         muted playsinline preload="none"></video>
+         muted playsinline preload="none" aria-hidden="true"></video>
   <div class="gate__vignette"></div>
 
   <div class="gate__content">
@@ -120,7 +113,7 @@
       <a href="#contato" class="btn btn--sm btn--primary nav__cta" data-evento="menu_anunciar_agora">Anunciar agora</a>
     </nav>
 
-    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -142,7 +135,6 @@
       <a href="#contato" class="btn btn--primary btn--lg" data-evento="hero_quero_anunciar">Quero anunciar</a>
       <a href="#frota" class="btn btn--ghost btn--lg">Ver a operação</a>
     </div>
-    
   </div>
 </section>
 
@@ -180,7 +172,7 @@
       <h2 class="section__title split">Conheça o <em>Trio Mídia LedMob</em></h2>
       <p class="lead">
         Quatro telas de LED full color <strong>com sonorização</strong>, sobre veículo próprio
-        e identificado, circulando por onde o seu público passa.
+        e identificado, circulando por onde o seu público passa, em todo o Rio de Janeiro.
       </p>
     </div>
 
@@ -209,7 +201,7 @@
 <section class="section section--alt" id="painel">
   <div class="container">
 
-    <div class="section__head reveal">
+    <div class="section__head section__head--center reveal">
       <span class="tag">Ponto fixo</span>
       <h2 class="section__title split">O único painel de LED duplo da região</h2>
       <p class="lead">
@@ -305,6 +297,9 @@
         <div class="brandrail__item" data-img="assets/img/clientes/rede-globo.webp" data-img-fallback="assets/img/clientes/rede-globo.png">
           <span class="brandrail__txt">Rede Globo</span>
         </div>
+        <div class="brandrail__item" data-img="assets/img/clientes/marcha-para-jesus.webp" data-img-fallback="assets/img/clientes/marcha-para-jesus.png">
+          <span class="brandrail__txt">Marcha para Jesus</span>
+        </div>
         <div class="brandrail__item" data-img="assets/img/clientes/pontofrio.webp" data-img-fallback="assets/img/clientes/pontofrio.png">
           <span class="brandrail__txt">Pontofrio</span>
         </div>
@@ -367,6 +362,9 @@
         <div class="brandrail__item" data-img="assets/img/clientes/rede-globo.webp" data-img-fallback="assets/img/clientes/rede-globo.png">
           <span class="brandrail__txt">Rede Globo</span>
         </div>
+        <div class="brandrail__item" data-img="assets/img/clientes/marcha-para-jesus.webp" data-img-fallback="assets/img/clientes/marcha-para-jesus.png">
+          <span class="brandrail__txt">Marcha para Jesus</span>
+        </div>
         <div class="brandrail__item" data-img="assets/img/clientes/pontofrio.webp" data-img-fallback="assets/img/clientes/pontofrio.png">
           <span class="brandrail__txt">Pontofrio</span>
         </div>
@@ -421,7 +419,7 @@
   </div>
 
   <!-- PENDENTE: aguardando depoimentos reais (nome, empresa, foto).
-       Um depoimento de qualquer um dos 5 clientes acima vale mais que qualquer
+       Um depoimento de qualquer um dos clientes acima vale mais que qualquer
        texto de venda do site. Detalhes em PENDENCIAS.md (item 9).
 
   <div class="container">
@@ -452,17 +450,18 @@
     <video data-video="assets/video/operacao.mp4"
             data-video-mobile="assets/video/operacao-mobile.mp4"
             poster="assets/img/operacao-poster.webp"
-            muted loop playsinline preload="none" data-inview></video>
+            muted loop playsinline preload="none" data-inview aria-hidden="true"></video>
     <div class="secvideo__mask"></div>
   </div>
 
   <div class="container">
-    <div class="section__head reveal">
+    <div class="section__head section__head--center reveal">
       <span class="tag">Quem somos e como trabalhamos</span>
       <h2 class="section__title split">A estratégia começa aqui</h2>
       <p class="lead">
         Somos especializados em painéis de LED e aqui ninguém compra mídia no escuro.
-        Antes de ir ao ar, definimos três pontos com você.
+        Antes de ir ao ar, definimos com você objetivo, região e formato. Depois, você
+        acompanha a veiculação com prova.
       </p>
     </div>
 
@@ -527,7 +526,7 @@
     <video data-video="assets/video/criacao.mp4"
             data-video-mobile="assets/video/criacao-mobile.mp4"
             poster="assets/img/criacao-poster.webp"
-            muted loop playsinline preload="none" data-inview></video>
+            muted loop playsinline preload="none" data-inview aria-hidden="true"></video>
     <div class="secvideo__mask"></div>
   </div>
 
@@ -758,12 +757,15 @@
   <div class="container footer__inner">
     <div class="footer__brand">
       <img src="assets/img/logo-midialed.svg" alt="Mídia Led" width="567" height="215" decoding="async">
-      <p>Publicidade em painéis de LED.<br>Sua marca onde a cidade olha.</p>
+      <p>Publicidade em painéis de LED em todo o Rio&nbsp;de&nbsp;Janeiro.<br>Sua marca onde a cidade olha.</p>
     </div>
     <nav class="footer__nav">
       <h4>Navegação</h4>
       <a href="#frota">LedMob</a>
       <a href="#painel">Painéis de LED fixos</a>
+      <a href="#clientes">Clientes</a>
+      <a href="#estrategia">Como trabalhamos</a>
+      <a href="#contato">Contato</a>
     </nav>
     <div class="footer__nav">
       <h4>Contato e redes</h4>
@@ -785,7 +787,7 @@
 
 <!-- ============ BOTÃO FLUTUANTE DO WHATSAPP ============ -->
 <aside class="dock" aria-label="Contato rápido">
-  <a class="dock__btn dock__btn--wpp" href="https://wa.me/5521966171604" target="_blank" rel="noopener">
+  <a class="dock__btn dock__btn--wpp" href="https://wa.me/5521966171604" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <span class="dock__icon">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.44 9.44 0 01-4.8-1.32l-.35-.2-3.57.93.96-3.47-.23-.36a9.4 9.4 0 01-1.44-5.02c0-5.2 4.24-9.44 9.45-9.44 2.52 0 4.89.99 6.67 2.77a9.38 9.38 0 012.76 6.68c0 5.2-4.24 9.45-9.44 9.45M20.5 3.49A11.32 11.32 0 0012.05 0C5.8 0 .72 5.08.72 11.32c0 2 .52 3.94 1.52 5.66L.62 24l7.17-1.88a11.3 11.3 0 005.41 1.38h.01c6.24 0 11.32-5.08 11.33-11.32a11.26 11.26 0 00-3.31-8.01"/></svg>
     </span>

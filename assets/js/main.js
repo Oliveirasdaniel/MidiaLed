@@ -213,24 +213,20 @@
      Se o arquivo existir, entra como background.
      Se não existir, mantém o placeholder com o nome esperado.
      ========================================================= */
-  /* As logos do carrossel são 12 arquivos que ninguém vê na primeira
-     tela. Só entram quando a seção se aproxima. */
+  /* As logos do carrossel são dezenas de arquivos que ninguém vê na
+     primeira tela. Só entram quando a seção se aproxima. */
   function carregarQuandoPerto(el, acao) {
     if (!('IntersectionObserver' in window)) return acao();
-
-    /* No carrossel, quem vigia é o trilho inteiro: as logos da ponta
-       direita ficam fora da tela e nunca disparariam sozinhas. */
-    const vigia = el.closest('.brandrail') || el;
 
     const io = new IntersectionObserver((entradas) => {
       if (!entradas[0].isIntersecting) return;
       io.disconnect();
       acao();
     }, { rootMargin: '400px 0px' });
-    io.observe(vigia);
+    io.observe(el);
   }
 
-  $$('[data-img]').forEach(el => carregarQuandoPerto(el, () => {
+  function carregarImagem(el) {
     const src = el.dataset.img;
     if (!src) return;
     const img = new Image();
@@ -244,28 +240,27 @@
       outra.onload = () => aplicar(el, reserva);
       outra.src = reserva;
     };
-    img.onload = () => {
-      /* placas de cliente: o nome escrito dá lugar à logo assim que o arquivo existir */
-      const placa = el.querySelector('.brandrail__txt');
-      if (placa) {
-        const real = document.createElement('img');
-        real.src = src;
-        real.alt = placa.textContent.trim() + ' — cliente da Mídia Led';
-        placa.replaceWith(real);
-        return;
-      }
-      aplicar(el, src);
-    };
+    img.onload = () => aplicar(el, src);
     img.src = src;
+  }
+
+  /* No carrossel, quem vigia é o trilho inteiro: as logos da ponta direita
+     ficam fora da tela e nunca disparariam sozinhas. A lista é montada só
+     na hora de carregar, para incluir as cópias que o motion.js acrescenta
+     ao trilho em telas largas. */
+  $$('.brandrail').forEach(trilho => carregarQuandoPerto(trilho, () => {
+    $$('[data-img]', trilho).forEach(carregarImagem);
   }));
+  $$('[data-img]').filter(el => !el.closest('.brandrail'))
+    .forEach(el => carregarQuandoPerto(el, () => carregarImagem(el)));
 
   function aplicar(el, src) {
+    /* placas de cliente: o nome escrito dá lugar à logo assim que o arquivo existir */
     const placa = el.querySelector('.brandrail__txt');
     if (placa) {
       const real = document.createElement('img');
       real.src = src;
       real.alt = placa.textContent.trim() + ' — cliente da Mídia Led';
-      real.loading = 'lazy';
       real.decoding = 'async';
       placa.replaceWith(real);
       return;
@@ -543,8 +538,6 @@
       rastrear('clique_facebook');
     } else if (href.includes('tiktok.com')) {
       rastrear('clique_tiktok');
-    } else if (href.startsWith('mailto:')) {
-      rastrear('clique_email');
     }
   });
 

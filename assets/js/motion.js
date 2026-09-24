@@ -93,7 +93,7 @@
      4. FOCO DE LUZ QUE SEGUE O MOUSE NOS CARTÕES
      ========================================================= */
   if (temMouse && !reduz) {
-    const cartoes = $$('.card, .worklist li, .form, .brandrail__item, .depo');
+    const cartoes = $$('.worklist li, .form, .brandrail__item, .depo');
     cartoes.forEach(c => {
       c.classList.add('tem-foco');
       c.addEventListener('mousemove', (e) => {
@@ -186,8 +186,12 @@
   })();
 
   if (trilhoMarcas) {
-    trilhoMarcas.rail.addEventListener('mouseenter', () => { trilhoMarcas.pausado = true; });
-    trilhoMarcas.rail.addEventListener('mouseleave', () => { trilhoMarcas.pausado = false; });
+    /* só com mouse: no celular o toque dispara mouseenter e o mouseleave
+       só vem quando se toca em outro lugar — o carrossel ficava parado */
+    if (temMouse) {
+      trilhoMarcas.rail.addEventListener('mouseenter', () => { trilhoMarcas.pausado = true; });
+      trilhoMarcas.rail.addEventListener('mouseleave', () => { trilhoMarcas.pausado = false; });
+    }
     const remedir = () => {
       const l = preencherTrilho(trilhoMarcas.track, '.brandrail__set') || trilhoMarcas.set.offsetWidth;
       if (l) trilhoMarcas.largura = l;
@@ -298,25 +302,25 @@
     /* progresso */
     barraFill.style.transform = `scaleX(${altura > 0 ? clamp(y / altura, 0, 1) : 0})`;
 
-    /* letreiro acelera conforme a rolagem */
+    /* letreiro acelera conforme a rolagem. Velocidades em px por segundo,
+       não por quadro: assim andam igual a 30, 60 ou 120 fps (iPhone em modo
+       de pouca energia cai para 30). Com movimento reduzido, ficam parados. */
     velSuave = lerp(velSuave, velocidade, .12);
     velocidade *= .88;
     const fator = 1 + clamp(velSuave / 16, 0, 2.6);
 
-    letreiros.forEach(t => {
+    if (!reduz) letreiros.forEach(t => {
       const r = t.strip.getBoundingClientRect();
       if (r.bottom < -50 || r.top > innerHeight + 50) return;   // fora da tela, nem calcula
 
-      t.pos -= .55 * fator * t.dir;
+      t.pos -= 33 * fator * dt * t.dir;
       if (t.dir === 1 && t.pos <= -t.largura) t.pos += t.largura;
       if (t.dir === -1 && t.pos >= 0) t.pos -= t.largura;
       t.track.style.transform = `translate3d(${t.pos.toFixed(2)}px,0,0)`;
     });
 
-    /* carrossel de clientes: constante, e para quando o mouse encosta.
-       Conta em px por segundo, não por quadro: assim anda igual a 30, 60
-       ou 120 fps (iPhone em modo de pouca energia cai para 30). */
-    if (trilhoMarcas && trilhoMarcas.largura) {
+    /* carrossel de clientes: constante, e para quando o mouse encosta */
+    if (!reduz && trilhoMarcas && trilhoMarcas.largura) {
       const r = trilhoMarcas.rail.getBoundingClientRect();
       if (r.bottom > -50 && r.top < innerHeight + 50) {
         if (!trilhoMarcas.pausado) {
@@ -328,9 +332,11 @@
     }
 
     /* portal se dissolve */
+    /* depois que o portal saiu da tela, para de recalcular */
     if (gate) {
-      const p = clamp(y / (gate.offsetHeight || innerHeight), 0, 1);
-      if (p < 1.02) {
+      const bruto = y / (gate.offsetHeight || innerHeight);
+      if (bruto < 1.02) {
+        const p = clamp(bruto, 0, 1);
         if (gateContent) {
           gateContent.style.transform = `translate3d(0,${(-4 - p * 8).toFixed(2)}vh,0) scale(${(1 - p * .12).toFixed(3)})`;
           gateContent.style.opacity = (1 - p * 1.6).toFixed(3);

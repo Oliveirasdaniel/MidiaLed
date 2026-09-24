@@ -3,7 +3,8 @@
 Nada aqui foi preenchido com valor fictício. Cada item diz o que falta, onde entra
 e o que o site está fazendo enquanto o dado não chega.
 
-Última atualização: 15/09/2026 · CNPJ, vídeos reais nas duas abas, menu mobile.
+Última atualização: 24/09/2026 · revisão geral: área atendida passa a ser o estado do RJ,
+itens abaixo conferidos com o que está no ar.
 
 ---
 
@@ -28,8 +29,8 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Situação:** não implementado. Sem valor real, não há o que escrever.
 - **Por que importa:** hoje quem não tem noção de preço some sem perguntar. Uma faixa de
   entrada filtra quem não tem orçamento e tranquiliza quem tem.
-- **Observação:** a FAQ explica por que não existe tabela de preços e deve continuar assim.
-  A âncora de preço não conflita com isso — ela dá ordem de grandeza, não tabela.
+- **Observação:** a âncora de preço dá ordem de grandeza, não tabela. A FAQ que explicava
+  a ausência de tabela saiu do site em 22/09.
 
 ### 4. GA4 Measurement ID e Meta Pixel ID
 - **Onde entra:** `CONFIG.ga4Id` e `CONFIG.metaPixelId`, no topo de `assets/js/main.js`.
@@ -39,8 +40,7 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Eventos já programados:** `clique_cta` (com o rótulo de cada botão), `quiz_resposta`
   (cada resposta do quiz de contato), `envio_formulario`,
   `clique_whatsapp` (separando botão flutuante, rodapé e página), `clique_instagram`,
-  `clique_facebook`, `clique_tiktok`,
-  `clique_email` e `rolagem` (25/50/75/100%).
+  `clique_facebook`, `clique_tiktok` e `rolagem` (25/50/75/100%).
 - **Para resolver:** crie a propriedade no Google Analytics (ID no formato `G-XXXXXXXXXX`)
   e o pixel no Meta Business (ID numérico).
 
@@ -64,8 +64,9 @@ e o que o site está fazendo enquanto o dado não chega.
   e copie as coordenadas (ex.: `-22.7590, -43.4510`).
 
 ### 13. Endereço da empresa
-- **Onde entra:** JSON-LD `LocalBusiness` no `<head>` e Google Business Profile.
-- **Situação:** o JSON-LD atual declara só telefone, cidade atendida e as redes (Instagram, Facebook e TikTok).
+- **Onde entra:** JSON-LD `AdvertisingAgency` no `<head>` e Google Business Profile.
+- **Situação:** o JSON-LD atual declara telefone, área atendida (estado do Rio de Janeiro)
+  e as redes (Instagram, Facebook e TikTok).
   Sem endereço, o Google não mostra o cartão lateral de empresa na busca.
 - **Se não houver endereço comercial aberto ao público**, isso é normal para mídia
   exterior — nesse caso mantemos `areaServed` sem `address`, e sinalizamos isso.
@@ -83,20 +84,25 @@ e o que o site está fazendo enquanto o dado não chega.
 
 ### A. Vídeo do painel fixo — ✅ RESOLVIDO em 15/09
 - O vídeo "Conquiste mais oportunidades" entrou no lugar do render 3D, dentro de uma
-  moldura que imita o próprio painel. Sem som, como pedido.
+  moldura que imita o próprio painel. Sem som, como pedido. Depois foi trocado pela
+  filmagem aérea do Led Dutra (`dutra.mp4`); o Conquiste foi para o portal.
 - 39,8 MB → **2,5 MB** (desktop) e **1,2 MB** (celular), sem áudio.
 - O render `painel-led.png` saiu do site (segue em `midias/fotos/`).
 
 ### B. Novos clientes — ✅ RESOLVIDO em 15/09
 - O carrossel passou de 5 para **12 clientes**. Entraram: Pontofrio, Multiplan,
   Ultra Academia, Facility, Instituto Paulo Apóstolo, Athiones Fernandes e Up Ouro.
+- Em 22/09 foi para **20**, com Canto pela Paz, Viradão Gospel Rio,
+  Rede Globo, Unicesumar, Super Ki Barato, SK Atacarejo, CEIZS e Asspontec.
+- Em 24/09 foi para **21**, com a Marcha para Jesus logo depois da Globo. A logo
+  veio em fundo preto com brilho: o preto virou transparência e o brilho ficou.
 - Todas as sete foram adaptadas para fundo preto. O arquivo do Up Ouro veio em AVIF
   (formato que nem toda ferramenta lê) e foi convertido.
 - **Se houver mais clientes, é só mandar** — nome e logo, ou só o nome.
 
 ### C. Vídeos do portal — ✅ RODANDO com três
-- Ordem atual: **0915 (trio na rua, principal)** → Conquiste mais oportunidades →
-  cidade. Cada um toca 14s e passa ao próximo.
+- Ordem atual: **trio na rua (principal)** → Conquiste mais oportunidades → cidade.
+  Cada um toca inteiro e passa ao próximo (`segundosPorVideo: 0`).
 - **Para acrescentar ou reordenar:** uma linha por vídeo em `CONFIG.portal`,
   no topo de `assets/js/main.js`.
 
@@ -123,8 +129,7 @@ e o que o site está fazendo enquanto o dado não chega.
 - **Situação:** **estrutura e CSS prontos, comentados no HTML.** Procure por
   `PENDENTE: aguardando depoimentos reais`. Ao receber, troque NOME/EMPRESA/TEXTO,
   coloque a foto em `assets/img/depoimentos/` e apague as duas linhas de comentário.
-- **Observação:** um depoimento de qualquer um dos cinco clientes atuais — Blindados RJ,
-  Álamo, Egide Saúde, Louvorzão 93 FM ou Drogaria Mais Barato — vale mais que qualquer
+- **Observação:** um depoimento de qualquer cliente do carrossel vale mais que qualquer
   texto de vendas do site.
 
 ### 10. Imagem do relatório de veiculação
@@ -139,8 +144,8 @@ e o que o site está fazendo enquanto o dado não chega.
 ### 11. Foto do painel fixo na perspectiva de quem dirige
 - **Arquivo esperado:** `assets/img/painel-dirigindo.jpg`.
 - **Onde entra:** seção do painel fixo, ao lado do mapa (bloco já pronto e comentado).
-- **Situação:** hoje a seção usa só um render 3D da estrutura, que não transmite o impacto
-  real de quem passa na Dutra.
+- **Situação:** hoje a seção usa a filmagem aérea do Led Dutra. Falta a visão de quem
+  passa de carro, que é a que o anunciante imagina.
 
 ### 12. Foto do painel fixo aceso à noite
 - **Situação:** não pedida no prompt, mas é a imagem que falta para o site inteiro.
@@ -150,7 +155,8 @@ e o que o site está fazendo enquanto o dado não chega.
 
 ## Itens do prompt que já estavam resolvidos
 
-Verificado no código antes de mexer — estes não precisaram de alteração:
+Registro de 15/09, verificado no código antes de mexer. Desde então o formulário virou
+quiz (sem campos de nome e telefone, e sem máscara) e o dock ficou só com o WhatsApp.
 
 | Item do prompt | Situação real |
 |---|---|

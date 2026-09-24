@@ -1,6 +1,7 @@
 # Mídia Led — Site institucional
 
-Site one-page de publicidade em painéis de LED, em Nova Iguaçu (RJ).
+Site one-page de publicidade em painéis de LED em todo o estado do Rio de Janeiro,
+com painel fixo na Via Dutra, em Nova Iguaçu.
 HTML, CSS e JavaScript puro — sem build, sem dependências, sem framework.
 
 **Contato da empresa:** (21) 96617-1604 · [@midia_led_](https://www.instagram.com/midia_led_/)
@@ -32,7 +33,7 @@ em `CONFIG.portal`:
 
 ```js
 portal: [
-  { desktop: 'assets/video/trio-rua.mp4', mobile: 'assets/video/trio-rua-mobile.mp4', posicao: 'center 66%' },
+  { desktop: 'assets/video/trio-rua.mp4', mobile: 'assets/video/trio-rua-mobile.mp4', leve: 'assets/video/trio-rua-leve.mp4', posicao: 'center 57%' },
   ...
 ],
 segundosPorVideo: 0   // 0 = vídeo inteiro; um número corta nesse tempo
@@ -41,7 +42,8 @@ segundosPorVideo: 0   // 0 = vídeo inteiro; um número corta nesse tempo
 | Campo | Para que serve |
 |---|---|
 | `desktop` | Arquivo principal |
-| `mobile` | Versão leve (opcional; sem ela o celular usa a principal) |
+| `mobile` | Versão de celular (opcional; sem ela o celular usa a principal) |
+| `leve` | Versão para conexão lenta no celular (opcional) |
 | `posicao` | Qual parte do quadro aparece no desktop. O vídeo é vertical e a tela é larga, então o corte importa: **valor menor sobe o enquadramento, maior desce** |
 
 Como escolher a `posicao`: extraia alguns quadros do vídeo e veja qual faixa fica visível.
@@ -73,23 +75,22 @@ MídiaLed/
 ├── index.html                  Página inteira
 ├── favicon.ico                 Monograma ML (multi-resolução)
 ├── vercel.json                 Cache do deploy
-├── assets/                     Tudo que o site usa (7,5 MB)
+├── robots.txt · sitemap.xml    Para o Google achar e indexar a página
+├── assets/                     Tudo que o site usa (~118 MB, quase tudo vídeo)
 │   ├── css/style.css
-│   ├── js/main.js              Abertura, menu, quiz de contato, contadores, vídeos
+│   ├── js/main.js              Portal, menu, quiz de contato, contadores, vídeos
 │   ├── js/motion.js            Movimento: texto, paralaxe, letreiro, carrossel
 │   ├── img/
 │   │   ├── logo-midialed.svg   Logo branca em vetor (abertura, menu, rodapé)
 │   │   ├── logo-midialed.png   Mesma logo em 1600px (dados estruturados)
 │   │   ├── favicon-512.png · apple-touch-icon.png
 │   │   ├── og-image.jpg        Miniatura de compartilhamento (foto real do trio)
-│   │   ├── gate-poster.jpg     Primeiro quadro do vídeo de abertura
-│   │   ├── trio-rua.jpg        Foto do trio na rua
-│   │   ├── painel-led.png      Estrutura do painel fixo
-│   │   ├── *.webp              Versão leve de cada imagem (usada por padrão)
-│   │   └── clientes/           Logos dos 5 clientes (png + webp, Egide em svg)
-│   └── video/                  trio-rua · conquiste · cidade · dutra · operacao · criacao
-├── midias/                     Originais em tamanho cheio — FORA do Git (.gitignore)
-└── docs/                       Briefings e referências
+│   │   ├── gate-poster.webp    Quadro do vídeo de abertura (aparece antes do vídeo)
+│   │   ├── *-poster.webp       Quadro de cada vídeo de seção (dutra, operacao, criacao)
+│   │   ├── trio-rua.jpg        Foto do trio na rua (+ .webp, usada por padrão)
+│   │   └── clientes/           Logos dos 20 clientes (png + webp, Egide em svg)
+│   └── video/                  trio-rua (+ -mobile, -leve) · conquiste · cidade · dutra · operacao · criacao
+└── midias/                     Originais em tamanho cheio — FORA do Git (.gitignore)
 ```
 
 **Regra:** originais ficam em `midias/`, versões otimizadas em `assets/`.
@@ -97,26 +98,26 @@ MídiaLed/
 ## Seções
 
 1. **Portal** — vídeo da rua, logo e indicativo de scroll
-2. **Hero** — H1 de busca + "Anunciar não é aparecer. É ser visto."
+2. **Hero** — H1 de busca + "A rua é um dos maiores palcos de marca."
 3. **Letreiro de LED** — matriz de pixels com as mensagens-chave
-4. **Números** — 4 telas · 250 mil veículos/dia · 2 faces
-5. **Trio Mídia LedMob** — a operação, com a foto real na rua
-6. **Painel fixo** — Led Dutra, filmagem aérea, em moldura que imita o painel de LED.
-   O LED móvel não se repete aqui: o Trio já tem a seção 5.
-7. **Clientes** — carrossel de logos
-8. **A estratégia começa aqui** — institucional + 4 passos, com vídeo de fundo
-9. **Prova da veiculação** — pronta e comentada, esperando a imagem do relatório
-10. **Criação do conteúdo** — vídeo à esquerda, membrana fosca à direita
-11. **FAQ**
-12. **Letreiro de LED (2ª passagem)**
-13. **CTA + Contato** (quiz de 4 perguntas → WhatsApp) + **Rodapé**
-14. **Botão flutuante do WhatsApp** — sempre verde. As redes (Instagram, Facebook e
+4. **Trio Mídia LedMob** — a operação, com a foto real na rua e 4 números-resumo
+5. **Painel fixo** — Led Dutra, filmagem aérea, em moldura que imita o painel de LED.
+   O LED móvel não se repete aqui: o Trio já tem a seção 4.
+6. **Clientes** — carrossel de logos
+7. **A estratégia começa aqui** — institucional + 4 passos, com vídeo de fundo
+8. **Prova da veiculação** — pronta e comentada, esperando a imagem do relatório
+9. **Criação do conteúdo** — vídeo à esquerda, membrana fosca à direita
+10. **Letreiro de LED (2ª passagem)**
+11. **CTA + Contato** (quiz de 4 perguntas → WhatsApp) + **Rodapé**
+12. **Botão flutuante do WhatsApp** — sempre verde. As redes (Instagram, Facebook e
     TikTok) ficam no rodapé, em "Contato e redes"
 
 ## Camada de movimento (`assets/js/motion.js`)
 
-Tudo roda em um único `requestAnimationFrame`, só com `transform` e `opacity`, e é
-desligado inteiro por `prefers-reduced-motion`.
+Tudo roda em um único `requestAnimationFrame`, só com `transform` e `opacity`. Com
+`prefers-reduced-motion` (opção "reduzir movimento" do aparelho), nada se mexe: letreiro e
+carrossel ficam parados, e os títulos aparecem prontos. Letreiro e carrossel contam a
+velocidade em px por segundo, então andam igual a 30, 60 ou 120 quadros por segundo.
 
 | Recurso | Como usar |
 |---|---|
@@ -127,7 +128,8 @@ desligado inteiro por `prefers-reduced-motion`.
 | Botão magnético | automático em `.btn` |
 | Foco de luz no hover | automático nos cartões |
 | Barra de progresso | criada sozinha no topo |
-| Letreiro que acelera com o scroll | automático |
+| Letreiro que acelera com o scroll | automático, 33 px/s em repouso |
+| Carrossel de clientes | automático, 90 px/s; pausa com o mouse em cima (só no computador) |
 
 ## Manutenção
 
@@ -230,7 +232,7 @@ Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
 
 - **Nada depende de JS para aparecer.** As animações só entram quando o script marca
   `<html class="js">`. Se o JS falhar, o site aparece inteiro, sem animação.
-- **Vídeo certo para cada tela.** Versões de 432px para celular; o JS escolhe pelo
+- **Vídeo certo para cada tela.** Versões próprias para celular (tabela em "Vídeos"); o JS escolhe pelo
   `matchMedia` e nunca carrega vídeo invisível (a cópia desfocada do portal é
   `display:none` no celular).
 - **Conexão fraca não baixa vídeo.** Com `saveData` ligado ou `effectiveType` 2G,
@@ -277,6 +279,6 @@ portal, e a primeira tela ficava sem nenhuma navegação.
 | Item | Situação |
 |---|---|
 | CNPJ no rodapé | ✅ 62.377.877/0001-53 |
-| Fontes dos dados de mercado | 82%, 4× e 66% são referências de setor atribuídas a Nielsen e Intel/Arbitron — **conferir antes de divulgar** |
+| Fontes dos dados de mercado | seção removida até as fontes serem confirmadas (PENDENCIAS.md, item 2) |
 | Especificações do painel fixo | medidas, pixel pitch e horário de operação ainda genéricos |
-| Logo em SVG | hoje só existe PNG transparente |
+| Logo em SVG | ✅ `logo-midialed.svg`, extraída do PDF do cliente |
