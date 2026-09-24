@@ -131,8 +131,10 @@ desligado inteiro por `prefers-reduced-motion`.
 
 ## Manutenção
 
-**Logos dos clientes** — ficam em `assets/img/clientes/` com nome fixo. Para trocar,
-substitua o arquivo mantendo o nome.
+**Logos dos clientes** — ficam em `assets/img/clientes/`. Para trocar uma logo,
+**salve com nome novo** (`alamo-v2` → `alamo-v3`) e atualize o `index.html` nos dois
+conjuntos do trilho. Imagens ficam um ano no cache do navegador (`vercel.json`): se o
+nome não mudar, quem já visitou o site continua vendo a logo antiga.
 
 Todas passaram por adaptação para fundo preto, com a mesma regra: **cinza e preto viram
 branco, cor saturada e escura é clareada mantendo o tom, cor viva fica como está.** Sem
@@ -142,16 +144,17 @@ isso, logos como Multiplan, Pontofrio e Facility sumiriam no fundo do site.
 |---|---|
 | Pontofrio | `pontofrio.webp` + `.png` |
 | Multiplan | `multiplan.webp` + `.png` |
-| Álamo | `alamo.webp` + `.png` |
+| Álamo | `alamo-v2.webp` + `.png` |
 | Ultra Academia | `ultra-academia.webp` + `.png` |
 | Blindados RJ | `blindados-rj.webp` + `.png` |
 | Drogaria Mais Barato | `drogaria-mais-barato.webp` + `.png` |
 | Louvorzão 93 FM | `louvorzao-93fm.webp` + `.png` |
 | Egide Saúde | `egide-saude.svg` |
-| Facility | `facility.webp` + `.png` |
+| Facility | `facility-v2.webp` + `.png` |
 | Instituto Paulo Apóstolo | `ipa.webp` + `.png` |
 | Athiones Fernandes | `athiones.webp` + `.png` |
-| Up Ouro | `up-ouro.webp` + `.png` |
+| Up Ouro | `up-ouro-v2.webp` + `.png` |
+| Comunidade Evangélica Zona Sul | `ceizs-v2.webp` + `.png` (azul clareado para 71,115,245) |
 
 Para adicionar um cliente, copie um `.brandrail__item` **nos dois conjuntos** do trilho.
 

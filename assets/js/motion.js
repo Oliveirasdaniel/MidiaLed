@@ -221,7 +221,12 @@
   /* =========================================================
      LOOP ÚNICO
      ========================================================= */
-  function loop() {
+  let quadroAnterior = 0;
+
+  function loop(agora) {
+    /* segundos desde o último quadro; teto evita salto ao voltar de outra aba */
+    const dt = quadroAnterior ? Math.min((agora - quadroAnterior) / 1000, .1) : 0;
+    quadroAnterior = agora;
     const y = window.scrollY;
     const altura = document.documentElement.scrollHeight - innerHeight;
 
@@ -308,12 +313,14 @@
       t.track.style.transform = `translate3d(${t.pos.toFixed(2)}px,0,0)`;
     });
 
-    /* carrossel de clientes: constante, e para quando o mouse encosta */
+    /* carrossel de clientes: constante, e para quando o mouse encosta.
+       Conta em px por segundo, não por quadro: assim anda igual a 30, 60
+       ou 120 fps (iPhone em modo de pouca energia cai para 30). */
     if (trilhoMarcas && trilhoMarcas.largura) {
       const r = trilhoMarcas.rail.getBoundingClientRect();
       if (r.bottom > -50 && r.top < innerHeight + 50) {
         if (!trilhoMarcas.pausado) {
-          trilhoMarcas.pos -= .9;
+          trilhoMarcas.pos -= 90 * dt;
           if (trilhoMarcas.pos <= -trilhoMarcas.largura) trilhoMarcas.pos += trilhoMarcas.largura;
         }
         trilhoMarcas.track.style.transform = `translate3d(${trilhoMarcas.pos.toFixed(2)}px,0,0)`;
