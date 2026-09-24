@@ -78,7 +78,8 @@ MídiaLed/
 │   ├── js/main.js              Abertura, menu, quiz de contato, contadores, vídeos
 │   ├── js/motion.js            Movimento: texto, paralaxe, letreiro, carrossel
 │   ├── img/
-│   │   ├── logo-midialed.png   Logo branca transparente
+│   │   ├── logo-midialed.svg   Logo branca em vetor (abertura, menu, rodapé)
+│   │   ├── logo-midialed.png   Mesma logo em 1600px (dados estruturados)
 │   │   ├── favicon-512.png · apple-touch-icon.png
 │   │   ├── og-image.jpg        Miniatura de compartilhamento (foto real do trio)
 │   │   ├── gate-poster.jpg     Primeiro quadro do vídeo de abertura

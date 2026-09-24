@@ -73,7 +73,7 @@ e o que o site está fazendo enquanto o dado não chega.
 ### 8. E-mail e horário de atendimento — ✅ RESOLVIDO em 15/09
 - Os dois saíram do site, por decisão do cliente. O e-mail `contato@midialed.com.br`
   nunca foi confirmado e o horário tinha sido escrito por mim.
-- No lugar entrou **"respondemos o mais rápido possível"**, no contato, no rodapé e
+- No lugar entrou **"respondemos o mais rápido possível"**, no rodapé e
   embaixo do botão de enviar do formulário.
 - Canal único agora: **WhatsApp** (e Instagram).
 

@@ -815,21 +815,9 @@ p{margin:0 0 1rem}
 /* =========================================================
    CONTATO
    ========================================================= */
-.contact-list{display:grid;gap:1rem;margin-top:2rem}
-.contact-list li{
-  display:flex;justify-content:space-between;gap:1rem;align-items:center;
-  padding-bottom:1rem;border-bottom:1px solid var(--linha);
-}
-.contact-list span{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza-2)}
-.contact-list a,.contact-list strong{font-weight:600;transition:var(--t)}
-.contact-list a:hover{color:var(--led-1)}
-
-/* desktop: título e contatos à esquerda, quiz à direita.
-   No celular o quiz sobe para logo depois do título (ver 820px). */
-.contato{grid-template-areas:"intro quiz" "lista quiz";grid-template-rows:1fr 1fr;row-gap:0}
-.contato__intro{grid-area:intro;align-self:end}
-.contato__quiz{grid-area:quiz}
-.contato__lista{grid-area:lista;align-self:start}
+/* desktop: título à esquerda, quiz à direita. O título fica no topo
+   para não pular quando o quiz muda de altura entre as perguntas. */
+.contato{align-items:start}
 
 .form{border:1px solid var(--linha);border-radius:var(--raio);padding:2rem;background:var(--preto-2);display:grid;gap:1.1rem}
 .form__note{font-size:.82rem;color:var(--cinza-2);text-align:center;margin:0}
@@ -1144,8 +1132,7 @@ p{margin:0 0 1rem}
   .nav a{font-size:1.05rem;color:var(--branco)}
   .nav__cta{margin-top:.6rem}
   .grid-2{grid-template-columns:1fr}
-  .contato{grid-template-areas:"intro" "quiz" "lista";grid-template-rows:auto;row-gap:2rem}
-  .contato__lista{margin-top:0}
+  .contato{row-gap:2rem}
   .cards,.steps{grid-template-columns:1fr}
 
   /* portal: no celular o vídeo vertical ocupa a tela por inteiro */
@@ -1191,8 +1178,8 @@ p{margin:0 0 1rem}
   .ledstrip__dot{width:10px;height:10px;margin-inline:1rem}
 
   /* rótulo em cima, valor embaixo: nada de texto espremido em duas colunas */
-  .spectable li,.contact-list li{flex-direction:column;align-items:flex-start;gap:.3rem}
-  .spectable strong,.contact-list a,.contact-list strong{text-align:left}
+  .spectable li{flex-direction:column;align-items:flex-start;gap:.3rem}
+  .spectable strong{text-align:left}
   .fleet__specs{grid-template-columns:repeat(2,1fr)}
   .rig__art{padding:.5rem}
   .rig__art img{max-height:38vh}
@@ -1221,7 +1208,6 @@ p{margin:0 0 1rem}
   /* nada clicável abaixo de 44px de altura */
   .nav a{font-size:1.05rem;padding-block:.75rem;min-height:44px;display:flex;align-items:center}
   .footer__nav a{padding-block:.6rem;min-height:44px;display:flex;align-items:center}
-  .contact-list a{min-height:44px;display:inline-flex;align-items:center}
   .link-arrow{padding-block:.6rem;min-height:44px}
   /* botão do menu: área de toque de 44px, traços do mesmo tamanho */
   .burger{padding:8px 3px;min-width:44px;min-height:44px;justify-content:center}
