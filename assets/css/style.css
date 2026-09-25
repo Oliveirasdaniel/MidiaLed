@@ -868,7 +868,7 @@ p{margin:0 0 1rem}
    FOOTER
    ========================================================= */
 .footer{background:var(--preto);border-top:1px solid var(--linha);padding-top:4rem}
-.footer__inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:3rem}
+.footer__inner{display:grid;grid-template-columns:1.3fr 1fr 1.3fr 1fr;gap:2.5rem;padding-bottom:3rem}
 .footer__brand img{height:46px;width:auto;margin-bottom:1.2rem}
 .footer__brand p{color:var(--cinza);font-size:.9rem}
 .footer__nav h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-2);margin-bottom:1.1rem}
@@ -888,10 +888,15 @@ p{margin:0 0 1rem}
 .footer__rede--fb {--rede-cor:#4b93ff;--rede-fundo:rgba(24,119,242,.14);--rede-borda:rgba(24,119,242,.45)}
 .footer__rede--tt {--rede-cor:#ffffff;--rede-fundo:rgba(37,244,238,.08);--rede-borda:rgba(254,44,85,.42)}
 .footer__rede--tt .footer__rede-ico svg{filter:drop-shadow(1px 1px 0 #fe2c55) drop-shadow(-1px -1px 0 #25f4ee)}
+.footer__rede--mail{--rede-cor:#00e5ff;--rede-fundo:rgba(0,229,255,.1);--rede-borda:rgba(0,229,255,.38)}
+/* o endereço é comprido: a coluna de contato é mais larga para ele caber numa
+   linha; se ainda faltar espaço, quebra antes do @ (<wbr>) em vez de vazar */
+.footer__rede-txt{min-width:0;overflow-wrap:anywhere}
 
 .footer__rede:hover .footer__rede-ico{background:var(--rede-cor);border-color:var(--rede-cor);color:#fff;transform:scale(1.06)}
 .footer__rede--ig:hover .footer__rede-ico{background:linear-gradient(45deg,#f9ce34,#ee2a7b 50%,#6228d7);border-color:transparent}
-.footer__rede--tt:hover .footer__rede-ico{color:#000}
+.footer__rede--tt:hover .footer__rede-ico,
+.footer__rede--mail:hover .footer__rede-ico{color:#000}
 .footer__partner{color:var(--cinza);font-size:.92rem;margin:0}
 .footer__partner strong{color:var(--branco)}
 .footer__bottom{

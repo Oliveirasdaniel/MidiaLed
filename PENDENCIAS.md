@@ -40,7 +40,7 @@ itens abaixo conferidos com o que está no ar.
 - **Eventos já programados:** `clique_cta` (com o rótulo de cada botão), `quiz_resposta`
   (cada resposta do quiz de contato), `envio_formulario`,
   `clique_whatsapp` (separando botão flutuante, rodapé e página), `clique_instagram`,
-  `clique_facebook`, `clique_tiktok` e `rolagem` (25/50/75/100%).
+  `clique_facebook`, `clique_tiktok`, `clique_email` e `rolagem` (25/50/75/100%).
 - **Para resolver:** crie a propriedade no Google Analytics (ID no formato `G-XXXXXXXXXX`)
   e o pixel no Meta Business (ID numérico).
 
@@ -65,18 +65,19 @@ itens abaixo conferidos com o que está no ar.
 
 ### 13. Endereço da empresa
 - **Onde entra:** JSON-LD `AdvertisingAgency` no `<head>` e Google Business Profile.
-- **Situação:** o JSON-LD atual declara telefone, área atendida (estado do Rio de Janeiro)
+- **Situação:** o JSON-LD atual declara telefone, e-mail, área atendida (estado do Rio de Janeiro)
   e as redes (Instagram, Facebook e TikTok).
   Sem endereço, o Google não mostra o cartão lateral de empresa na busca.
 - **Se não houver endereço comercial aberto ao público**, isso é normal para mídia
   exterior — nesse caso mantemos `areaServed` sem `address`, e sinalizamos isso.
 
-### 8. E-mail e horário de atendimento — ✅ RESOLVIDO em 15/09
-- Os dois saíram do site, por decisão do cliente. O e-mail `contato@midialed.com.br`
+### 8. E-mail e horário de atendimento — ✅ RESOLVIDO em 15/09, e-mail volta em 25/09
+- Em 15/09 os dois saíram do site, por decisão do cliente. O e-mail `contato@midialed.com.br`
   nunca foi confirmado e o horário tinha sido escrito por mim.
-- No lugar entrou **"respondemos o mais rápido possível"**, no rodapé e
-  embaixo do botão de enviar do formulário.
-- Canal único agora: **WhatsApp** (e Instagram).
+- Em 25/09 o cliente mandou o e-mail oficial: **`contatoledmob@gmail.com`**. Ele está no
+  rodapé (em "Contato e redes", logo abaixo do WhatsApp) e no JSON-LD do `<head>`.
+- O horário continua fora. No lugar ficou **"respondemos o mais rápido possível"**,
+  no rodapé e embaixo do botão de enviar do formulário.
 
 ---
 
@@ -96,6 +97,9 @@ itens abaixo conferidos com o que está no ar.
   Rede Globo, Unicesumar, Super Ki Barato, SK Atacarejo, CEIZS e Asspontec.
 - Em 24/09 foi para **21**, com a Marcha para Jesus logo depois da Globo. A logo
   veio em fundo preto com brilho: o preto virou transparência e o brilho ficou.
+- Em 25/09 foi para **25**, com Macro Seminovos, Amparo Consultoria em Seguros,
+  Tintas MC e Playfibra no fim do carrossel. A Tintas MC tinha uma placa preta atrás
+  do nome (saiu) e o nome da Playfibra era cinza-escuro (virou branco).
 - Todas as sete foram adaptadas para fundo preto. O arquivo do Up Ouro veio em AVIF
   (formato que nem toda ferramenta lê) e foi convertido.
 - **Se houver mais clientes, é só mandar** — nome e logo, ou só o nome.
