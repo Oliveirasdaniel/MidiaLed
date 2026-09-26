@@ -177,12 +177,17 @@
       </p>
     </div>
 
+    <!-- Vídeo institucional: nada é baixado até o play (preload="none").
+         O botão toca com som; depois disso ficam os controles do navegador. -->
     <figure class="fleet__foto reveal" data-parallax="0.04">
-      <picture>
-        <source srcset="assets/img/trio-rua.webp" type="image/webp">
-        <img src="assets/img/trio-rua.jpg" width="1000" height="865" loading="lazy" decoding="async"
-             alt="Trio Mídia LedMob com o painel de LED aceso, veiculando em avenida de Nova Iguaçu">
-      </picture>
+      <video class="fleet__video" src="assets/video/ledmob-institucional.mp4"
+             poster="assets/img/ledmob-poster.webp" width="848" height="478"
+             preload="none" playsinline
+             aria-label="Vídeo institucional do Trio Mídia LedMob circulando pelas ruas do Rio de Janeiro"></video>
+      <button class="fleet__play" type="button" aria-label="Assistir ao vídeo do Trio Mídia LedMob, com som">
+        <span class="fleet__play-ico" aria-hidden="true"></span>
+        <span class="fleet__play-txt">Assistir com som</span>
+      </button>
     </figure>
 
     <ul class="fleet__specs reveal">

@@ -737,4 +737,33 @@
     }, { threshold: 0 });
     letreiros.forEach(el => ioLed.observe(el));
   }
+
+  /* =========================================================
+     11. VÍDEO DO TRIO — toca com som só quando pedem
+     O clique no botão é o gesto que o navegador exige para liberar
+     o som. Dali em diante quem manda são os controles nativos.
+     ========================================================= */
+  const videoTrio = $('.fleet__video');
+  const playTrio = $('.fleet__play');
+  if (videoTrio && playTrio) {
+    const moldura = videoTrio.closest('.fleet__foto');
+
+    playTrio.addEventListener('click', () => {
+      videoTrio.muted = false;
+      videoTrio.controls = true;
+      moldura.classList.add('is-tocando');
+      const p = videoTrio.play();
+      if (p && p.catch) p.catch(() => {
+        /* não tocou (ex.: arquivo indisponível): o botão volta */
+        moldura.classList.remove('is-tocando');
+      });
+      rastrear('play_video', { video: 'ledmob_institucional' });
+    });
+
+    /* acabou: volta o poster com o botão, pronto para assistir de novo */
+    videoTrio.addEventListener('ended', () => {
+      videoTrio.controls = false;
+      moldura.classList.remove('is-tocando');
+    });
+  }
 })();

@@ -86,10 +86,9 @@ MídiaLed/
 │   │   ├── favicon-512.png · apple-touch-icon.png
 │   │   ├── og-image.jpg        Miniatura de compartilhamento (foto real do trio)
 │   │   ├── gate-poster.webp    Quadro do vídeo de abertura (aparece antes do vídeo)
-│   │   ├── *-poster.webp       Quadro de cada vídeo de seção (dutra, operacao, criacao)
-│   │   ├── trio-rua.jpg        Foto do trio na rua (+ .webp, usada por padrão)
+│   │   ├── *-poster.webp       Quadro de cada vídeo de seção (dutra, operacao, criacao, ledmob)
 │   │   └── clientes/           Logos dos 20 clientes (png + webp, Egide em svg)
-│   └── video/                  trio-rua (+ -mobile, -leve) · conquiste · cidade · dutra · operacao · criacao
+│   └── video/                  trio-rua (+ -mobile, -leve) · conquiste · cidade · dutra · operacao · criacao · ledmob-institucional
 └── midias/                     Originais em tamanho cheio — FORA do Git (.gitignore)
 ```
 
@@ -100,7 +99,7 @@ MídiaLed/
 1. **Portal** — vídeo da rua, logo e indicativo de scroll
 2. **Hero** — H1 de busca + "A rua é um dos maiores palcos de marca."
 3. **Letreiro de LED** — matriz de pixels com as mensagens-chave
-4. **Trio Mídia LedMob** — a operação, com a foto real na rua e 4 números-resumo
+4. **Trio Mídia LedMob** — a operação, com o vídeo institucional (toca com som ao dar play) e 4 números-resumo
 5. **Painel fixo** — Led Dutra, filmagem aérea, em moldura que imita o painel de LED.
    O LED móvel não se repete aqui: o Trio já tem a seção 4.
 6. **Clientes** — carrossel de logos
@@ -197,6 +196,7 @@ no celular; foram refeitos assim:
 | Vídeo principal, conexão lenta (`trio-rua-leve`) | 720×1280 | 25 | 1,8 Mb/s |
 | Demais no desktop | 720×1280 (a resolução do original) | 22 | 2,5 Mb/s |
 | `criacao` (fundo deitado) | 1920×1080; no celular, faixa vertical do centro em 720×1280 | 25 | 3,5 / 1,8 Mb/s |
+| `ledmob-institucional` (com som, um arquivo para todas as telas) | 848×478 (a resolução do original) | 23 | — (áudio AAC 128 kb/s) |
 
 O vídeo principal sai do 4K em `midias/video-principal/0916 (1).mp4` (mesma edição do
 `0915`, exportada em 2160×3840). O arquivo vem a 60 fps, mas só ~24 quadros por segundo
@@ -207,7 +207,13 @@ O poster (`gate-poster.webp`) é o quadro de 8s.
 De onde saiu cada um: `trio-rua` ← `midias/video-principal/0916 (1).mp4` · `dutra` ← `Led Dutra - Marcha para Jesus` ·
 `cidade` ← `snapinsta-1789344864337` (0–24s; celular 0–16s) · `operacao` ←
 `snapinsta-1789349124415` (0–24s; celular 0–16s) · `criacao` ← `16788375_3840_2160_30fps`.
+`ledmob-institucional` ← `LedMob_Institucional .mp4`.
 O original do `conquiste` não está na pasta (ver PENDENCIAS.md).
+
+O `ledmob-institucional` é o único vídeo **com som** e o único que não toca sozinho:
+`preload="none"` e nada é baixado até o play (o poster é o quadro de 2s, 26 KB).
+O original tem só 848×478 — não há versão de celular porque reduzir borraria os textos
+do vídeo. Com uma exportação em 1080p, vale refazer: 1080p no desktop e 848 no celular.
 
 ## Desempenho em celular
 
@@ -247,6 +253,18 @@ Medido com Lighthouse 11.7.1 (preset mobile) e Chrome emulando 360/390/430px:
   Só essa mudança levou o LCP de 3,2 s para 1,8 s e a nota de 84 para 99 — o arquivo
   de fonte bloqueava 1,2 s do caminho crítico. **Não volte a usar `<link rel="stylesheet">`
   direto para a fonte.**
+- **Nada que se move a cada quadro é redesenhado.** O `motion.js` move letreiros,
+  carrossel e paralaxe por `transform`; o trilho precisa de `will-change:transform`,
+  senão o Chrome redesenha a faixa inteira a cada deslocamento fracionado. Nos letreiros
+  (texto com brilho desfocado) isso custava 670 ms de pintura a cada 3 s no celular e
+  travava a rolagem; com `will-change`, 1 ms. **Todo trilho novo movido pelo JS leva
+  `will-change:transform`.** Os pontos do letreiro mudam de cor com o mouse, então
+  também ganham camada própria (só em aparelho com mouse): 545 → 37 ms no desktop.
+- **O loop de movimento lê antes e grava depois, e só grava o que mudou.** Parado, a
+  página não refaz quadro nenhum.
+- **Animação invisível não roda.** No celular o "Anunciar agora" fica no menu fechado,
+  fora da tela, mas as cores circulando (`background-position`, que não vai para a GPU)
+  redesenhavam a cada quadro: 38% do trabalho de cada quadro. Pausa com o menu fechado.
 - **O dock some quando encostaria num botão.** No celular os CTAs ocupam a largura toda e
   o botão flutuante passava por cima: o toque errava o alvo. A colisão é verificada a cada
   rolagem, e o dock volta assim que passa.

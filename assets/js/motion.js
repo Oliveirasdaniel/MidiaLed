@@ -224,25 +224,49 @@
 
   /* =========================================================
      LOOP ÚNICO
+     Primeiro lê todas as posições, depois grava. Ler a posição de um
+     elemento logo depois de mudar o estilo de outro obriga o navegador
+     a recalcular o estilo ali mesmo — várias vezes por quadro.
+     E só grava o que mudou: cada gravação, mesmo com o valor igual,
+     pode fazer o navegador refazer o quadro inteiro.
      ========================================================= */
   let quadroAnterior = 0;
+  const ultimo = { gx: '', gy: '', barra: '', portal: -1 };
+
+  function transformar(item, el, valor) {
+    if (item.tf === valor) return;
+    item.tf = valor;
+    el.style.transform = valor;
+  }
 
   function loop(agora) {
     /* segundos desde o último quadro; teto evita salto ao voltar de outra aba */
     const dt = quadroAnterior ? Math.min((agora - quadroAnterior) / 1000, .1) : 0;
     quadroAnterior = agora;
+
+    /* ---------- leituras ---------- */
     const y = window.scrollY;
     const altura = document.documentElement.scrollHeight - innerHeight;
+    magneticos.forEach(m => { m.r = m.el.getBoundingClientRect(); });
+    inclinaveis.forEach(t => { t.r = t.el.getBoundingClientRect(); });
+    paralaxes.forEach(p => { p.r = p.el.getBoundingClientRect(); });
+    if (!reduz) letreiros.forEach(t => { t.r = t.strip.getBoundingClientRect(); });
+    const rMarcas = !reduz && trilhoMarcas && trilhoMarcas.largura
+      ? trilhoMarcas.rail.getBoundingClientRect() : null;
+    const alturaGate = gate ? (gate.offsetHeight || innerHeight) : 0;
 
+    /* ---------- gravações ---------- */
     /* todo gradiente do site acompanha a posição horizontal do mouse */
     if (!reduz) {
-      raiz.style.setProperty('--gx', ((ponteiro.x / innerWidth) * 100).toFixed(1) + '%');
-      raiz.style.setProperty('--gy', ((ponteiro.y / innerHeight) * 100).toFixed(1) + '%');
+      const gx = ((ponteiro.x / innerWidth) * 100).toFixed(1) + '%';
+      const gy = ((ponteiro.y / innerHeight) * 100).toFixed(1) + '%';
+      if (gx !== ultimo.gx) { raiz.style.setProperty('--gx', gx); ultimo.gx = gx; }
+      if (gy !== ultimo.gy) { raiz.style.setProperty('--gy', gy); ultimo.gy = gy; }
     }
 
     /* botões magnéticos */
     magneticos.forEach(m => {
-      const r = m.el.getBoundingClientRect();
+      const r = m.r;
       if (r.bottom < -100 || r.top > innerHeight + 100) return;
 
       const cx = r.left + r.width / 2;
@@ -265,16 +289,14 @@
       m.x = lerp(m.x, m.ax, .16);
       m.y = lerp(m.y, m.ay, .16);
 
-      if (Math.abs(m.x) > .05 || Math.abs(m.y) > .05) {
-        m.el.style.transform = `translate3d(${m.x.toFixed(2)}px,${m.y.toFixed(2)}px,0)`;
-      } else {
-        m.el.style.transform = '';
-      }
+      transformar(m, m.el, Math.abs(m.x) > .05 || Math.abs(m.y) > .05
+        ? `translate3d(${m.x.toFixed(2)}px,${m.y.toFixed(2)}px,0)`
+        : '');
     });
 
     /* inclinação 3D */
     inclinaveis.forEach(t => {
-      const r = t.el.getBoundingClientRect();
+      const r = t.r;
       if (r.bottom < 0 || r.top > innerHeight) return;
 
       const cx = r.left + r.width / 2;
@@ -284,23 +306,24 @@
 
       t.rx = lerp(t.rx, t.arx, .07);
       t.ry = lerp(t.ry, t.ary, .07);
-      t.el.style.transform =
-        `perspective(1100px) rotateX(${t.rx.toFixed(2)}deg) rotateY(${t.ry.toFixed(2)}deg)`;
+      transformar(t, t.el,
+        `perspective(1100px) rotateX(${t.rx.toFixed(2)}deg) rotateY(${t.ry.toFixed(2)}deg)`);
     });
 
     /* paralaxe */
     paralaxes.forEach(p => {
-      const r = p.el.getBoundingClientRect();
+      const r = p.r;
       if (r.bottom < -200 || r.top > innerHeight + 200) return;
 
       const centro = r.top + r.height / 2 - innerHeight / 2;
       p.ay = -centro * p.forca;
       p.y = lerp(p.y, p.ay, .08);
-      p.el.style.transform = `translate3d(0,${p.y.toFixed(2)}px,0)`;
+      transformar(p, p.el, `translate3d(0,${p.y.toFixed(2)}px,0)`);
     });
 
     /* progresso */
-    barraFill.style.transform = `scaleX(${altura > 0 ? clamp(y / altura, 0, 1) : 0})`;
+    const barraTf = `scaleX(${altura > 0 ? clamp(y / altura, 0, 1) : 0})`;
+    if (barraTf !== ultimo.barra) { barraFill.style.transform = barraTf; ultimo.barra = barraTf; }
 
     /* letreiro acelera conforme a rolagem. Velocidades em px por segundo,
        não por quadro: assim andam igual a 30, 60 ou 120 fps (iPhone em modo
@@ -310,33 +333,31 @@
     const fator = 1 + clamp(velSuave / 16, 0, 2.6);
 
     if (!reduz) letreiros.forEach(t => {
-      const r = t.strip.getBoundingClientRect();
+      const r = t.r;
       if (r.bottom < -50 || r.top > innerHeight + 50) return;   // fora da tela, nem calcula
 
       t.pos -= 33 * fator * dt * t.dir;
       if (t.dir === 1 && t.pos <= -t.largura) t.pos += t.largura;
       if (t.dir === -1 && t.pos >= 0) t.pos -= t.largura;
-      t.track.style.transform = `translate3d(${t.pos.toFixed(2)}px,0,0)`;
+      transformar(t, t.track, `translate3d(${t.pos.toFixed(2)}px,0,0)`);
     });
 
     /* carrossel de clientes: constante, e para quando o mouse encosta */
-    if (!reduz && trilhoMarcas && trilhoMarcas.largura) {
-      const r = trilhoMarcas.rail.getBoundingClientRect();
-      if (r.bottom > -50 && r.top < innerHeight + 50) {
-        if (!trilhoMarcas.pausado) {
-          trilhoMarcas.pos -= 90 * dt;
-          if (trilhoMarcas.pos <= -trilhoMarcas.largura) trilhoMarcas.pos += trilhoMarcas.largura;
-        }
-        trilhoMarcas.track.style.transform = `translate3d(${trilhoMarcas.pos.toFixed(2)}px,0,0)`;
+    if (rMarcas && rMarcas.bottom > -50 && rMarcas.top < innerHeight + 50) {
+      if (!trilhoMarcas.pausado) {
+        trilhoMarcas.pos -= 90 * dt;
+        if (trilhoMarcas.pos <= -trilhoMarcas.largura) trilhoMarcas.pos += trilhoMarcas.largura;
       }
+      transformar(trilhoMarcas, trilhoMarcas.track, `translate3d(${trilhoMarcas.pos.toFixed(2)}px,0,0)`);
     }
 
     /* portal se dissolve */
     /* depois que o portal saiu da tela, para de recalcular */
     if (gate) {
-      const bruto = y / (gate.offsetHeight || innerHeight);
-      if (bruto < 1.02) {
-        const p = clamp(bruto, 0, 1);
+      const bruto = y / alturaGate;
+      const p = clamp(bruto, 0, 1);
+      if (bruto < 1.02 && p !== ultimo.portal) {
+        ultimo.portal = p;
         if (gateContent) {
           gateContent.style.transform = `translate3d(0,${(-4 - p * 8).toFixed(2)}vh,0) scale(${(1 - p * .12).toFixed(3)})`;
           gateContent.style.opacity = (1 - p * 1.6).toFixed(3);
