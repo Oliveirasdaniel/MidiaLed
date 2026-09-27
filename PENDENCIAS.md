@@ -74,7 +74,8 @@ itens abaixo conferidos com o que está no ar.
 ### 8. E-mail e horário de atendimento — ✅ RESOLVIDO em 15/09, e-mail volta em 25/09
 - Em 15/09 os dois saíram do site, por decisão do cliente. O e-mail `contato@midialed.com.br`
   nunca foi confirmado e o horário tinha sido escrito por mim.
-- Em 25/09 o cliente mandou o e-mail oficial: **`contatoledmob@gmail.com`**. Ele está no
+- Em 25/09 o cliente mandou o e-mail oficial: `contatoledmob@gmail.com`.
+- Em 27/09 ele foi trocado pelo e-mail da empresa: **`comercial@midialeds.com.br`**. Está no
   rodapé (em "Contato e redes", logo abaixo do WhatsApp) e no JSON-LD do `<head>`.
 - O horário continua fora. No lugar ficou **"respondemos o mais rápido possível"**,
   no rodapé e embaixo do botão de enviar do formulário.

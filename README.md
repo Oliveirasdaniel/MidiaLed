@@ -156,6 +156,7 @@ isso, logos como Multiplan, Pontofrio e Facility sumiriam no fundo do site.
 | Athiones Fernandes | `athiones.webp` + `.png` |
 | Up Ouro | `up-ouro-v2.webp` + `.png` |
 | Comunidade Evangélica Zona Sul | `ceizs-v2.webp` + `.png` (azul clareado para 71,115,245) |
+| Unicesumar | `unicesumar-v2.webp` + `.png` (versão empilhada; fundo branco removido, cinza → branco, azul clareado mantendo o tom) |
 
 Para adicionar um cliente, copie um `.brandrail__item` **nos dois conjuntos** do trilho.
 
