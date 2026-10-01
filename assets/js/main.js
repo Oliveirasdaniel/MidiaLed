@@ -26,9 +26,9 @@
       { desktop: 'assets/video/cidade.mp4',    mobile: 'assets/video/cidade-mobile.mp4',    posicao: 'center 52%' }
     ],
     segundosPorVideo: 0,            // 0 = toca o vídeo inteiro; um número corta nesse tempo
-    /* PENDENTE: medição. Enquanto estiver vazio, nada é enviado
-       e nenhum script de terceiro é baixado. Ver PENDENCIAS.md (item 4). */
-    ga4Id: '',                      // ex.: 'G-XXXXXXXXXX'
+    /* Medição. ID vazio = nada é enviado e nenhum script de terceiro
+       é baixado. Meta Pixel ainda pendente — ver PENDENCIAS.md (item 4). */
+    ga4Id: 'G-N26Q1Q9Z59',
     metaPixelId: '',                // ex.: '123456789012345'
 
     /* PENDENTE: gravação de leads. Sem endpoint, o formulário continua

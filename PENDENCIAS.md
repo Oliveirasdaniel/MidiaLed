@@ -34,15 +34,15 @@ itens abaixo conferidos com o que está no ar.
 
 ### 4. GA4 Measurement ID e Meta Pixel ID
 - **Onde entra:** `CONFIG.ga4Id` e `CONFIG.metaPixelId`, no topo de `assets/js/main.js`.
-- **Situação:** **estrutura pronta e desligada.** Os eventos já estão todos programados;
-  basta colar os IDs e tudo passa a medir sozinho. Sem ID, nenhum script de terceiro é
-  baixado — o site não fica mais lento por causa disso.
+- **Situação:** **GA4 ligado** com `G-N26Q1Q9Z59` (tag criada pelo Google Ads, 01/10).
+  **Meta Pixel ainda desligado** — sem ID, o script do Meta não é baixado.
 - **Eventos já programados:** `clique_cta` (com o rótulo de cada botão), `quiz_resposta`
   (cada resposta do quiz de contato), `envio_formulario`,
   `clique_whatsapp` (separando botão flutuante, rodapé e página), `clique_instagram`,
   `clique_facebook`, `clique_tiktok`, `clique_email` e `rolagem` (25/50/75/100%).
-- **Para resolver:** crie a propriedade no Google Analytics (ID no formato `G-XXXXXXXXXX`)
-  e o pixel no Meta Business (ID numérico).
+- **Para resolver:** no GA4, marcar `envio_formulario` e `clique_whatsapp` como
+  eventos-chave e importá-los no Google Ads como conversões. Criar o pixel no
+  Meta Business (ID numérico).
 
 ### 5. Endpoint para gravação de leads
 - **Onde entra:** `CONFIG.endpointLeads`, no topo de `assets/js/main.js`.
