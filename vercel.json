@@ -3,6 +3,12 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "midia-led.vercel.app" }],
+      "destination": "https://www.midialeds.com.br/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "midia-led.vercel.app" }],
       "destination": "https://www.midialeds.com.br/:path*",
