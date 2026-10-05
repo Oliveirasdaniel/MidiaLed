@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://midia-led.vercel.app/sitemap.xml
+Sitemap: https://www.midialeds.com.br/sitemap.xml

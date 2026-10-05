@@ -1,6 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "midia-led.vercel.app" }],
+      "destination": "https://www.midialeds.com.br/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(img|video)/(.*)",

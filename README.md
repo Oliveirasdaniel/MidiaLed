@@ -20,8 +20,13 @@ python -m http.server 8000
 ## Deploy
 
 Hospedado na Vercel como site estático. Não há etapa de build: a Vercel publica a raiz
-do repositório. O `vercel.json` define apenas o cache — longo para imagens e vídeos,
-curto para CSS e JS, para que as alterações de estilo apareçam na hora.
+do repositório. O `vercel.json` define o cache — longo para imagens e vídeos,
+curto para CSS e JS, para que as alterações de estilo apareçam na hora — e manda
+`midia-led.vercel.app` para o domínio oficial.
+
+**Domínio oficial: `https://www.midialeds.com.br`.** É ele que vai no `canonical`, no
+`og:url`, no JSON-LD, no `robots.txt` e no `sitemap.xml`. Se apontarem para outro
+endereço, o Google trata o domínio oficial como cópia e não mostra o favicon dele na busca.
 
 ## Portal de entrada
 
